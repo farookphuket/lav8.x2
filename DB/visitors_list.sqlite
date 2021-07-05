@@ -17,3 +17,21 @@
 
 
 
+
+ /* =========== auto script START 2021-07-05 08:05:44 am  ==================== */
+ /* add to visitors table using auto script 2021-07-05 08:05:44 */
+                INSERT INTO `visitors` (
+                `ip`,
+                `browser`,`os`,
+                `day_num`,`month_num`,
+                `year_num`,`date_visit`,
+                `created_at`,`updated_at`)
+                VALUES (
+                '127.0.0.1',
+                'Chrome 91.0.4472.114','Linux ',
+                '05','07','2021',
+                '2021-07-05',
+                '2021-07-05 08:05:44',
+                '2021-07-05 08:05:44');
+                 
+ /* ======== auto script 2021-07-05 08:05:44 am END ========= */
