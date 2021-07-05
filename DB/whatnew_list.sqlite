@@ -1,0 +1,119 @@
+
+/* วิธีใส่ซับไตเติ้ล */
+    INSERT INTO `whatnews` ( 
+    `user_id`,`token`,
+    `whatnew_title`,`whatnew_body`,
+    `created_at`,`updated_at`) 
+    VALUES (
+    '1',
+    'w2xauVCuB0oLg1q8mGdKuN3gK8efyoE4pgeLxBRfgrxsb2PcLpE0avz87ZbW',
+    'วิธีใส่ซับไตเติ้ลให้วิดิโอของเรา สำหรับคนไทยที่ไปอยู่ต่างดาวนาน',
+    '
+<div class="row">
+    <div class="col-lg-12">
+        <p class="mb-4">
+            ถ้าท่านจะพูดภาษาไทยไม่ชัด ยังออกเสียง ร เรือ เป็น ล ลิง อยู่อันนี้เราไม่ว่ากันครับ 
+            ก็พอเข้าใจว่าท่านไปอยู่ต่างดาว(ผมไม่ได้พิมพ์ผิดหรอก ผมพิมพ์ว่า "ต่างดาว" คือดาวดวงอื่น 
+            ไม่ใช่โลกนี้น่ะ)นานเกินไป เลยลืมภาษาไทย ลองใส่ซับภาษาไทย
+            ให้วิดิโอของท่านดูสิ เผื่อว่ามันอาจจะทำให้คนไทยเข้าใจภาษาไทยของท่านได้ดีขึ้น 
+            อีกหน่อยนะ อันนี้ผมว่ามันน่าสนใจ ลองดูวิดิโอผมมั้ย
+        </p>
+
+        <div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qGFOyUhDaEE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+    ',
+    '2021-05-25 18:41:44',
+    '2021-05-25 18:41:28');                                          
+
+
+
+
+    INSERT INTO `whatnews` ( 
+    `user_id`,`token`,
+    `whatnew_title`,`whatnew_body`,
+    `created_at`,`updated_at`) 
+    VALUES (
+    '1',
+    'w2xauVCuB0oLg1q8mGdKuN3gK8efyoE4pgeLxBRfgrxsb2PcLpE0avz87ZbW',
+    'หรูได้ ลุยได้!! ลอง All-New Land Rover Defender D240 แบบ5 ประตู 5 ที่นั่ง 240 แรงม้า อืม...อยากได้',
+    '
+<div class="row">
+    <div class="col-lg-12">
+        <p class="mb-4">
+            โอ้ย สวยอะไรเป็นบ้าเป็นบอได้อย่างนี้วะ 
+        </p>
+
+        <div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TBu7ZEVWFQg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+    ',
+    '2021-05-25 21:09:44',
+    '2021-05-25 21:11:28');                                          
+
+
+/* ==================== DO NOT DELETE THIS =================================*/
+/* ========================================================================= */
+
+
+ /* =========== auto script START 2021-07-05 06:25:48 am  ==================== */
+ /* ====== auto insert script `whatnews` ======== */
+INSERT INTO `whatnews` (`user_id`,`token`
+,`whatnew_title`,`whatnew_body`,`is_public`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'w2xauVCuB0oLg1q8mGdKuN3gK8efyoE4pgeLxBRfgrxsb2PcLpE0avz87ZbW',
+    'คุณคิดยังไงกับคนที่ ดูถูกคนไทย ดูถูก เหยียดหยามประเทศไทย',
+    '<p>
+    <span class="badge badge-info p-4">
+        คนไทย ดูถูกคนไทย และ ประเทศไทย  
+    </span>
+    
+    ถ้าเป็นคนไทย ที่ดูถูกเหยียดหยามคนไทยด้วยกัน หรือดูถูกเหยียดหยามประเทศไทย ผมอยากบอกกับคนเหล่านั้นว่า 
+    ต้องขอโทษด้วยนะครับที่ประเทศไทยดีไม่พอสำหรับคุณ ต้องขอโทษจริงๆ ครับ ว่าแต่ว่า
+    อย่าต้องให้ถึงกับย้ายประเทศเลยนะครับ คือ ผมกลัวว่าคุณจะลำบาก จะอยู่ยากเอาเปล่าๆ 
+    แน่ใจเหรอว่าจะสามารถรับสภาพ  "ประชาชน ชั้น สี่ ห้า หก " ในต่างแดนได้น่ะ คุณ(มึง) มันช่างน่าสมเพท
+</p>
+<p>
+    <span class="badge badge-info p-4">
+        ถ้าเป็นต่างชาติ
+    </span>
+    แหม ก็เห็นยังหน้าด้านมาง้อ คนไทย เมืองไทยที่มึงดูถูกอยู่เลยนิไอ้สัตว์
+</p>
+
+<div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/EV3kTkoxsFA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+<p class="pt-2 text-center">
+    ห้ามถ่ายทำในไทย หนังฝรั่ง สร้างเรื่อง! ดูถูกประเทศ | เรื่องลับมาก | TOP NEWS
+</p>
+<p class="pt-2">
+    ถ้ามึงเป็นคนไทยที่ดูถูกประเทศไทย คนอย่างมึงน่ะไปอยู่ประเทศไทยก็อยู่ยากว่ะ ไอ้ควายนิ้วกุด
+</p>',
+    '1',
+    '2021-07-05 06:25:48','2021-07-05 06:25:48'); 
+
+ 
+ /* ======== auto script 2021-07-05 06:25:48 am END ========= */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

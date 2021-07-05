@@ -1,0 +1,15 @@
+    
+/* ======================== DO not delete this code ======================*/
+    INSERT INTO `photos`(
+        `user_id`,`title`,`url`,`created_at`,`updated_at`
+    )VALUES(
+        '3',
+        'my red car haa',
+        'https://www.focus2move.com/wp-content/uploads/2020/08/Tesla-Roadster-2020-1024-03.jpg',
+        '2021-06-22 06:35:49',
+        '2021-06-22 06:35:49'
+);
+ 
+
+/* ======================== DO not delete this code ======================*/
+

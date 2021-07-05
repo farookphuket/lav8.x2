@@ -1,0 +1,32 @@
+/* ===================== Delfault user please do not delete ================ */
+    INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
+    `updated_at`) VALUES 
+    ('farook',
+    'farook@me.me',
+    '$2y$10$cBx1opVZ7cQeNTA9xBEAV.ocFRkCXckTTxa8Z5rzdi8geiV2qKIGK',
+    '1',
+    '2020-10-29 06:09:44',
+    '2020-10-29 06:11:28');                                          
+
+
+
+    INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
+    `updated_at`) VALUES 
+    ('admin',
+    'admin@mylap.me',
+    '$2y$10$cBx1opVZ7cQeNTA9xBEAV.ocFRkCXckTTxa8Z5rzdi8geiV2qKIGK',
+    '1',
+    '2020-10-29 06:09:44',
+    '2020-10-29 06:11:28');                                          
+
+
+    INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
+    `updated_at`) VALUES 
+    ('test',
+    'test@mylap.me',
+    '$2y$10$cBx1opVZ7cQeNTA9xBEAV.ocFRkCXckTTxa8Z5rzdi8geiV2qKIGK',
+    '0',
+    '2020-10-29 06:09:44',
+    '2020-10-29 06:11:28');                                          
+
+/* ===================== Delfault user please do not delete ================ */

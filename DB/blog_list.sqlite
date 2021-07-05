@@ -1,0 +1,51 @@
+ /* =========== DEFAULT DATA DO NOT DELETE ! =============================== */
+    INSERT INTO `blogs` ( 
+    `user_id`,`slug`,
+    `title`,`body`,
+    `is_public`,
+    `created_at`,`updated_at`) 
+    VALUES ('1',
+    'เที่ยวระยอง-กินซีฟู้ดวันนี้ที่ระยองฮิ',
+    'เที่ยวระยอง กินซีฟู้ดวันนี้ที่ระยองฮิ',
+    '<div class="container">
+    <h5 class="text-center">
+        rayong good sea food 3-4 June 2021
+    </h5>
+    <div class="video-container">
+        <iframe src="https://archive.org/embed/rayong_3-4-June-2021" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe>
+    </div>
+    <p class="pt-2 text-center">
+        บอกเลยงานนี้ของดีล้วนๆ
+    </p>
+    <p>
+        วันนี้มาทดสอบการใช้ภาษาไทยใน jodit แน่นอนว่ามันยังห่วยเหมือนเดิม ไม่สามารถอ่านหรือพิมพ์ภาษาไทยได้อย่าง รู้เรื่อง ในโหมด code view แต่สามารถเขียนภาษาไทยในโหมด virtual view ได้ปรกติ แบบนี้ก็ไม่น่ามีปัญหาสักเท่าไหร่</p>
+</div>',
+    '1',
+    '2021-06-15 11:16:10',
+    '2021-06-15 11:16:10');                                          
+
+
+         
+ /* ======== auto script 2021-06-15 11:16:10 am END ========= */
+
+ /* =========== auto script START 2021-06-23 06:49:16 am  ==================== */
+ /* ============ auto script  2021-06-23 06:49:16 ====INSERT blogs ======== */
+        INSERT INTO `blogs`(`user_id`,`title`,`body`,`slug`,
+        `is_public`,`created_at`,`updated_at`) VALUES(
+            '1','เก็บไว้เป็นที่ระลึก ณ พัทลุงกับพี่ทอมพี่สุและเด็กน้อย(ลาดา) 24 Nov 2020',
+            '<p>บนนี้วิว....ดี๊...ดี</p>
+
+<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MhVd8be8dyA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+<p class="text-center pt-2">
+    วันนี้ไปเที่ยวพัทลุง จำไม่ได้ชื่อแล้วสิ 
+</p>
+<p>
+    โควิดนี้ทำเอาวืดไปนานเลย เห้อ
+</p>',
+            'เก็บไว้เป็นที่ระลึก-ณ-พัทลุงกับพี่ทอมพี่สุและเด็กน้อยลาดา-24-11-2020','1','2021-06-23 06:49:16',
+            '2021-06-23 06:49:16'
+);
+
+ /* =========== DEFAULT DATA DO NOT DELETE ! =============================== */

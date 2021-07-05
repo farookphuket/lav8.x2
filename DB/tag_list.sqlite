@@ -1,0 +1,33 @@
+
+    INSERT INTO `tags` (`id`,`user_id`,
+    `tag_name`,
+    `created_at`,`updated_at`
+    ) 
+    VALUES (NULL,'1',
+    'public',
+    '2021-06-03 06:09:44',
+    '2021-06-03 06:11:28');                                          
+
+
+    INSERT INTO `tags` (`id`,`user_id`,
+    `tag_name`,
+    `created_at`,`updated_at`
+    ) 
+    VALUES (NULL,'1',
+    'farook said',
+    '2021-06-03 06:05:44',
+    '2021-06-03 06:07:28');                                          
+
+
+
+
+
+ /* =========== auto script START 2021-06-23 14:19:12 pm  ==================== */
+ /* ====== auto insert tags table 2021-06-23 14:19:12 ====== */
+INSERT INTO `tags`(`user_id`,`tag_name`,`created_at`,
+`updated_at`) VALUES(
+    '3','show my code','2021-06-23 14:19:12',
+    '2021-06-23 14:19:12'
+);
+ 
+ /* ======== auto script 2021-06-23 14:19:12 pm END ========= */

@@ -1,0 +1,24 @@
+
+/* ========================== DO not delete this  
+* don't delete this code you can edit but not delete
+*/
+    INSERT INTO `blog_comment`(`user_id`,`blog_id`,
+    `comment_title`,`comment_body`,`comment_approve`,`created_at`
+    ,`updated_at`) VALUES(
+    '3','1',
+    'ไปโดนมาแล้วบอกเลย สุดยอดมากครับ',
+    '<p> 
+    ได้ยินชื่อเสียงมานานแล้วว่า "อาหารทะเลสุดยอด" เลยต้องมาโดนให้รู้สักที อร่อยดีครับ 
+    ราคาก็ไม่ได้แพงจนน่าเกลียดเหมือนเคยกินหลายๆ ร้าน(ส่วนมากแถวใต้ หาร้านซีฟู้ดดีๆ ยากจริงๆ)
+
+    </p>
+    <img class="responsive pt-4" src="https://lh3.googleusercontent.com/AGV7N2BvccQtdwM5Dc5Wo0FB97lBW0IW-bb3kJq8Sl4pl-rc7UEdluukb45H3CXKX1qXqBChK4FdhTX7-ZFBPFbOJKdXuYL56BP-IdBHybW1iNSg_lqV2uxDWSFuy5tdhWD44ZeDm_k=w2400" alt="อันนี้ไม่เกี่ยวกะเค้าหรอก">
+    ',
+    '1',
+    '2021-06-12 10:02:50',
+    '2021-06-12 10:02:50');
+/* ============================ DO NOT DELETE ===============================*/ 
+
+
+
+
