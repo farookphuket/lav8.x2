@@ -50,6 +50,9 @@
         <div class="video-container">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TBu7ZEVWFQg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
+        <p class="pt-2 text-center">
+            เดี๋ยวเก็บตังรอก่อนนะ ยังขาดอีกนิดหน่อย
+        </p>
     </div>
 </div>
 
@@ -71,17 +74,18 @@ INSERT INTO `whatnews` (`user_id`,`token`
     'w2xauVCuB0oLg1q8mGdKuN3gK8efyoE4pgeLxBRfgrxsb2PcLpE0avz87ZbW',
     'คุณคิดยังไงกับคนที่ ดูถูกคนไทย ดูถูก เหยียดหยามประเทศไทย',
     '<p>
-    <span class="badge badge-info p-4">
+    <span class="badge badge-info p-2">
         คนไทย ดูถูกคนไทย และ ประเทศไทย  
     </span>
     
     ถ้าเป็นคนไทย ที่ดูถูกเหยียดหยามคนไทยด้วยกัน หรือดูถูกเหยียดหยามประเทศไทย ผมอยากบอกกับคนเหล่านั้นว่า 
     ต้องขอโทษด้วยนะครับที่ประเทศไทยดีไม่พอสำหรับคุณ ต้องขอโทษจริงๆ ครับ ว่าแต่ว่า
     อย่าต้องให้ถึงกับย้ายประเทศเลยนะครับ คือ ผมกลัวว่าคุณจะลำบาก จะอยู่ยากเอาเปล่าๆ 
-    แน่ใจเหรอว่าจะสามารถรับสภาพ  "ประชาชน ชั้น สี่ ห้า หก " ในต่างแดนได้น่ะ คุณ(มึง) มันช่างน่าสมเพท
+    แน่ใจเหรอว่าจะสามารถรับสภาพ  "ประชาชน ชั้น สี่ ห้า หก " ในต่างแดนได้น่ะ คนอย่างคุณ(มึง) 
+    มันช่างน่าสมเพชเสียจริงๆ 
 </p>
-<p>
-    <span class="badge badge-info p-4">
+<p class="pt-2 mb-4">
+    <span class="badge badge-info  p-2">
         ถ้าเป็นต่างชาติ
     </span>
     แหม ก็เห็นยังหน้าด้านมาง้อ คนไทย เมืองไทยที่มึงดูถูกอยู่เลยนิไอ้สัตว์
