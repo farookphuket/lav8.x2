@@ -89,6 +89,7 @@ class BlogController extends Controller
 
         $validate["user_id"] = Auth::user()->id;
         $validate["is_public"] = $is_public;
+        $validate["excerpt"] = xx_clean(request()->excerpt);
         $validate["body"] = xx_clean(request()->body);
         $validate["slug"] = $slug;
         Blog::create($validate);
@@ -146,10 +147,14 @@ class BlogController extends Controller
         $con1 = "/* ==== auto backup {$this->blog_table} ".date("Y-m-d H:i:s");
         $con1 .= " ===== INSERT Command */";
         $con1 .= "
-    INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`body`,
+    INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
     `is_public`,`created_at`,`updated_at`) VALUES(
-        '{$blog->user_id}','{$blog->slug}','{$blog->title}',
-        '{$blog->body}','{$blog->is_public}',
+        '{$blog->user_id}',
+        '{$blog->slug}',
+        '{$blog->title}',
+        '{$blog->excerpt}',
+        '{$blog->body}',
+        '{$blog->is_public}',
         '{$blog->created_at}','{$blog->updated_at}'
 );
 ";
@@ -263,7 +268,8 @@ class BlogController extends Controller
 
         $validate["is_public"] = $is_public;
         $validate["title"] = xx_clean($title);
-        $validate["body"] = xx_clean($body);
+        $validate["excerpt"] = xx_clean(request()->excerpt);
+        $validate["body"] = xx_clean(request()->body);
         $validate["slug"] = $slug;
         $validate["updated_at"] = now();
 
@@ -277,6 +283,8 @@ class BlogController extends Controller
             $new_tag = $this->makeTag($newPost);
         endif;
 
+        // make a backup to file 
+        $this->backupUpdateBlog($id);
         $msg = "<span class=\"alert alert-success\">
             Succes : data has been updated</span>";
         return response()->json([
@@ -305,4 +313,32 @@ class BlogController extends Controller
             "msg" => $msg
         ]);
     }
+
+
+    /* ========================== backup update blog 12 Jul 2021 =========== */
+    public function backupUpdateBlog($id){
+        $blog = Blog::find($id);
+        $file = base_path("DB/blog_list.sqlite");
+
+        $cont = "/* =============== update script =========================*/";
+        $cont .= "
+UPDATE `{$this->blog_table}` SET title='{$blog->title}',
+slug='{$blog->slug}',
+excerpt='{$blog->excerpt}',
+body='{$blog->body}',
+is_public='{$blog->is_public}',
+updated_at='{$blog->updated_at}'
+WHERE id='{$blog->id}';
+";
+
+        // this  will not backup tag link
+
+        write2text($file,$cont);
+    }
+    /* ========================== backup update blog 12 Jul 2021 =========== */
+
+
+
+
+
 }

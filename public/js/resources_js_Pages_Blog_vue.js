@@ -225,6 +225,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogList",
   props: ["blogs"],
@@ -678,7 +686,7 @@ var render = function() {
         "div",
         { staticClass: "row" },
         _vm._l(_vm.blogs.data, function(bl) {
-          return _c("div", { staticClass: "col-lg-12 " }, [
+          return _c("div", { staticClass: "col-lg-12 pt-2" }, [
             _c("div", { staticClass: "content" }, [
               _c("h5", [
                 _c(
@@ -714,36 +722,48 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "clearfix" }, [
-                _c(
-                  "div",
-                  { staticClass: "float-right" },
-                  _vm._l(bl.tags, function(ta) {
-                    return _c(
-                      "span",
-                      {
-                        staticStyle: {
-                          "padding-right": "1em",
-                          "font-weight": "bold",
-                          color: "blue"
-                        }
-                      },
-                      [
-                        _c("b-icon", { attrs: { icon: "tags" } }),
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(ta.tag_name) +
-                            "\n                                "
-                        )
-                      ],
-                      1
-                    )
-                  }),
-                  0
+              _c("div", { domProps: { innerHTML: _vm._s(bl.excerpt) } }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(bl.excerpt) +
+                    "\n                        "
                 )
               ]),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(bl.slug))])
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-8" }, [
+                  _c("p", [_vm._v(_vm._s(bl.slug))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-4" }, [
+                  _c(
+                    "div",
+                    { staticClass: "float-right" },
+                    _vm._l(bl.tags, function(ta) {
+                      return _c(
+                        "span",
+                        {
+                          staticStyle: {
+                            "padding-right": "1em",
+                            "font-weight": "bold",
+                            color: "blue"
+                          }
+                        },
+                        [
+                          _c("b-icon", { attrs: { icon: "tags" } }),
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(ta.tag_name) +
+                              "\n                                    "
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("hr", {

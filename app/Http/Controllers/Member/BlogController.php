@@ -101,7 +101,8 @@ class BlogController extends Controller
         
         $validate["slug"] = request()->slug;
         $validate["user_id"] = Auth::user()->id;
-        $validate["body"] = $newBody;
+        $validate["excerpt"] = xx_clean(request()->excerpt);
+        $validate["body"] = xx_clean(request()->body);
         $validate["is_public"] = $is_public;
 
         // === create post 
@@ -254,7 +255,9 @@ class BlogController extends Controller
             "title" => ["required","min:8"]
         ]);
 
+        $validate["excerpt"] = xx_clean(request()->excerpt);
         $validate["body"] = xx_clean(request()->body);
+
         $validate["is_public"] = $is_public;
         $validate["updated_at"] = now();
         $validate["slug"] = request()->slug;
@@ -327,10 +330,12 @@ class BlogController extends Controller
         $blog_content = "/* ===== auto backup blogs table ".date("Y-m-d H:i:s");
         $blog_content .= " ======== */";
         $blog_content .= "
-INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`body`,
+INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
 `is_public`,`created_at`,`updated_at`) VALUES(
     '{$blog->user_id}','{$blog->slug}','{$blog->title}',
-    '{$blog->body}','{$blog->is_public}',
+    '{$blog->excerpt}',
+    '{$blog->body}',
+    '{$blog->is_public}',
     '{$blog->created_at}','{$blog->updated_at}'
 );
 ";

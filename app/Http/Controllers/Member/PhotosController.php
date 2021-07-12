@@ -57,25 +57,13 @@ class PhotosController extends Controller
         $validate["user_id"] = Auth::user()->id;
         Photo::create($validate);
 
-        //====== make a backup 
-        $bk = Photo::latest()->first();
-        $file = base_path("DB/photo_list.sqlite");
+        // get the last photo 
+        $photo = Photo::latest()->first();
 
-        $content = "/* ============= auto INSERT script ".date("Y-m-d H:i:s");
-        $content .= " for {$this->photo_table} ============= */";
-        $content .= "
-    INSERT INTO `{$this->photo_table}`(
-        `user_id`,`title`,`url`,`created_at`,`updated_at`
-    )VALUES(
-        '{$bk->user_id}',
-        '{$bk->title}',
-        '{$bk->url}',
-        '{$bk->created_at}',
-        '{$bk->updated_at}'
-);
-";
+        // backup to file 
+        $this->backupInsertPhoto($photo->id);
 
-        write2text($file,$content);
+
         $msg = "<span class=\"alert alert-success pt-4\">Success</span>";
 
         return response()->json(["msg" => $msg]);
@@ -123,21 +111,9 @@ class PhotosController extends Controller
         Photo::where("id",$photo->id)
             ->update($validate);
 
-        // ======= update backup script START
-        $bk = Photo::where("id",$photo->id)->first();
-        
-        $file = base_path("DB/photo_list.sqlite");
-        $content = "/* ============== auto update script ".date("Y-m-d H:i:s");
-        $content .= " =============== */";
 
-        $content .= "
-    UPDATE {$this->photo_table} SET title='{$bk->title}',
-    url='{$bk->url}',
-    updated_at='{$bk->updated_at}' 
-    WHERE id={$bk->id};
-";
-        write2text($file,$content);
-        // ======= update backup script END
+        // backup to file 
+        $this->backupUpdatePhoto($photo->id); 
 
         $msg = "<span class=\"alert alert-success\">
             Success : data has been updated </span>";
@@ -164,4 +140,41 @@ class PhotosController extends Controller
             "msg" => $msg
         ]);
     }
+
+    /* =============== backup to file 12 Jul 2021 =========================== */
+    public function backupInsertPhoto($id){
+        $photo = Photo::find($id);
+        $file = base_path("DB/photo_list.sqlite");
+
+        $content = "/* ============= auto INSERT script ".date("Y-m-d H:i:s");
+        $content .= " for {$this->photo_table} ============= */";
+        $content .= "
+    INSERT INTO `{$this->photo_table}`(`user_id`,`title`,`url`,`created_at`,
+`updated_at`)VALUES(
+        '{$photo->user_id}',
+        '{$photo->title}',
+        '{$photo->url}',
+        '{$photo->created_at}',
+        '{$photo->updated_at}');
+";
+        write2text($file,$content);
+    }
+
+    public function backupUpdatePhoto($id){
+        $photo = Photo::find($id);
+        $file = base_path("DB/photo_list.sqlite");
+        $content = "/* ============== auto update script ".date("Y-m-d H:i:s");
+        $content .= " =============== */";
+
+        $content .= "
+    UPDATE {$this->photo_table} SET title='{$photo->title}',
+    url='{$photo->url}',
+    updated_at='{$photo->updated_at}' 
+    WHERE id={$photo->id};
+";
+        write2text($file,$content);
+
+    }
+
+    /* =============== backup to file 12 Jul 2021 =========================== */
 }

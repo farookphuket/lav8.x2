@@ -503,8 +503,8 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 <div class="video-wrapper img-bg">
 <div class="container">
 <div class="text-center video-content">
-<h1 class="text-white mb-60">Learn More About <span> {{Request::getHost()}}</span></h1>
-<a href="#" class="glightbox video-btn"><i class="lni lni-play"></i></a>
+<h1 class="text-white mb-60">get code &nbsp;<span> {{Request::getHost()}}</span></h1>
+<a href="https://www.youtube.com/watch?v=PoPhFSuK540&list=UUnApixzVAeTN0xLXuERn89g&index=16" class="glightbox video-btn" target="_blank"><i class="lni lni-play"></i></a>
 </div>
 </div>
 </div>

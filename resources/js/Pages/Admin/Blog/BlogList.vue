@@ -16,6 +16,9 @@
                                 {{bl.user.name}}
                             </span>
                         </h6>
+                        <div v-html="bl.excerpt">
+                            {{bl.excerpt}}
+                        </div>
                         <div class="clearfix">
                             <div class="float-right">
                                 <span v-for="ta in bl.tags">

@@ -14,6 +14,11 @@
                 </div>
 
                 <div class="form-group">
+                    <jodit-editor v-model="blogForm.excerpt" 
+                        height="350" 
+                        ></jodit-editor>
+                </div>
+                <div class="form-group">
                     <jodit-editor v-model="blogForm.body" 
                         height="350" 
                         ></jodit-editor>
@@ -91,6 +96,7 @@ export default{
             saveId:0,
             blogForm:new Form({
                 title:'',
+                excerpt:'',
                 body:'',
                 new_tag:'',
                 is_public:'',
@@ -121,6 +127,7 @@ export default{
                             this.$refs.title.focus()
                             if(val.id == x){
                                 this.blogForm.title = val.title 
+                                this.blogForm.excerpt = val.excerpt
                                 this.blogForm.body = val.body
                                 this.saveId = val.id
                                 if(val.is_public != '0'){

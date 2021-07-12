@@ -2,7 +2,7 @@
     <div class="left-wrapper">
         <div class="feature-style-6 bg-white pt-0 pb-60">
             <div class="row">
-                <div class="col-lg-12 " 
+                <div class="col-lg-12 pt-2" 
                     v-for="bl in blogs.data">
                         <div class="content">
                             <h5>
@@ -15,17 +15,25 @@
                                     {{bl.user.name}}
                                 </span>
                             </h5>
-                            <div class="clearfix">
-                                <div class="float-right">
-                                    <span v-for="ta in bl.tags" 
-                                        style="padding-right:1em;
-                                        font-weight:bold;color:blue;">
-                                        <b-icon icon="tags"></b-icon>
-                                        {{ta.tag_name}}
-                                    </span>
+                            <div v-html="bl.excerpt">
+                            {{bl.excerpt}}
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <p>{{bl.slug}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="float-right">
+                                        <span v-for="ta in bl.tags" 
+                                            style="padding-right:1em;
+                                            font-weight:bold;color:blue;">
+                                            <b-icon icon="tags"></b-icon>
+                                            {{ta.tag_name}}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <p>{{bl.slug}}</p>
                         </div>
                     <hr style="margin-top:2em;margin-bottom:2em;">
                     

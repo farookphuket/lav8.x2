@@ -10,6 +10,7 @@
                 </a>
            </h3>
            <p>{{bl.slug}}</p>
+           <div v-html="bl.excerpt">{{bl.excerpt}}</div>
            <div class="clearfix">
                <div class="float-left" 
                     v-if="user_id == bl.user.id"
