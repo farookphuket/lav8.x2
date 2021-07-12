@@ -207,6 +207,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
@@ -219,6 +225,7 @@ __webpack_require__.r(__webpack_exports__);
       slug: new CustomText(),
       blogForm: new Form({
         title: '',
+        excerpt: '',
         body: '',
         slug: '',
         new_tag: '',
@@ -318,6 +325,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -806,6 +816,27 @@ var render = function() {
                       placeholder: "type something amazing!"
                     },
                     model: {
+                      value: _vm.blogForm.excerpt,
+                      callback: function($$v) {
+                        _vm.$set(_vm.blogForm, "excerpt", $$v)
+                      },
+                      expression: "blogForm.excerpt"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("jodit-editor", {
+                    attrs: {
+                      height: "450",
+                      placeholder: "type something amazing!"
+                    },
+                    model: {
                       value: _vm.blogForm.body,
                       callback: function($$v) {
                         _vm.$set(_vm.blogForm, "body", $$v)
@@ -1100,6 +1131,14 @@ var render = function() {
                         )
                       ],
                       1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { domProps: { innerHTML: _vm._s(bl.excerpt) } }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(bl.excerpt) +
+                        "\n                    "
                     )
                   ]),
                   _vm._v(" "),

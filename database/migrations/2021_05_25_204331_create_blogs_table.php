@@ -19,6 +19,7 @@ class CreateBlogsTable extends Migration
             $table->foreignId("user_id");
             $table->string("slug");
             $table->string("title");
+            $table->text("excerpt");
             $table->text("body");
             $table->boolean("is_public");
             $table->timestamps();

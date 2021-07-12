@@ -21,6 +21,12 @@
                         </div>
 
                     </div>
+
+                    <div class="form-group">
+                        <jodit-editor height="450" v-model="blogForm.excerpt"
+                            placeholder="type something amazing!"></jodit-editor>
+                    </div>
+
                     <div class="form-group">
                         <jodit-editor height="450" v-model="blogForm.body"
                             placeholder="type something amazing!"></jodit-editor>
@@ -95,6 +101,7 @@ export default{
             slug:new CustomText(),
             blogForm:new Form({
                 title:'',
+                excerpt:'',
                 body:'',
                 slug:'',
                 new_tag:'',

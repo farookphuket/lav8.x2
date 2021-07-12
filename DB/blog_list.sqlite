@@ -1,12 +1,15 @@
  /* =========== DEFAULT DATA DO NOT DELETE ! =============================== */
     INSERT INTO `blogs` ( 
     `user_id`,`slug`,
-    `title`,`body`,
+    `title`,`excerpt`,`body`,
     `is_public`,
     `created_at`,`updated_at`) 
     VALUES ('1',
     'เที่ยวระยอง-กินซีฟู้ดวันนี้ที่ระยองฮิ',
     'เที่ยวระยอง กินซีฟู้ดวันนี้ที่ระยองฮิ',
+    '
+    excerpt for the blog 12 july 2021
+    ',
     '<div class="container">
     <h5 class="text-center">
         rayong good sea food 3-4 June 2021
@@ -30,9 +33,24 @@
 
  /* =========== auto script START 2021-06-23 06:49:16 am  ==================== */
  /* ============ auto script  2021-06-23 06:49:16 ====INSERT blogs ======== */
-        INSERT INTO `blogs`(`user_id`,`title`,`body`,`slug`,
+        INSERT INTO `blogs`(`user_id`,`title`,`excerpt`,`body`,`slug`,
         `is_public`,`created_at`,`updated_at`) VALUES(
             '1','เก็บไว้เป็นที่ระลึก ณ พัทลุงกับพี่ทอมพี่สุและเด็กน้อย(ลาดา) 24 Nov 2020',
+            '
+            <div class="row">
+                <div class="col-lg-4">
+            <img src="https://static.posttoday.com/media/content/2020/11/27/5D02B46C7180C8C881EAF6D8C33C7979.png" class="responsive">
+            <p class="text-center pt-2">
+                รูปตัวอย่างจากเวปไซต์
+            </p>
+                </div>
+                <div class="col-lg-8">
+                    <p>
+                เก็บไว้เป็นที่ระลึกของวันวาน
+                    </p>
+                </div>
+            </div>
+            ',
             '<p>บนนี้วิว....ดี๊...ดี</p>
 
 <div class="video-container">

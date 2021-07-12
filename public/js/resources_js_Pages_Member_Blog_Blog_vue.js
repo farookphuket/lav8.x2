@@ -241,6 +241,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
@@ -252,6 +257,7 @@ __webpack_require__.r(__webpack_exports__);
       saveId: 0,
       blogForm: new Form({
         title: '',
+        excerpt: '',
         body: '',
         new_tag: '',
         is_public: '',
@@ -284,6 +290,7 @@ __webpack_require__.r(__webpack_exports__);
 
             if (val.id == x) {
               _this.blogForm.title = val.title;
+              _this.blogForm.excerpt = val.excerpt;
               _this.blogForm.body = val.body;
               _this.saveId = val.id;
 
@@ -353,6 +360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -897,6 +905,24 @@ var render = function() {
               _c("jodit-editor", {
                 attrs: { height: "350" },
                 model: {
+                  value: _vm.blogForm.excerpt,
+                  callback: function($$v) {
+                    _vm.$set(_vm.blogForm, "excerpt", $$v)
+                  },
+                  expression: "blogForm.excerpt"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("jodit-editor", {
+                attrs: { height: "350" },
+                model: {
                   value: _vm.blogForm.body,
                   callback: function($$v) {
                     _vm.$set(_vm.blogForm, "body", $$v)
@@ -1140,6 +1166,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [_vm._v(_vm._s(bl.slug))]),
+          _vm._v(" "),
+          _c("div", { domProps: { innerHTML: _vm._s(bl.excerpt) } }, [
+            _vm._v(_vm._s(bl.excerpt))
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }, [
             _vm.user_id == bl.user.id
