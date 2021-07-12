@@ -1,4 +1,4 @@
-
+/* ================== Default Data DO NOT DELETE =========================== */
     INSERT INTO `visitors` (
     `ip`,
     `browser`,`os`,
@@ -16,58 +16,10 @@
 
 
 
+/* ================== Default Data DO NOT DELETE =========================== */
 
 
- /* =========== auto script START 2021-07-05 08:05:44 am  ==================== */
- /* add to visitors table using auto script 2021-07-05 08:05:44 */
-                INSERT INTO `visitors` (
-                `ip`,
-                `browser`,`os`,
-                `day_num`,`month_num`,
-                `year_num`,`date_visit`,
-                `created_at`,`updated_at`)
-                VALUES (
-                '127.0.0.1',
-                'Chrome 91.0.4472.114','Linux ',
-                '05','07','2021',
-                '2021-07-05',
-                '2021-07-05 08:05:44',
-                '2021-07-05 08:05:44');
-                 
- /* ======== auto script 2021-07-05 08:05:44 am END ========= */
 
- /* =========== auto script START 2021-07-10 07:19:56 am  ==================== */
- /* add to visitors table using auto script 2021-07-10 07:19:56 */
-                INSERT INTO `visitors` (
-                `ip`,
-                `browser`,`os`,
-                `day_num`,`month_num`,
-                `year_num`,`date_visit`,
-                `created_at`,`updated_at`)
-                VALUES (
-                '127.0.0.1',
-                'Chrome 91.0.4472.114','Linux ',
-                '10','07','2021',
-                '2021-07-10',
-                '2021-07-10 07:19:56',
-                '2021-07-10 07:19:56');
-                 
- /* ======== auto script 2021-07-10 07:19:56 am END ========= */
 
- /* =========== auto script START 2021-07-12 09:47:39 am  ==================== */
- /* add to visitors table using auto script 2021-07-12 09:47:39 */
-                INSERT INTO `visitors` (
-                `ip`,
-                `browser`,`os`,
-                `day_num`,`month_num`,
-                `year_num`,`date_visit`,
-                `created_at`,`updated_at`)
-                VALUES (
-                '127.0.0.1',
-                'Chrome 91.0.4472.114','Linux ',
-                '12','07','2021',
-                '2021-07-12',
-                '2021-07-12 09:47:39',
-                '2021-07-12 09:47:39');
-                 
- /* ======== auto script 2021-07-12 09:47:39 am END ========= */
+
+
