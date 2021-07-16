@@ -25,7 +25,7 @@ use App\Http\Controllers\Member\ProfileController as MPL;
 
 /* Admin Import section */
 
-use App\Http\Controllers\Admin\DashboardController as ADC; /* member Timeline */
+use App\Http\Controllers\Admin\DashboardController as ADC; 
 use App\Http\Controllers\Admin\UserController as AUS;
 use App\Http\Controllers\Admin\ContactController as ACO;
 use App\Http\Controllers\Admin\BlogController as ABL;
@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\ProfileController as APL;
 use App\Http\Controllers\Admin\CommentController as ACM;
 use App\Http\Controllers\Admin\CategoryController as ACTR;
 use App\Http\Controllers\Admin\WhatnewController as AWN;
+use App\Http\Controllers\Admin\TimelineController as ATL;
 
 
 
@@ -167,6 +168,12 @@ Route::prefix('admin')->name('admin.')
         Route::resource("/whatnew",AWN::class);
         Route::get("/getWhatnew",[AWN::class,"getWhatnew"])
             ->name("getWhatnew");
+
+        /* ============= Timeline 16 Jul 2021 ================= */
+        Route::resource("/timeline",ATL::class);
+        Route::get("/getTimeline",[ATL::class,"getTimeline"])
+            ->name("getTimeline");
+        /* ============= Timeline 16 Jul 2021 ================= */
 
 });
 

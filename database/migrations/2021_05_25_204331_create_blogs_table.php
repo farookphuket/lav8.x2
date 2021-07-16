@@ -47,6 +47,19 @@ class CreateBlogsTable extends Migration
         });
 
 
+        Schema::create('blog_category', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("category_id");
+            $table->foreignId("blog_id");
+            $table->timestamps();
+
+
+            $table->foreign('blog_id')->references('id')->on('blogs')
+                ->onDelete('cascade');
+
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('cascade');
+        });
 
 
     }
@@ -60,5 +73,6 @@ class CreateBlogsTable extends Migration
     {
         Schema::dropIfExists('blogs');
         Schema::dropIfExists('blog_comment');
+        Schema::dropIfExists('blog_category');
     }
 }

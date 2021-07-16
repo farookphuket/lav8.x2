@@ -1,11 +1,24 @@
 
  /* =========== DO NOT DELETE  ============================================= */
  /* ============== you can edit but do not delete this  ==================== */
-INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,`created_at`, 
-`updated_at`) VALUES(
-    '1','my new blue','my blue',
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1','My Tour','blog','Travel',
     '2021-06-30 06:24:39','2021-06-30 06:24:39');
 
 /* ============ DO NOT DELETE  ============================================= */
 /* =======================================================================   */
  /* All things below this line can be delete */
+
+ /* =========== auto script START 2021-07-16 06:17:24 am  ==================== */
+ /* ============== backup `categories` 2021-07-16 06:17:24 ================== */
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'My Computer',
+    'blog',
+    'hardware',
+    '2021-07-16 06:17:24','2021-07-16 06:17:24');
+ 
+ /* ======== auto script 2021-07-16 06:17:24 am END ========= */

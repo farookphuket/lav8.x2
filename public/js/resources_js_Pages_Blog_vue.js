@@ -233,6 +233,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogList",
   props: ["blogs"],
@@ -762,7 +777,30 @@ var render = function() {
                     }),
                     0
                   )
-                ])
+                ]),
+                _vm._v(" "),
+                _vm._m(0, true),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-lg-4" },
+                  _vm._l(bl.category, function(ca) {
+                    return _c(
+                      "span",
+                      { staticClass: "badge badge-primary pt-2" },
+                      [
+                        _c("b-icon", { attrs: { icon: "bookmark-check" } }),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(ca.cat_title) +
+                            "\n                                "
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
               ])
             ]),
             _vm._v(" "),
@@ -873,7 +911,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-8" }, [
+      _c("span", { staticClass: "badge badge-info p2" }, [
+        _vm._v(
+          "\n                                    category\n                                "
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

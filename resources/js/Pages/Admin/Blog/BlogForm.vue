@@ -22,6 +22,21 @@
 
                     </div>
 
+                    <!-- select category -->
+                    <div class="form-group">
+                        <select ref="sel_cat" name="sel_cat" 
+                            class="form-control mt-2"
+                            @change="getCat">
+                            <option value="0">--Select Category--</option>
+                            <option :value="ca.id" v-for="ca in category">
+                            {{ca.cat_title}} &middot; 
+                            {{ca.cat_type}} &middot;
+                            {{ca.cat_section}}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- select category -->
+
                     <div class="form-group">
                         <jodit-editor height="450" v-model="blogForm.excerpt"
                             placeholder="type something amazing!"></jodit-editor>
@@ -92,15 +107,17 @@
 import JoditEditor from 'jodit-vue';
 export default{
     name:"BlogForm",
-    props:["tags","editId"],
+    props:["tags","editId","category"],
     data(){
         return{
             saveId:0,
             is_public:0,
             res_status:'',
             slug:new CustomText(),
+            sel_cat:'',
             blogForm:new Form({
                 title:'',
+                category:'',
                 excerpt:'',
                 body:'',
                 slug:'',
@@ -124,10 +141,11 @@ export default{
                 let url = `/admin/blog/${x}/edit`
                 axios.get(url)
                     .then(res=>{
-                     //   console.log(res.data)
+                        //console.log(res.data)
                         let fData = res.data.blog
                         this.saveId = fData.id
                         this.blogForm.title = fData.title
+                        this.blogForm.excerpt = fData.excerpt
                         this.$refs.title.focus()
                         this.blogForm.body = fData.body 
                         if(fData.is_public != '0'){
@@ -139,6 +157,16 @@ export default{
                             }
                         })
 
+                        fData.category.forEach((val)=>{
+                        //    console.log(val)
+                            if(val.pivot.blog_id == fData.id){
+
+                         //       console.log(val.id)
+                                this.$refs.sel_cat.value = val.id
+
+                            }
+                        })
+
                     })
             }
         },
@@ -146,7 +174,8 @@ export default{
 
             let url = ''
             this.blogForm.slug = this.slug.thaiSlug(this.blogForm.title)
-
+            //console.log(this.blogForm)
+            
             if(id){
                 url = `/admin/blog/${id}`
 
@@ -170,7 +199,7 @@ export default{
                     })
                     .catch((err)=>{
                         let ob = Object.values(err)
-                        this.res_status = `<span class="aclert alert-danger">
+                        this.res_status = `<span class="alert alert-danger">
                             ${ob.join()}</span>`
                         this.$emit('box',this.res_status)
                     })
@@ -179,7 +208,13 @@ export default{
 
                 this.$emit('getBlogs')
                 this.res_status = ''
+                this.$refs.sel_cat.value = "0"
             },3200)
+            
+        },
+        getCat(){
+            let c_id = this.$refs.sel_cat.value 
+            return this.blogForm.category = c_id
         },
     },
 }

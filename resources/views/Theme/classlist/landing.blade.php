@@ -169,6 +169,8 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 <section class="category-list-area pt-130">
 <div class="container" >
 <div class="category-list-wrapper">
+
+<!--
 <div class="category-list-item">
 <a href="#" no-follow>
 <div class="icon">
@@ -208,7 +210,10 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 <p>ท่องเที่ยว</p>
 </a>
 </div>
+-->
 
+
+@yield('category')
 <!--
 <div class="category-list-item">
 <a href="category.html">

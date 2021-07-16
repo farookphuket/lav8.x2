@@ -123,6 +123,9 @@ Vue.component('ManTag',()=>import('./Pages/Admin/Tag/Tag.vue'))
 Vue.component('AdminProfile',()=>import('./Pages/Admin/Profile/Profile.vue'))
 Vue.component('ManCategory',()=>import('./Pages/Admin/Category/Category.vue'))
 Vue.component('ManWhatnew',()=>import('./Pages/Admin/Whatnew/Whatnew.vue'))
+
+// timeline 16 Jul 2021
+Vue.component('ManTimeline',()=>import('./Pages/Admin/Timeline/Timeline.vue'))
 /* ====================== Admin section END ================== */
 
 

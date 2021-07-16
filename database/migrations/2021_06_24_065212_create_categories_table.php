@@ -17,7 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->foreignId("user_id");
             $table->string("cat_title");
-            $table->string("cat_type");
+            $table->string("cat_type"); // is the method like post,wn,
+            $table->string("cat_section"); // is to defind like computer,mobile,
             $table->timestamps();
             
             $table->foreign("user_id")

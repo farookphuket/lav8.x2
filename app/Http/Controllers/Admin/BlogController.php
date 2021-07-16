@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Category;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class BlogController extends Controller
     protected $blog_table = '';
     protected $tag_link = '';
     protected $tag_table = '';
+    protected $category_link = "blog_category";
 
     public function __construct(){
         $this->blog_table = "blogs";
@@ -30,8 +32,10 @@ class BlogController extends Controller
      */
     public function index()
     {
-        
-        return view("Admin.Blog.index");
+       $category = Category::all(); 
+       return view("Admin.Blog.index")->with([
+           "category" => $category
+       ]);
     }
 
 
@@ -46,6 +50,7 @@ class BlogController extends Controller
     {
         $blogs = Blog::with("user")        
                     ->with("tags")
+                    ->with("category")
                     ->orderBy("created_at","desc")
                     ->paginate(3)
                     ->onEachSide(1);
@@ -101,8 +106,16 @@ class BlogController extends Controller
             $new_tag = $this->makeTag($newPost);
         endif;
 
+        // set the category for this post 
+        $this->updateCategoryLink($newPost->id);
+
         // ===== make a backup for this post
         $this->backupBlog();
+
+
+        // make a backup category link for this post 
+        $this->backupCategoryLink($newPost->id);
+
 
         $msg = "<span class=\"alert alert-success\">
             Succes : data has been created</span>";
@@ -238,6 +251,7 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blog = Blog::with("tags")
+                        ->with("category")
                         ->where("id",$id)
                         ->first();
         return response()->json([
@@ -259,7 +273,7 @@ class BlogController extends Controller
         $is_public = !request()->is_public?$is_public=0:$is_public=1;
         $new_tag = request()->new_tag;
         $user_tag = request()->user_tag;
-
+        $cat_id = request()->category;
         $slug = request()->slug;
         $validate = request()->validate([
             "title" => ["required","min:5","max:80"]
@@ -267,7 +281,7 @@ class BlogController extends Controller
 
 
         $validate["is_public"] = $is_public;
-        $validate["title"] = xx_clean($title);
+        $validate["title"] = xx_clean(request()->title);
         $validate["excerpt"] = xx_clean(request()->excerpt);
         $validate["body"] = xx_clean(request()->body);
         $validate["slug"] = $slug;
@@ -282,6 +296,12 @@ class BlogController extends Controller
         if($new_tag):
             $new_tag = $this->makeTag($newPost);
         endif;
+
+        // update the category 
+        $this->updateCategoryLink($id);
+
+        // make a backup category link for this post 
+        $this->backupCategoryLink($id);
 
         // make a backup to file 
         $this->backupUpdateBlog($id);
@@ -314,6 +334,31 @@ class BlogController extends Controller
         ]);
     }
 
+    /* =============== updateCategoryLink 16 Jul 2021 ===================*/
+    public function updateCategoryLink($id){
+        $get_cat = DB::table($this->category_link)
+                        ->where("blog_id",$id)
+                        ->get();
+        if(count($get_cat) == 0):
+            DB::table($this->category_link)
+            ->insert([
+                "category_id" => request()->category,
+                "blog_id" => $id,
+                "created_at" => now(),
+                "updated_at" => now()
+            ]); 
+        else:
+        DB::table($this->category_link)
+            ->where("blog_id",$id) 
+            ->update([
+                "category_id" => request()->category,
+                "updated_at" => now()
+            ]);
+        endif;
+            
+    }
+
+    /* =============== updateCategoryLink 16 Jul 2021 ===================*/
 
     /* ========================== backup update blog 12 Jul 2021 =========== */
     public function backupUpdateBlog($id){
@@ -331,12 +376,69 @@ updated_at='{$blog->updated_at}'
 WHERE id='{$blog->id}';
 ";
 
-        // this  will not backup tag link
-
         write2text($file,$cont);
+        
+        // update tag 
+        $tags = DB::table($this->tag_link)
+                    ->where("blog_id",$blog->id)
+                    ->get();
+        if(count($tags) != 0):
+
+            $f2 = base_path("DB/blog_tag.sqlite");
+        $c2 = "/* ===== delete the current tag link ===========*/";
+        $c2 .= "DELETE FROM `$this->tag_link` WHERE blog_id='{$blog->id}';";
+            foreach($tags as $tag):
+                $c2 .= "/* === re-insert new update tag link ============= */";
+        $c2 .= "
+INSERT INTO `{$this->tag_link}`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
+VALUES(
+    '{$tag->blog_id}',
+    '{$tag->tag_id}',
+    '{$tag->created_at}','{$tag->updated_at}');
+";
+
+            endforeach; 
+        write2text($f2,$c2);
+        endif;
+
     }
     /* ========================== backup update blog 12 Jul 2021 =========== */
 
+    /* ============= backupCategoryLink 16 Jul 2021 =========================*/
+    public function backupCategoryLink($blog_id){
+        $cat_link = DB::table($this->category_link)
+                    ->where("blog_id",$blog_id)
+                    ->get();
+        $file = base_path("DB/blog_category.sqlite");
+        $cont = "\n/* ======== backup blog category link ==========*/";
+        if(count($cat_link) != 0):
+            $cont .= "\nDELETE FROM `{$this->category_link}` 
+            WHERE blog_id='{$blog_id}';\n";
+            foreach($cat_link as $cat):
+                $cont .= "
+INSERT INTO `{$this->category_link}`(`category_id`,`blog_id`,`created_at`,
+`updated_at`) VALUES(
+    '{$cat->category_id}','{$cat->blog_id}',
+    '{$cat->created_at}','{$cat->updated_at}');
+"; 
+            endforeach;
+
+        else:
+
+            foreach($cat_link as $cat):
+                $cont .= "\n
+INSERT INTO `{$this->category_link}`(`category_id`,`blog_id`,`created_at`,
+`updated_at`) VALUES(
+    '{$cat->category_id}','{$cat->blog_id}',
+    '{$cat->created_at}','{$cat->updated_at}');
+"; 
+            endforeach;
+
+       endif; 
+        write2text($file,$cont);
+    }
+
+    /* ============= backupCategoryLink 16 Jul 2021 =========================*/
 
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="card pt-4 mb-4">
+    <div class="card mb-4">
         <div class="card-header">
             <h2 class="card-title text-center">
                 Category List
@@ -8,8 +8,47 @@
         <div class="card-body">
             <ul class="list-group">
                 <li class="list-group-item" v-for="ct in category.data">
-                    <div class="container">
-                        <p>{{ct.cat_title}}</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>{{ct.cat_title}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="badge badge-info p-2">
+                            {{ct.cat_type}} &middot; 
+                            {{ct.cat_section}}
+                            </span>
+
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <b-icon icon="calendar2-day"></b-icon>
+                                <a href="" :title="moment(ct.created_at)">
+                                    {{moment(ct.created_at).fromNow()}}
+                                </a>
+                                &middot;
+                                <b-icon icon="aero-up-right-circle"></b-icon>
+                                <a href="" :title="moment(ct.updated_at)">
+                                    {{moment(ct.updated_at).fromNow()}}
+                                </a>
+                                
+                            </p>
+                            <!-- show edit delete -->
+                            <div class="float-right">
+                                <span>
+
+                                    <button class="btn btn-outline-primary" 
+                                        @click.prevent="$emit('edit',ct.id)">
+                                        <b-icon icon="pencil"></b-icon>
+                                    </button>
+                                    <button class="btn btn-outline-danger" 
+                                        @click.prevent="$emit('del',ct.id)">
+                                        <b-icon icon="trash"></b-icon>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- show edit delete -->
+
+                        </div>
                     </div>
                 </li>
             </ul>
