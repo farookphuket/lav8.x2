@@ -25,7 +25,7 @@ class TimelineController extends Controller
     public function getTimeline(){
         $timeline = Timeline::with("user")
                     ->orderBy("created_at","desc")
-                    ->paginate(5)
+                    ->paginate(15)
                     ->OnEachSide(1);
         return response()->json([
             "timeline" => $timeline
@@ -54,7 +54,7 @@ class TimelineController extends Controller
             "report" => ["required"],
             "date_ref" => ["required"]
         ]);
-        $validate["date_ref"] = date("Y-m-d H:i:s",strtotime(request()->date_ref));
+        $validate["date_ref"] = date("Y-m-d",strtotime(request()->date_ref));
         $validate["user_id"] = Auth::user()->id;
 
         // create new timeline
@@ -73,11 +73,22 @@ class TimelineController extends Controller
      * @param  \App\Models\Timeline  $timeline
      * @return \Illuminate\Http\Response
      */
-    public function show(Timeline $timeline)
+    public function show($user_id)
     {
-        //
+        $show_list = $this->showUserTimeline($user_id);
+        return response()->json([
+            "timeline" => $show_list
+        ]);
     }
 
+    public function showUserTimeline($id){
+        $get = Timeline::where("user_id",$id)
+                        ->with("user")
+                        ->orderBy("date_ref","asc")
+                        ->paginate(2)
+                        ->OnEachSide(1);
+        return $get;
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -107,7 +118,7 @@ class TimelineController extends Controller
             "report" => ["required"],
             "date_ref" => ["required"]
         ]);
-        $validate["date_ref"] = date("Y-m-d H:i:s",strtotime(request()->date_ref));
+        $validate["date_ref"] = date("Y-m-d",strtotime(request()->date_ref));
         $validate["updated_at"] = now();
         // create new timeline
         Timeline::where("id",$id)

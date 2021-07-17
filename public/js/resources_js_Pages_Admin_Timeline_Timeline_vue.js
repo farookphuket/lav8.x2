@@ -31,6 +31,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -42,7 +123,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       timeline: '',
-      editId: 0
+      editId: 0,
+      res_status: '',
+      show_timeline: '',
+      moment: moment
     };
   },
   mounted: function mounted() {
@@ -66,25 +150,34 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.get(url).then(function (res) {
-        console.log(res.data);
+        //     console.log(res.data)
         _this.timeline = res.data.timeline;
       });
+    },
+    show: function show(get) {
+      var _this2 = this;
+
+      axios.get(get.url).then(function (res) {
+        _this2.show_timeline = res.data.timeline;
+      });
+      this.$refs["big_box"].show();
     },
     edit: function edit(id) {
       this.editId = id;
     },
     del: function del(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (confirm("This will be completely remove the item ".concat(id, " \n\n            are your sure?")) == true) {
         var url = "/admin/timeline/".concat(id);
         axios["delete"](url).then(function (res) {
-          _this2.res_status = res.data.msg;
+          _this3.res_status = res.data.msg;
         });
+        this.$refs["onOk"].show();
       }
 
       setTimeout(function () {
-        _this2.getTimeline();
+        _this3.getTimeline();
       }, 600);
     }
   }
@@ -212,6 +305,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         _this.$emit('getTimeline');
 
         _this.res_status = '';
+        _this.tlForm.date_ref = new Date();
       }, 2000);
     },
     getEditData: function getEditData(x) {
@@ -307,6 +401,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -316,6 +440,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     return {
       moment: moment
     };
+  },
+  methods: {
+    goShow: function goShow(_ref) {
+      var id = _ref.id,
+          page = _ref.page;
+      alert(id);
+    }
   }
 });
 
@@ -573,14 +704,191 @@ var render = function() {
       _c("timeline-list", {
         attrs: { timeline: _vm.timeline },
         on: {
+          show: function($event) {
+            return _vm.show($event)
+          },
           edit: function($event) {
             return _vm.edit($event)
           },
           del: function($event) {
             return _vm.del($event)
+          },
+          getTimeline: function($event) {
+            return _vm.getTimeline($event)
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "big_box",
+          attrs: { title: "Show timeline", size: "xl", "ok-only": "" }
+        },
+        [
+          _c("div", [
+            _c(
+              "ul",
+              [
+                _vm._l(_vm.show_timeline.data, function(show) {
+                  return _c("li", [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-lg-4 mt-4 mb-4" }, [
+                        _c("span", { staticClass: "badge badge-info p-4" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(show.date_ref) +
+                              "\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-8" }, [
+                        _c(
+                          "div",
+                          { domProps: { innerHTML: _vm._s(show.report) } },
+                          [
+                            _vm._v(
+                              "\n                               " +
+                                _vm._s(show.report) +
+                                "\n                           "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-8" }, [
+                        _c("ul", [
+                          _c("li", [
+                            _vm._v(
+                              "\n                                   create : " +
+                                _vm._s(_vm.moment(show.created_at)) +
+                                " \n                                   · " +
+                                _vm._s(_vm.moment(show.created_at).fromNow()) +
+                                "\n                               "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._v(
+                              "\n                                   update : " +
+                                _vm._s(_vm.moment(show.updated_at)) +
+                                "\n                                   · " +
+                                _vm._s(_vm.moment(show.updated_at).fromNow()) +
+                                "\n                               "
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-4 mt-4 mb-4" }, [
+                        _c("div", { staticClass: "float-right" }, [
+                          _vm._v(
+                            "\n                               " +
+                              _vm._s(show.user.name) +
+                              "\n                           "
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                }),
+                _vm._v(" "),
+                _c("li", [
+                  _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
+                    _c(
+                      "nav",
+                      { staticClass: "nav d-flex justify-content-center" },
+                      [
+                        _c(
+                          "ul",
+                          { staticClass: "pagination flex-wrap" },
+                          [
+                            _vm._l(_vm.show_timeline.links, function(li) {
+                              return _c("li", { staticClass: "page-item" }, [
+                                !li.active && li.url != null
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "page-link p-2",
+                                        attrs: { href: "" },
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.show({ url: li.url })
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(li.label) +
+                                            "\n                            "
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "span",
+                                      {
+                                        staticClass: "page-link active",
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(li.label) +
+                                            "\n                            "
+                                        )
+                                      ]
+                                    )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "page-item active" }, [
+                              _c(
+                                "span",
+                                { staticClass: "page-link " },
+                                [
+                                  _c("b-icon", {
+                                    attrs: { icon: "book-half" }
+                                  }),
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.show_timeline.current_page) +
+                                      "\n                            "
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ],
+              2
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { ref: "onOk", attrs: { title: "Server said : ", "ok-only": "" } },
+        [
+          _c("div", { domProps: { innerHTML: _vm._s(_vm.res_status) } }, [
+            _vm._v(_vm._s(_vm.res_status))
+          ])
+        ]
+      )
     ],
     1
   )
@@ -759,105 +1067,202 @@ var render = function() {
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.timeline.data, function(tl) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(tl.user.name))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    { attrs: { href: "", title: _vm.moment(tl.created_at) } },
-                    [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(_vm.moment(tl.created_at).fromNow()) +
-                          "\n                            "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    { attrs: { href: "", title: _vm.moment(tl.date_ref) } },
-                    [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(_vm.moment(tl.date_ref).fromNow()) +
-                          "\n                            "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  tl.updated_at != tl.created_at
-                    ? _c("span", [
-                        _vm._v(
-                          "\n                                update : \n                                "
-                        ),
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: "",
-                              title: _vm.moment(tl.updated_at)
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.moment(tl.updated_at).fromNow()) +
-                                "\n                                "
-                            )
-                          ]
-                        )
-                      ])
-                    : _vm._e(),
+            [
+              _vm._l(_vm.timeline.data, function(tl) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(tl.user.name))]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "btn-group float-right" }, [
+                  _c("td", [
                     _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary btn-sm",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.$emit("edit", tl.id)
-                          }
-                        }
-                      },
-                      [_c("b-icon", { attrs: { icon: "pen" } })],
-                      1
-                    ),
+                      "a",
+                      { attrs: { href: "", title: _vm.moment(tl.created_at) } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.moment(tl.created_at).fromNow()) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      { attrs: { href: "", title: _vm.moment(tl.date_ref) } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.moment(tl.date_ref).fromNow()) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { width: "15%" } }, [
+                    tl.updated_at != tl.created_at
+                      ? _c("span", [
+                          _vm._v(
+                            "\n                                update : \n                                "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "",
+                                title: _vm.moment(tl.updated_at)
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.moment(tl.updated_at).fromNow()) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      { staticClass: "btn btn-outline-primary btn-sm" },
-                      [_c("b-icon", { attrs: { icon: "eye" } })],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-danger btn-sm",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.$emit("del", tl.id)
+                    _c("div", { staticClass: "btn-group float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary btn-sm",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.$emit("edit", tl.id)
+                            }
                           }
-                        }
-                      },
-                      [_c("b-icon", { attrs: { icon: "trash" } })],
-                      1
+                        },
+                        [_c("b-icon", { attrs: { icon: "pen" } })],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary btn-sm",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.$emit("show", {
+                                url: "/admin/timeline/" + tl.user_id
+                              })
+                            }
+                          }
+                        },
+                        [_c("b-icon", { attrs: { icon: "eye" } })],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-danger btn-sm",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.$emit("del", tl.id)
+                            }
+                          }
+                        },
+                        [_c("b-icon", { attrs: { icon: "trash" } })],
+                        1
+                      )
+                    ])
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", { attrs: { colspan: "4" } }, [
+                  _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
+                    _c(
+                      "nav",
+                      { staticClass: "nav d-flex justify-content-center" },
+                      [
+                        _c(
+                          "ul",
+                          { staticClass: "pagination flex-wrap" },
+                          [
+                            _vm._l(_vm.timeline.links, function(li) {
+                              return _c("li", { staticClass: "page-item" }, [
+                                !li.active && li.url != null
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "page-link p-2",
+                                        attrs: { href: "" },
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.$emit(
+                                              "getTimeline",
+                                              li.url
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(li.label) +
+                                            "\n                            "
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "span",
+                                      {
+                                        staticClass: "page-link active",
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                " +
+                                            _vm._s(li.label) +
+                                            "\n                            "
+                                        )
+                                      ]
+                                    )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "page-item active" }, [
+                              _c(
+                                "span",
+                                { staticClass: "page-link " },
+                                [
+                                  _c("b-icon", {
+                                    attrs: { icon: "book-half" }
+                                  }),
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(_vm.timeline.current_page) +
+                                      "\n                            "
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          ],
+                          2
+                        )
+                      ]
                     )
                   ])
                 ])
               ])
-            }),
-            0
+            ],
+            2
           )
         ])
       ])

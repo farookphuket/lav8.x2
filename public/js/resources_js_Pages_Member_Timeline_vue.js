@@ -33,6 +33,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -46,7 +47,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       timelines: [],
       editId: 0,
-      res_status: ''
+      res_status: '',
+      showPagination: false
     };
   },
   mounted: function mounted() {
@@ -72,6 +74,10 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(url).then(function (res) {
         _this.timelines = res.data.timelines;
+
+        if (Object.keys(_this.timelines.data).length >= 2) {
+          _this.showPagination = true;
+        }
       });
     },
     edit: function edit(id) {
@@ -88,10 +94,12 @@ __webpack_require__.r(__webpack_exports__);
           var ob = Object.values(err.response.data);
           _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob, "</span>");
         });
+        this.$refs["onOk"].show();
         setTimeout(function () {
+          _this2.showPagination = false;
+
           _this2.getTimelines();
         }, 2500);
-        this.$refs["onOk"].show();
       } else {
         return;
       }
@@ -220,6 +228,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         _this.$emit('getTimelines');
 
         _this.res_status = '';
+        _this.timelineForm.date_ref = new Date();
       }, 2500);
     },
     getEditData: function getEditData(id) {
@@ -228,8 +237,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (id != 0) {
         var url = "/member/timeline/".concat(id);
         axios.get(url).then(function (res) {
-          console.log(res.data.timeline); //this.timelineForm
-
+          //console.log(res.data.timeline)
           var tm = res.data.timeline;
           _this2.saveId = tm.id;
 
@@ -341,7 +349,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TimelineList",
-  props: ["timelines"],
+  props: ["timelines", "showPagination"],
   data: function data() {
     return {
       moment: moment
@@ -597,7 +605,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("timeline-list", {
-        attrs: { timelines: _vm.timelines },
+        attrs: { timelines: _vm.timelines, showPagination: _vm.showPagination },
         on: {
           print: function($event) {
             return _vm.print($event)
@@ -676,7 +684,7 @@ var render = function() {
               attrs: {
                 "bootstrap-styling": true,
                 "input-class": "form-control",
-                "wrapper-class": "p-4 mb-4",
+                "wrapper-class": "p-4 mb-2",
                 typeable: true,
                 "calendar-class": "container",
                 name: "date_ref"
@@ -691,7 +699,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("p", { staticClass: "pt-4" }, [
+            _c("p", [
               _vm._v(
                 "\n                " +
                   _vm._s(_vm.moment(_vm.timelineForm.date_ref)) +
@@ -881,61 +889,75 @@ var render = function() {
           ])
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-lg-12 pt-4" }, [
-          _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
-            _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
-              _c(
-                "ul",
-                { staticClass: "pagination flex-wrap" },
-                [
-                  _vm._l(_vm.timelines.links, function(ll) {
-                    return _c("li", { staticClass: "page-item" }, [
-                      _c("div", { staticClass: "page-link" }, [
-                        !ll.active && ll.url != null
-                          ? _c(
-                              "a",
-                              {
-                                attrs: { href: "" },
-                                domProps: { innerHTML: _vm._s(ll.label) }
-                              },
-                              [_vm._v(_vm._s(ll.label))]
-                            )
-                          : _c(
-                              "span",
-                              { domProps: { innerHTML: _vm._s(ll.label) } },
-                              [
-                                _vm._v(
-                                  "\n                                   " +
-                                    _vm._s(ll.label) +
-                                    "\n                               "
-                                )
-                              ]
-                            )
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showPagination,
+                expression: "showPagination"
+              }
+            ],
+            staticClass: "col-lg-12 pt-4"
+          },
+          [
+            _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
+              _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
+                _c(
+                  "ul",
+                  { staticClass: "pagination flex-wrap" },
+                  [
+                    _vm._l(_vm.timelines.links, function(ll) {
+                      return _c("li", { staticClass: "page-item" }, [
+                        _c("div", { staticClass: "page-link" }, [
+                          !ll.active && ll.url != null
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { href: "" },
+                                  domProps: { innerHTML: _vm._s(ll.label) }
+                                },
+                                [_vm._v(_vm._s(ll.label))]
+                              )
+                            : _c(
+                                "span",
+                                { domProps: { innerHTML: _vm._s(ll.label) } },
+                                [
+                                  _vm._v(
+                                    "\n                                   " +
+                                      _vm._s(ll.label) +
+                                      "\n                               "
+                                  )
+                                ]
+                              )
+                        ])
                       ])
+                    }),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "page-item active" }, [
+                      _c(
+                        "span",
+                        { staticClass: "page-link" },
+                        [
+                          _c("b-icon", { attrs: { icon: "book-half" } }),
+                          _vm._v(
+                            "\n                               " +
+                              _vm._s(_vm.timelines.current_page) +
+                              "\n                           "
+                          )
+                        ],
+                        1
+                      )
                     ])
-                  }),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "page-item active" }, [
-                    _c(
-                      "span",
-                      { staticClass: "page-link" },
-                      [
-                        _c("b-icon", { attrs: { icon: "book-half" } }),
-                        _vm._v(
-                          "\n                               " +
-                            _vm._s(_vm.timelines.current_page) +
-                            "\n                           "
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ],
-                2
-              )
+                  ],
+                  2
+                )
+              ])
             ])
-          ])
-        ])
+          ]
+        )
       ],
       2
     )

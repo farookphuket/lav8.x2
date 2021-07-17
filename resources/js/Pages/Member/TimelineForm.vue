@@ -4,12 +4,12 @@
             >
             <div class="form-group">
                 <datepicker :bootstrap-styling="true"
-                 input-class="form-control" wrapper-class="p-4 mb-4" 
+                 input-class="form-control" wrapper-class="p-4 mb-2" 
                 :typeable="true" calendar-class="container"
                  v-model="timelineForm.date_ref"   name="date_ref" 
                                           ref="date_ref"
                 @selected="pickDate"></datepicker>
-                <p class="pt-4">
+                <p>
                     {{moment(timelineForm.date_ref)}} &middot; 
                     <span>{{moment(timelineForm.date_ref).fromNow()}}</span>
                 </p>
@@ -107,6 +107,7 @@ export default{
             setTimeout(()=>{
                 this.$emit('getTimelines')
                 this.res_status = ''
+                this.timelineForm.date_ref = new Date
             },2500)
         },
         getEditData(id){
@@ -114,8 +115,7 @@ export default{
                 let url = `/member/timeline/${id}`
                 axios.get(url)
                     .then(res=>{
-                        console.log(res.data.timeline)
-                        //this.timelineForm
+                        //console.log(res.data.timeline)
                         let tm = res.data.timeline
                         this.saveId = tm.id
                         this.$refs.date_ref.$el.querySelector("input").focus()
@@ -125,7 +125,8 @@ export default{
                         }
                     })
             }
-        }
+        },
+
 
 
     },

@@ -106,6 +106,7 @@ export default{
             setTimeout(()=>{
                 this.$emit('getTimeline')
                 this.res_status = ''
+                this.tlForm.date_ref = new Date()
             },2000)
         },
         getEditData(x){

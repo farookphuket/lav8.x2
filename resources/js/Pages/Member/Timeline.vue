@@ -5,7 +5,8 @@
             :editId="editId" :user_id="user_id"></timeline-form>
 
         <timeline-list @print="print($event)"
-            :timelines="timelines" @edit="edit($event)" @del="del($event)">
+            :timelines="timelines" @edit="edit($event)" @del="del($event)" 
+            :showPagination="showPagination">
         </timeline-list>
 
 
@@ -33,6 +34,7 @@ export default {
             timelines:[],
             editId:0,
             res_status:'',
+            showPagination:false,
         }
     },
     mounted(){
@@ -53,6 +55,9 @@ export default {
             axios.get(url)
                 .then(res=>{
                     this.timelines = res.data.timelines
+                    if(Object.keys(this.timelines.data).length >= 2){
+                        this.showPagination = true
+                    }
                 })
         },
         edit(id){
@@ -69,10 +74,13 @@ export default {
                         this.res_status = `<span class="alert alert-danger">
                             ${ob}</span>`
                     })
+
+                this.$refs["onOk"].show()
+
                 setTimeout(()=>{
+                    this.showPagination = false
                     this.getTimelines()
                 },2500)
-                this.$refs["onOk"].show()
 
             }else{
                 return

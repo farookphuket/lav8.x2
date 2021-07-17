@@ -45,7 +45,7 @@
                </div><!-- end of div.card-body -->
            </div><!-- end of div.card -->
            <!-- ===== pagination === -->
-           <div class="col-lg-12 pt-4">
+           <div class="col-lg-12 pt-4" v-show="showPagination">
                <div class="nav-scroller py-1 mb-2">
                    <nav class="nav d-flex justify-content-center">
                        <ul class="pagination flex-wrap">
@@ -82,12 +82,14 @@
 var moment = require('moment')
 export default{
     name:"TimelineList",
-    props:["timelines"],
+    props:["timelines","showPagination"],
     data(){
         return{
-            moment:moment
+            moment:moment,
+
         }
     },
+
 
 }
 </script>
