@@ -19,29 +19,76 @@
                         <div v-html="bl.excerpt">
                             {{bl.excerpt}}
                         </div>
-                        <div class="clearfix">
-                            <div class="float-right">
+
+                        <div class="row">
+
+                            <!-- show category -->
+                            <div class="col-lg-4 mt-4">
+                                Category :
+                                <span v-for="ca in bl.category" 
+                                    class="badge badge-info p-2">
+                                    <b-icon icon="bookmark-star"></b-icon>
+                                    {{ca.cat_title}}
+                                </span>
+                            </div>
+                            <!-- show category -->
+
+                            <!-- show public status -->
+                            <div class="col-lg-8">
+                                <div class="float-right">
+                                    <span>
+                                        <b-icon icon="calendar2-day"></b-icon>
+                                        create :
+                                        <a href="" :title="moment(bl.created_at)">
+                                            {{moment(bl.created_at).fromNow()}}
+                                        </a>
+                                        &middot;
+                                        update :
+                                        <a href="" :title="moment(bl.updated_at)">
+                                            {{moment(bl.updated_at).fromNow()}}
+                                        </a>
+                                    </span>
+                                    <span class="badge badge-success p-2" 
+                                        v-if="bl.is_public != 0">
+                                        <b-icon icon="unlock"></b-icon>
+                                    </span>
+
+                                    <span class="badge badge-warning p-2" 
+                                        v-else>
+                                        <b-icon icon="lock"></b-icon>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- show public status -->
+
+                            <!-- show tags -->
+                            <div class="col-md-4 mt-4">
+                              <p>
+                              Tags :
                                 <span v-for="ta in bl.tags">
                                     <b-icon icon="tags"></b-icon>
                                     {{ta.tag_name}}
                                 </span>
-                                <span>
-                                    <b-icon icon="calendar2-day"></b-icon>
-                                    <a href="" :title="moment(bl.created_at)">
-                                        {{moment(bl.created_at).fromNow()}}
-                                    </a>
-                                </span>
-                                <button class="btn btn-outline-primary" 
-                                    @click.prevent="$emit('edit',bl.id)">
-                                    <b-icon icon="pen"></b-icon>
-                                </button>
-                                <button class="btn btn-outline-danger" 
-                                    @click.prevent="$emit('del',bl.id)">
-                                    <b-icon icon="trash"></b-icon>
-                                </button>
+                              </p>  
                             </div>
-                        </div>
-                        <hr style="width:80%;border:2px dotted #ff0000;">
+                            <!-- show tags -->
+                            <!-- show button -->
+                            <div class="col-md-8 mt-4 mb-4">
+                                <div class="float-right">
+                                    <button class="btn btn-outline-primary" 
+                                        @click.prevent="$emit('edit',bl.id)">
+                                        <b-icon icon="pen"></b-icon>
+                                    </button>
+                                    <button class="btn btn-outline-danger" 
+                                        @click.prevent="$emit('del',bl.id)">
+                                        <b-icon icon="trash"></b-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- show button -->
+                        </div><!-- end of div.row -->
+                        <hr style="margin-top:2em;
+                        margin-bottom:2em;width:80%;border:2px dotted #ff0000;">
                         
                     </div>
                 </li>

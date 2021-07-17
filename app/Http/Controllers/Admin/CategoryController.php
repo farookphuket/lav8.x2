@@ -50,6 +50,7 @@ class CategoryController extends Controller
         $validate = request()->validate([
             "cat_title" => ["required"],
             "cat_type" => ["required"],
+            "cat_section" => ["required"],
         ]);
 
         $validate["user_id"] = Auth::user()->id;
@@ -73,7 +74,10 @@ Success: category has been created</span>";
      */
     public function show(Category $category)
     {
-        //
+        $cat = Category::find($category->id);
+        return response()->json([
+            "category" => $cat
+        ]);
     }
 
     /**
@@ -94,9 +98,25 @@ Success: category has been created</span>";
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update($id)
     {
-        //
+        $validate = request()->validate([
+            "cat_title" => ["required"],
+            "cat_type" => ["required"],
+            "cat_section" => ["required"],
+        ]);
+        
+        $validate["updated_at"] = now();
+
+        Category::where("id",$id)
+                ->update($validate);
+
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been updated</span>";
+        return response()->json([
+            "msg" => $msg
+        ]);
     }
 
     /**
@@ -116,9 +136,13 @@ Success: category has been created</span>";
         $cont = "/* ============== backup `{$this->cat_table}` ";
         $cont .= date("Y-m-d H:i:s")." ================== */";
         $cont .= "
-INSERT INTO `{$this->cat_table}`(`user_id`,`cat_title`,`cat_type`,`created_at`, 
-`updated_at`) VALUES(
-    '{$cat->user_id}','{$cat->cat_title}','{$cat->cat_type}',
+INSERT INTO `{$this->cat_table}`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '{$cat->user_id}',
+    '{$cat->cat_title}',
+    '{$cat->cat_type}',
+    '{$cat->cat_section}',
     '{$cat->created_at}','{$cat->updated_at}');
 ";
         write2text($file,$cont);

@@ -32,7 +32,22 @@
                                             {{ta.tag_name}}
                                         </span>
                                     </div>
+
                                 </div>
+                                <!-- category -->
+                                <div class="col-lg-8">
+                                    <span class="badge badge-info p2">
+                                        category
+                                    </span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span v-for="ca in bl.category" 
+                                        class="badge badge-primary pt-2">
+                                        <b-icon icon="bookmark-check"></b-icon>
+                                        {{ca.cat_title}}
+                                    </span>
+                                </div>
+                                <!-- category -->
                             </div>
                         </div>
                     <hr style="margin-top:2em;margin-bottom:2em;">

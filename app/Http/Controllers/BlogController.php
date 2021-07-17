@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\Category;
+
 use Illuminate\Http\Request;
 
 use DB;
@@ -12,9 +14,11 @@ class BlogController extends Controller
 {
 
     protected $comment_table;
+    protected $category_table;
 
     public function __construct(){
         $this->comment_table = "blog_comment";
+        $this->category_table = "categories";
     }
     /**
      * Display a listing of the resource.
@@ -64,6 +68,7 @@ class BlogController extends Controller
     public function getBlogs(){
         $blogs = Blog::with("user")
             ->with("tags")
+            ->with("category")
             ->where("is_public",1)
             ->orderBy("created_at","desc")
             ->paginate(15)

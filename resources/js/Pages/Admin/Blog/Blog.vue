@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
 
-        <blog-form :editId="editId" 
+        <blog-form :editId="editId" :category="category"
             :tags="tags" @box="box($event)" 
             @getBlogs="getBlogs($event)"></blog-form>
 
@@ -29,6 +29,7 @@ export default{
         BlogList,
         BlogForm,
     },
+    props:["category"],
     data(){
         return{
             blogs:[],

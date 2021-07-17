@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Blog;
 use App\Models\Whatnew;
 
 class LandingController extends Controller
@@ -18,7 +20,16 @@ class LandingController extends Controller
     {
 
         $wn = Whatnew::with('user')->latest()->first();
-        return view("Pub.index")->with(["wn" => $wn]);
+        $blogs = Blog::with('category')
+            ->with('user')
+            ->where("is_public","!=",0)
+            ->orderBy("created_at","desc")
+            ->paginate(5);
+
+        return view("Pub.index")->with([
+            "wn" => $wn,
+            "blogs" => $blogs
+        ]);
     }
 
 

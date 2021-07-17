@@ -50,7 +50,7 @@ export default{
             axios.get(url)
                 .then(res=>{
                     this.category = res.data.category
-                    console.log(Object.keys(this.category.data).length)
+               //     console.log(Object.keys(this.category.data).length)
                     if(Object.keys(this.category.data).length >= 2){
                         this.showP = true
                     }

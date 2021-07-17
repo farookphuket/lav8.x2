@@ -43,6 +43,7 @@ __webpack_require__.r(__webpack_exports__);
     BlogList: _BlogList_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     BlogForm: _BlogForm_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
+  props: ["category"],
   data: function data() {
     return {
       blogs: [],
@@ -213,18 +214,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
-  props: ["tags", "editId"],
+  props: ["tags", "editId", "category"],
   data: function data() {
     return {
       saveId: 0,
       is_public: 0,
       res_status: '',
       slug: new CustomText(),
+      sel_cat: '',
       blogForm: new Form({
         title: '',
+        category: '',
         excerpt: '',
         body: '',
         slug: '',
@@ -250,10 +268,11 @@ __webpack_require__.r(__webpack_exports__);
       if (x != 0) {
         var url = "/admin/blog/".concat(x, "/edit");
         axios.get(url).then(function (res) {
-          //   console.log(res.data)
+          //console.log(res.data)
           var fData = res.data.blog;
           _this.saveId = fData.id;
           _this.blogForm.title = fData.title;
+          _this.blogForm.excerpt = fData.excerpt;
 
           _this.$refs.title.focus();
 
@@ -268,6 +287,13 @@ __webpack_require__.r(__webpack_exports__);
               _this.blogForm.user_tag.push(val.id);
             }
           });
+          fData.category.forEach(function (val) {
+            //    console.log(val)
+            if (val.pivot.blog_id == fData.id) {
+              //       console.log(val.id)
+              _this.$refs.sel_cat.value = val.id;
+            }
+          });
         });
       }
     },
@@ -275,7 +301,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var url = '';
-      this.blogForm.slug = this.slug.thaiSlug(this.blogForm.title);
+      this.blogForm.slug = this.slug.thaiSlug(this.blogForm.title); //console.log(this.blogForm)
 
       if (id) {
         url = "/admin/blog/".concat(id);
@@ -297,7 +323,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.$emit('box', _this2.res_status);
         })["catch"](function (err) {
           var ob = Object.values(err);
-          _this2.res_status = "<span class=\"aclert alert-danger\">\n                            ".concat(ob.join(), "</span>");
+          _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob.join(), "</span>");
 
           _this2.$emit('box', _this2.res_status);
         });
@@ -307,7 +333,12 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$emit('getBlogs');
 
         _this2.res_status = '';
+        _this2.$refs.sel_cat.value = "0";
       }, 3200);
+    },
+    getCat: function getCat() {
+      var c_id = this.$refs.sel_cat.value;
+      return this.blogForm.category = c_id;
     }
   }
 });
@@ -325,6 +356,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -676,7 +754,7 @@ var render = function() {
     { staticClass: "container-fluid" },
     [
       _c("blog-form", {
-        attrs: { editId: _vm.editId, tags: _vm.tags },
+        attrs: { editId: _vm.editId, category: _vm.category, tags: _vm.tags },
         on: {
           box: function($event) {
             return _vm.box($event)
@@ -804,6 +882,38 @@ var render = function() {
                       ])
                     : _vm._e()
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "select",
+                  {
+                    ref: "sel_cat",
+                    staticClass: "form-control mt-2",
+                    attrs: { name: "sel_cat" },
+                    on: { change: _vm.getCat }
+                  },
+                  [
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v("--Select Category--")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.category, function(ca) {
+                      return _c("option", { domProps: { value: ca.id } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(ca.cat_title) +
+                            " · \n                        " +
+                            _vm._s(ca.cat_type) +
+                            " ·\n                        " +
+                            _vm._s(ca.cat_section) +
+                            "\n                        "
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -1142,31 +1252,44 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "clearfix" }, [
+                  _c("div", { staticClass: "row" }, [
                     _c(
                       "div",
-                      { staticClass: "float-right" },
+                      { staticClass: "col-lg-4 mt-4" },
                       [
-                        _vm._l(bl.tags, function(ta) {
+                        _vm._v(
+                          "\n                            Category :\n                            "
+                        ),
+                        _vm._l(bl.category, function(ca) {
                           return _c(
                             "span",
+                            { staticClass: "badge badge-info p-2" },
                             [
-                              _c("b-icon", { attrs: { icon: "tags" } }),
+                              _c("b-icon", {
+                                attrs: { icon: "bookmark-star" }
+                              }),
                               _vm._v(
                                 "\n                                " +
-                                  _vm._s(ta.tag_name) +
+                                  _vm._s(ca.cat_title) +
                                   "\n                            "
                               )
                             ],
                             1
                           )
-                        }),
-                        _vm._v(" "),
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-8" }, [
+                      _c("div", { staticClass: "float-right" }, [
                         _c(
                           "span",
                           [
                             _c("b-icon", { attrs: { icon: "calendar2-day" } }),
-                            _vm._v(" "),
+                            _vm._v(
+                              "\n                                    create :\n                                    "
+                            ),
                             _c(
                               "a",
                               {
@@ -1177,11 +1300,32 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                                    " +
+                                  "\n                                        " +
                                     _vm._s(
                                       _vm.moment(bl.created_at).fromNow()
                                     ) +
-                                    "\n                                "
+                                    "\n                                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(
+                              "\n                                    ·\n                                    update :\n                                    "
+                            ),
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "",
+                                  title: _vm.moment(bl.updated_at)
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(
+                                      _vm.moment(bl.updated_at).fromNow()
+                                    ) +
+                                    "\n                                    "
                                 )
                               ]
                             )
@@ -1189,6 +1333,50 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
+                        bl.is_public != 0
+                          ? _c(
+                              "span",
+                              { staticClass: "badge badge-success p-2" },
+                              [_c("b-icon", { attrs: { icon: "unlock" } })],
+                              1
+                            )
+                          : _c(
+                              "span",
+                              { staticClass: "badge badge-warning p-2" },
+                              [_c("b-icon", { attrs: { icon: "lock" } })],
+                              1
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 mt-4" }, [
+                      _c(
+                        "p",
+                        [
+                          _vm._v(
+                            "\n                          Tags :\n                            "
+                          ),
+                          _vm._l(bl.tags, function(ta) {
+                            return _c(
+                              "span",
+                              [
+                                _c("b-icon", { attrs: { icon: "tags" } }),
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(ta.tag_name) +
+                                    "\n                            "
+                                )
+                              ],
+                              1
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-8 mt-4 mb-4" }, [
+                      _c("div", { staticClass: "float-right" }, [
                         _c(
                           "button",
                           {
@@ -1218,13 +1406,17 @@ var render = function() {
                           [_c("b-icon", { attrs: { icon: "trash" } })],
                           1
                         )
-                      ],
-                      2
-                    )
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("hr", {
-                    staticStyle: { width: "80%", border: "2px dotted #ff0000" }
+                    staticStyle: {
+                      "margin-top": "2em",
+                      "margin-bottom": "2em",
+                      width: "80%",
+                      border: "2px dotted #ff0000"
+                    }
                   })
                 ])
               ]

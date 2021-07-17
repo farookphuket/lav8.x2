@@ -67,8 +67,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios.get(url).then(function (res) {
-        _this.category = res.data.category;
-        console.log(Object.keys(_this.category.data).length);
+        _this.category = res.data.category; //     console.log(Object.keys(this.category.data).length)
 
         if (Object.keys(_this.category.data).length >= 2) {
           _this.showP = true;
@@ -151,40 +150,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CategoryForm",
+  props: ["editId"],
   data: function data() {
     return {
       res_status: '',
       saveId: '',
       catForm: new Form({
         cat_title: '',
-        cat_type: ''
+        cat_type: '',
+        cat_section: ''
       })
     };
   },
+  watch: {
+    "editId": function editId(x) {
+      this.getEditData(x);
+    }
+  },
   methods: {
-    save: function save(id) {
+    getEditData: function getEditData(x) {
       var _this = this;
+
+      if (x != 0) {
+        var url = "/admin/category/".concat(x);
+        axios.get(url).then(function (res) {
+          //console.log(res.data.category)
+          var fData = res.data.category;
+          _this.saveId = fData.id;
+          _this.catForm.cat_title = fData.cat_title;
+          _this.catForm.cat_section = fData.cat_section;
+          _this.catForm.cat_type = fData.cat_type;
+        });
+      }
+    },
+    save: function save(id) {
+      var _this2 = this;
 
       var url = '';
 
       if (id) {
         url = "/admin/category/".concat(id);
+        this.catForm.submit("put", url).then(function (res) {
+          _this2.res_status = res.msg;
+        })["catch"](function (err) {
+          var ob = Object.values(err);
+          _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob.join(), "</span>");
+        });
       } else {
         url = "/admin/category";
         this.catForm.submit("post", url).then(function (res) {
-          _this.res_status = res.msg;
+          _this2.res_status = res.msg;
         })["catch"](function (err) {
           var ob = Object.values(err);
-          _this.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob.join(), "</span>");
+          _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob.join(), "</span>");
         });
       }
 
       setTimeout(function () {
-        _this.res_status = '';
+        _this2.res_status = '';
 
-        _this.$emit('getCategory');
+        _this2.$emit('getCategory');
       }, 3200);
     }
   }
@@ -203,6 +237,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -645,6 +718,34 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.catForm.cat_section,
+                expression: "catForm.cat_section"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              placeholder: "Enter Section",
+              name: "cat_section"
+            },
+            domProps: { value: _vm.catForm.cat_section },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.catForm, "cat_section", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-6" }, [
             _c("span", { domProps: { innerHTML: _vm._s(_vm.res_status) } }, [
@@ -710,7 +811,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card pt-4 mb-4" }, [
+  return _c("div", { staticClass: "card mb-4" }, [
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
@@ -719,8 +820,94 @@ var render = function() {
         { staticClass: "list-group" },
         _vm._l(_vm.category.data, function(ct) {
           return _c("li", { staticClass: "list-group-item" }, [
-            _c("div", { staticClass: "container" }, [
-              _c("p", [_vm._v(_vm._s(ct.cat_title))])
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("p", [_vm._v(_vm._s(ct.cat_title))])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("span", { staticClass: "badge badge-info p-2" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(ct.cat_type) +
+                      " · \n                        " +
+                      _vm._s(ct.cat_section) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c(
+                  "p",
+                  [
+                    _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { attrs: { href: "", title: _vm.moment(ct.created_at) } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.moment(ct.created_at).fromNow()) +
+                            "\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(
+                      "\n                            ·\n                            "
+                    ),
+                    _c("b-icon", { attrs: { icon: "aero-up-right-circle" } }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { attrs: { href: "", title: _vm.moment(ct.updated_at) } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(_vm.moment(ct.updated_at).fromNow()) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "float-right" }, [
+                  _c("span", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-primary",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("edit", ct.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "pencil" } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("del", ct.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "trash" } })],
+                      1
+                    )
+                  ])
+                ])
+              ])
             ])
           ])
         }),

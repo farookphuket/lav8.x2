@@ -2,5 +2,5 @@
 
 
 @section("content")
-    <man-blog></man-blog>
+    <man-blog :category="{{$category}}"></man-blog>
 @endsection

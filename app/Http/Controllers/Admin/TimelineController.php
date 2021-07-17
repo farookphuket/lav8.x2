@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Timeline;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
+use DB;
 
 class TimelineController extends Controller
 {
@@ -15,7 +18,18 @@ class TimelineController extends Controller
      */
     public function index()
     {
-        //
+        return view("Admin.Timeline.index");
+    }
+
+
+    public function getTimeline(){
+        $timeline = Timeline::with("user")
+                    ->orderBy("created_at","desc")
+                    ->paginate(15)
+                    ->OnEachSide(1);
+        return response()->json([
+            "timeline" => $timeline
+        ]);
     }
 
     /**
@@ -36,7 +50,21 @@ class TimelineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = request()->validate([
+            "report" => ["required"],
+            "date_ref" => ["required"]
+        ]);
+        $validate["date_ref"] = date("Y-m-d",strtotime(request()->date_ref));
+        $validate["user_id"] = Auth::user()->id;
+
+        // create new timeline
+        Timeline::create($validate);
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been save</span>";
+        return response()->json([
+            "msg" => $msg
+        ]);
     }
 
     /**
@@ -45,11 +73,22 @@ class TimelineController extends Controller
      * @param  \App\Models\Timeline  $timeline
      * @return \Illuminate\Http\Response
      */
-    public function show(Timeline $timeline)
+    public function show($user_id)
     {
-        //
+        $show_list = $this->showUserTimeline($user_id);
+        return response()->json([
+            "timeline" => $show_list
+        ]);
     }
 
+    public function showUserTimeline($id){
+        $get = Timeline::where("user_id",$id)
+                        ->with("user")
+                        ->orderBy("date_ref","asc")
+                        ->paginate(2)
+                        ->OnEachSide(1);
+        return $get;
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +97,12 @@ class TimelineController extends Controller
      */
     public function edit(Timeline $timeline)
     {
-        //
+        $tl = Timeline::with("user")
+                    ->where("id",$timeline->id)
+                    ->first();
+        return response()->json([
+            "timeline" => $tl
+        ]);
     }
 
     /**
@@ -68,9 +112,23 @@ class TimelineController extends Controller
      * @param  \App\Models\Timeline  $timeline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Timeline $timeline)
+    public function update($id)
     {
-        //
+        $validate = request()->validate([
+            "report" => ["required"],
+            "date_ref" => ["required"]
+        ]);
+        $validate["date_ref"] = date("Y-m-d",strtotime(request()->date_ref));
+        $validate["updated_at"] = now();
+        // create new timeline
+        Timeline::where("id",$id)
+            ->update($validate);
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been updated</span>";
+        return response()->json([
+            "msg" => $msg
+        ]);
     }
 
     /**
@@ -81,6 +139,14 @@ class TimelineController extends Controller
      */
     public function destroy(Timeline $timeline)
     {
-        //
+        $del = Timeline::where("id",$timeline->id)
+                        ->first();
+        $del->delete();
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been deleted!</span>";
+        return response()->json([
+            "msg" => $msg
+        ]);
     }
 }

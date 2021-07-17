@@ -11,6 +11,30 @@
 </script>
 @endsection
 
+@section('category')
+
+    @if($blogs)
+        <div class="category-list-item">
+        <a href="/blog" no-follow>
+        <div class="icon">
+        <i class="lni lni-plane"></i>
+        </div>
+        <h3>Blog</h3>
+        <p>
+        บลอคโพส 
+
+            
+        </p>
+           <span class="badge badge-info p2">
+            {{count($blogs)}}
+            </span>
+        </a>
+        </div>
+    @endif
+@endsection
+
+
+
 @section('content')
 
 @if($wn)
