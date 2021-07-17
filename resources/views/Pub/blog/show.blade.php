@@ -19,7 +19,10 @@
         <i class="mr-2 lni lni-user"></i> 
         {{$item->user->name}}
     </span>
-    <div>
+    <div style="margin-top:2em;">
+        {!!$item->excerpt!!}
+    </div>
+    <div style="margin-top:2em;">
         {!!$item->body!!}
     </div>
 
