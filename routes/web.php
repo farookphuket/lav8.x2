@@ -22,6 +22,7 @@ use App\Http\Controllers\Member\PhotosController as MPHT; /* member Photo */
 use App\Http\Controllers\Member\TimelinesController as MTL; /* member Timeline */
 use App\Http\Controllers\Member\BlogController as MBL;
 use App\Http\Controllers\Member\ProfileController as MPL;
+use App\Http\Controllers\Member\TemplateController as MTMP;
 
 /* Admin Import section */
 
@@ -35,6 +36,7 @@ use App\Http\Controllers\Admin\CommentController as ACM;
 use App\Http\Controllers\Admin\CategoryController as ACTR;
 use App\Http\Controllers\Admin\WhatnewController as AWN;
 use App\Http\Controllers\Admin\TimelineController as ATL;
+use App\Http\Controllers\Admin\TemplateController as ATMP;
 
 
 
@@ -120,6 +122,12 @@ Route::prefix('member')->name('member.')
     // profile
     Route::resource("/profile",MPL::class);
 
+    /* =============== template 19 Jul 2021 ====================*/
+    Route::resource("/template",MTMP::class);
+    Route::get("/getTemplate",[MTMP::class,"getTemplate"])
+        ->name("getTemplate");
+    /* =============== template 19 Jul 2021 ====================*/
+
 });
 
 
@@ -174,6 +182,12 @@ Route::prefix('admin')->name('admin.')
         Route::get("/getTimeline",[ATL::class,"getTimeline"])
             ->name("getTimeline");
         /* ============= Timeline 16 Jul 2021 ================= */
+
+        /* ============= Template 19 Jul 2021 ================= */
+        Route::resource("/template",ATMP::class);
+        Route::get("/getTemplate",[ATMP::class,"getTemplate"])
+            ->name("getTemplate");
+        /* ============= Template 19 Jul 2021 ================= */
 
 });
 

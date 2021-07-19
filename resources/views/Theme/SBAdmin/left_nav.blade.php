@@ -33,6 +33,9 @@
                         href="{{route("admin.tag.index")}}">Tag</a>
                     <a class="nav-link" 
                         href="{{route("admin.blog.index")}}">Blog</a>
+                    
+                    <a class="nav-link" 
+                        href="{{route("admin.template.index")}}">Template</a>
                 </nav>
             </div>
 
