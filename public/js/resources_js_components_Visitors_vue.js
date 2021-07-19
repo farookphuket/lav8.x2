@@ -24,6 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Visitors",
   data: function data() {
@@ -163,6 +164,8 @@ var render = function() {
           ])
         ])
       }),
+      _vm._v(" "),
+      _c("li", [_vm._v("today " + _vm._s(_vm.day_num))]),
       _vm._v(" "),
       _c("li", [_vm._v("this month " + _vm._s(_vm.month_num))]),
       _vm._v(" "),

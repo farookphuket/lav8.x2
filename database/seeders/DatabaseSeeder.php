@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             PhotoSeeder::class,
             TimelineSeeder::class,
+            TemplateSeeder::class,
         ]);
     }
 }

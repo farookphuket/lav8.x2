@@ -1,0 +1,50 @@
+/* ============== Default Data DO NOT DELETE =============================== */
+INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
+        `tm_body`,`tm_public`,`tm_approved_at`,`created_at`,`updated_at`) VALUES(
+        '1',
+        'blog',
+        'picture and video รูปอยู่ซ้าย ข้อความอยู่ขวา โชว์วิดิโอ',
+        '
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="" alt="image example from the internet">
+                <p class="pt-2 text-center">
+                    example photo from the internet
+                </p>
+            </div>
+            <div class="col-lg-8">
+                <p>
+            this is my excerpt for this template you can edit text here 
+            when you ready.
+                </p>
+            </div>
+        </div>
+        ',
+        '
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="text-center">center heading</h2>
+                <p class="mb-4">the paragraph 1 your text goes here</p>
+
+                <!-- video from youtube -->
+                <div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/oluY633rkgI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <!-- video from youtube -->
+                <p class="text-center pt-2">
+5 Projects You Can Build In A Week That Will Get You Hired - Web Dev Simplified
+                </p>
+
+                <p class="pt-2">another paragraph goes here</p>
+            </div>
+        </div>
+        ',
+        '1',
+        '2021-07-21 07:07:29',
+        '2021-07-21 07:07:29',
+        '2021-07-21 07:07:29');
+
+
+
+/* ============== edit this as your own wish =============================== */
+/* ============== Default Data DO NOT DELETE =============================== */

@@ -1,0 +1,97 @@
+<template>
+    <div class="card">
+        <div class="card-body">
+            <h2>list template</h2>
+
+            <ul class="list-group">
+                <li class="list-group-item" 
+                    v-for="tm in templates.data">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h3 class="mb-4 text-center">
+                            {{tm.tm_title}}
+                            </h3>
+                            <div v-html="tm.tm_excerpt">
+                                {{tm.tm_excerpt}}
+                            </div>
+                        </div><!-- end of div.col-lg-12 -->
+                        <div class="col-lg-4">
+                           <span class="badge badge-success p-2" 
+                               v-if="tm.tm_approved_at != null">
+                            <b-icon icon="person"></b-icon>
+                            {{moment(tm.tm_approved_at)}}
+                           </span>
+
+                           <span class="badge badge-warning p-2" 
+                               v-else>
+                            <b-icon icon="lock"></b-icon>
+                           </span>
+
+
+                           <span class="badge badge-success p-2" 
+                               v-if="tm.tm_public != 0">
+                            <b-icon icon="unlock"></b-icon>
+                            public
+                           </span>
+
+                           <span class="badge badge-warning p-2" 
+                               v-else>
+                            <b-icon icon="unlock"></b-icon>
+                            private
+                           </span>
+                        </div>
+                        <div class="col-lg-5">
+                            <span class="badge badge-info p-2">
+                                created :
+                                <b-icon icon="calendar2-day"></b-icon>
+                                <a href="" :title="moment(tm.created_at)" 
+                                    style="color:white;font-weight:bold;">
+                                    {{moment(tm.created_at).fromNow()}}
+                                </a>
+                            </span>
+                            <span class="badge badge-info p-2">
+                                updated :
+                                <b-icon icon="calendar2-day"></b-icon>
+                                <a href="" :title="moment(tm.updated_at)" 
+                                    style="color:white;font-weight:bold;">
+                                    {{moment(tm.updated_at).fromNow()}}
+                                </a>
+                            </span>
+                        </div><!-- end of div.col-lg-4 -->
+                        <div class="col-lg-3">
+
+                            <div class="btn-group float-right">
+                                <button class="btn btn-outline-info" 
+                                    @click.prevent="$emit('view',tm.id)">
+                                    <b-icon icon="eye"></b-icon>
+                                </button>
+                                <button class="btn btn-outline-primary" 
+                                    @click.prevent="$emit('edit',tm.id)">
+                                    <b-icon icon="pen"></b-icon>
+                                </button>
+                                <button class="btn btn-outline-danger" 
+                                    @click.prevent="$emit('del',tm.id)">
+                                    <b-icon icon="trash"></b-icon>
+                                </button>
+                            </div><!-- end of div.btn-group -->
+                        </div><!-- end of div.col-lg-4 -->
+                    </div><!-- end of div.row -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<script>
+var moment = require("moment")
+
+export default{
+    name:"TemplateList",
+    props:["templates"],
+    data(){
+        return{
+            moment:moment,
+        }
+    },
+}
+</script>

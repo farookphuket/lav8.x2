@@ -109,7 +109,8 @@ Vue.component('MemberBlog',()=>import('./Pages/Member/Blog/Blog.vue'))
 Vue.component('BlogComment',()=>import('./Pages/Member/Blog/Comment.vue'))
 Vue.component('MemberProfile',()=>import('./Pages/Member/Profile/profile.vue'))
 
-
+// template 19 Jul 2021 
+Vue.component('MemberTemplate',()=>import('./Pages/Member/Template/Template.vue'))
 /* ======================= Member Section END ============== */
 /* ========================================================= */
 
@@ -126,6 +127,9 @@ Vue.component('ManWhatnew',()=>import('./Pages/Admin/Whatnew/Whatnew.vue'))
 
 // timeline 16 Jul 2021
 Vue.component('ManTimeline',()=>import('./Pages/Admin/Timeline/Timeline.vue'))
+
+// template 
+Vue.component('ManTemplate',()=>import('./Pages/Admin/Template/Template.vue'))
 /* ====================== Admin section END ================== */
 
 

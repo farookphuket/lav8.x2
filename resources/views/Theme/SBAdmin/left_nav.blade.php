@@ -15,7 +15,7 @@
             </a>
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link active" href="{{route("admin.user.index")}}">User</a>
+                    <a class="nav-link" href="{{route("admin.user.index")}}">User</a>
 
                     <a class="nav-link" href="{{route("admin.category.index")}}">
                         Category
@@ -33,6 +33,9 @@
                         href="{{route("admin.tag.index")}}">Tag</a>
                     <a class="nav-link" 
                         href="{{route("admin.blog.index")}}">Blog</a>
+                    
+                    <a class="nav-link" 
+                        href="{{route("admin.template.index")}}">Template</a>
                 </nav>
             </div>
 

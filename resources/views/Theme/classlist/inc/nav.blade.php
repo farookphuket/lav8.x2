@@ -81,6 +81,12 @@
                         href="{{route('member.photo.index')}}">Photo</a>
 
                     </li>
+                    <li>
+                        <a 
+                        class="@if($mem_req == '/template') active @endif"
+                        href="{{route('member.template.index')}}">Template</a>
+
+                    </li>
                 @endguest
             </ul>
         </li>
