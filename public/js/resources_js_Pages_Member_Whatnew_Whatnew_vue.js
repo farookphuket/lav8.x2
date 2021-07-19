@@ -365,6 +365,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -915,14 +919,23 @@ var render = function() {
                   "span",
                   { staticStyle: { "font-weight": "bold", color: "green" } },
                   [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(wn.whatnew_title) +
-                        " \n                    "
-                    ),
-                    _c("b-icon", { attrs: { icon: "eye" } })
-                  ],
-                  1
+                    _c("a", { attrs: { href: "", title: wn.whatnew_title } }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(wn.whatnew_title) +
+                          " \n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "", title: "click to read กดเพื่ออ่าน" }
+                      },
+                      [_c("b-icon", { attrs: { icon: "eye" } })],
+                      1
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "clearfix" }, [

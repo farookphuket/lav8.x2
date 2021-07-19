@@ -8,8 +8,12 @@
                         aria-expanded="false" 
                         >
                         <span style="font-weight:bold;color:green;">
-                            {{wn.whatnew_title}} 
-                            <b-icon icon="eye"></b-icon>
+                            <a href="" :title="wn.whatnew_title">
+                                {{wn.whatnew_title}} 
+                            </a>
+                            <a href="" title="click to read กดเพื่ออ่าน">
+                                <b-icon icon="eye"></b-icon>
+                            </a>
                         </span>
                         <div class="clearfix">
                             <div class="float-right">

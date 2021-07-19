@@ -5,6 +5,7 @@
                 {{mm.browser}}
                 &middot; {{mm.ip}}</span>
         </li>
+        <li>today {{day_num}}</li>
         <li>this month {{month_num}}</li>
         <li>this year {{year_num}}</li>
         <li>all time {{all_num}}</li>
