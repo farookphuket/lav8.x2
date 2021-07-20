@@ -6,6 +6,18 @@
                 <form action="" @submit.prevent="save(saveId)" 
                     @keydown="blogForm.errors.clear($event.target.name)">
 
+                    <div class="form-group pt-2 mb-2">
+                        <select ref="sel_tm" name="" 
+                            class="form-control " @change="getTemplate">
+                            <option value="0">
+                            Easy template select from here
+                            </option>
+                            <option :value="tm.id" v-for="tm in template">
+                                {{tm.tm_title}}
+                            </option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <input v-model="blogForm.title" 
                                ref="title"
@@ -107,7 +119,7 @@
 import JoditEditor from 'jodit-vue';
 export default{
     name:"BlogForm",
-    props:["tags","editId","category"],
+    props:["tags","editId","category","template"],
     data(){
         return{
             saveId:0,
@@ -215,6 +227,20 @@ export default{
         getCat(){
             let c_id = this.$refs.sel_cat.value 
             return this.blogForm.category = c_id
+        },
+        getTemplate(){
+            let url = `/admin/template/${this.$refs.sel_tm.value}`
+            axios.get(url)
+                .then(res=>{
+                    //console.log(res.data.template)
+                    let tData = res.data.template
+                    this.blogForm.title = tData.tm_title 
+                    this.blogForm.excerpt = tData.tm_excerpt
+                    this.blogForm.body = tData.tm_body
+                })
+            setTimeout(()=>{
+                this.$refs.sel_tm.value=0
+            },2300)
         },
     },
 }

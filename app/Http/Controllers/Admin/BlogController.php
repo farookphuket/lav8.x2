@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Template;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -33,8 +34,11 @@ class BlogController extends Controller
     public function index()
     {
        $category = Category::all(); 
+       $template = Template::where('tm_method','blog')->get();
+
        return view("Admin.Blog.index")->with([
-           "category" => $category
+           "category" => $category,
+           "template" => $template
        ]);
     }
 

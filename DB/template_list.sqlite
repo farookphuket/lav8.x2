@@ -41,11 +41,57 @@ INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
         </div>
         ',
         '1',
-        '2021-07-21 07:07:29',
-        '2021-07-21 07:07:29',
-        '2021-07-21 07:07:29');
+        '2021-07-19 07:07:29',
+        '2021-07-19 07:07:29',
+        '2021-07-19 07:07:29');
 
 
 
 /* ============== edit this as your own wish =============================== */
 /* ============== Default Data DO NOT DELETE =============================== */
+
+
+
+ /* =========== auto script START 2021-07-20 18:29:29 pm  ==================== */
+ 
+
+/* ============= auto backup insert 2021-07-20 18:29:29 ================= */
+INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
+`tm_body`,`tm_public`,`tm_approved_at`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'whatnew',
+    'short post with 1 video',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            this is the paragraph will goes here
+        </p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/3mXpCnwkDdw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+        <p class="text-center pt-2">
+            the covid 19 is now still the big problem for all of the world
+        </p>
+        <p class="pt-2">
+            so keep your self safe and see you.
+        </p>
+    </div>
+</div>',
+    '<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-warning text-center">
+            <h2 class="text-center">No need the content</h2>
+            <p>
+                since this is the whatnew short post so there will be no content here require!
+            </p>
+        </div>
+    </div>
+</div>',
+    '1',
+    '2021-07-20 18:29:29',
+    '2021-07-20 18:29:29',
+    '2021-07-20 18:29:29');
+
+
+ 
+ /* ======== auto script 2021-07-20 18:29:29 pm END ========= */

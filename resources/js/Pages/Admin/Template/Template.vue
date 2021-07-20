@@ -12,7 +12,7 @@
             @getTemplate="getTemplate($event)" 
             @showBox="showBox($event)"></template-form>
 
-        <template-list :templates="templates" 
+        <template-list :templates="templates" :show_pagination="show_pagination" 
             @getTemplate="getTemplate($event)" @view="view($event)"
             @edit="edit($event)" @del="del($event)"></template-list>
 
@@ -67,6 +67,7 @@ export default{
         return{
             templates:'',
             show_template:'',
+            show_pagination:false,
             editId:0,
             res_status:'',
         }
@@ -87,6 +88,9 @@ export default{
             axios.get(url)
                 .then(res=>{
                     this.templates = res.data.templates
+                    if(Object.keys(this.templates.data).length >= 4){
+                        this.show_pagination = true
+                    } 
                 })
         },
         view(id){
@@ -111,6 +115,7 @@ export default{
                     })
                 this.$refs["onOk"].show()
                 setTimeout(()=>{
+                    this.show_pagination = false
                     this.getTemplate()
                 },500)
             }
@@ -120,7 +125,9 @@ export default{
             this.$refs["onOk"].show()
         },
         closeBox(){
-            alert('ha ha')
+            this.res_status = ''
+            this.$refs["onOk"].hide()
+
         },
     },
 }

@@ -31,6 +31,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -43,7 +44,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       whatnew: '',
       editId: '',
-      res_status: ''
+      res_status: '',
+      template: ''
     };
   },
   mounted: function mounted() {
@@ -68,6 +70,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(url).then(function (res) {
         _this.whatnew = res.data.whatnew;
+        _this.template = res.data.template;
       });
     },
     edit: function edit(id) {
@@ -162,10 +165,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "WhatnewForm",
-  props: ["editId"],
+  props: ["editId", "template"],
   watch: {
     "editId": function editId(x) {
       this.getEditData(x);
@@ -232,6 +244,19 @@ __webpack_require__.r(__webpack_exports__);
       this.wnForm.reset();
       this.res_status = '';
       this.saveId = 0;
+    },
+    getTemplate: function getTemplate() {
+      var _this3 = this;
+
+      var url = "/admin/template/".concat(this.$refs.sel_tmp.value);
+      axios.get(url).then(function (res) {
+        var tData = res.data.template;
+        _this3.wnForm.title = tData.tm_title;
+        _this3.wnForm.body = tData.tm_excerpt;
+      });
+      setTimeout(function () {
+        _this3.$refs.sel_tmp.value = '0';
+      }, 2300);
     }
   }
 });
@@ -598,7 +623,7 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("whatnew-form", {
-        attrs: { editId: _vm.editId },
+        attrs: { editId: _vm.editId, template: _vm.template },
         on: {
           getWn: function($event) {
             return _vm.getWn($event)
@@ -670,6 +695,34 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "form-group" }, [
+          _c(
+            "select",
+            {
+              ref: "sel_tmp",
+              staticClass: "form-control",
+              attrs: { name: "sel_tmp" },
+              on: { change: _vm.getTemplate }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [
+                _vm._v("--- Easy template select here ---")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.template, function(tm) {
+                return _c("option", { domProps: { value: tm.id } }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(tm.tm_title) +
+                      "\n                "
+                  )
+                ])
+              })
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
           _c("input", {
             directives: [
               {
@@ -681,7 +734,11 @@ var render = function() {
             ],
             ref: "title",
             staticClass: "form-control",
-            attrs: { type: "text", name: "title" },
+            attrs: {
+              type: "text",
+              name: "title",
+              placeholder: "Enter the title"
+            },
             domProps: { value: _vm.wnForm.title },
             on: {
               input: function($event) {
@@ -699,7 +756,7 @@ var render = function() {
           { staticClass: "form-group" },
           [
             _c("jodit-editor", {
-              attrs: { height: "350" },
+              attrs: { height: "550" },
               model: {
                 value: _vm.wnForm.body,
                 callback: function($$v) {

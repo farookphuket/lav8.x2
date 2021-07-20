@@ -81,6 +81,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       templates: '',
       show_template: '',
+      show_pagination: false,
       editId: 0,
       res_status: ''
     };
@@ -103,6 +104,10 @@ __webpack_require__.r(__webpack_exports__);
       if (!url) url = "/admin/getTemplate";
       axios.get(url).then(function (res) {
         _this.templates = res.data.templates;
+
+        if (Object.keys(_this.templates.data).length >= 4) {
+          _this.show_pagination = true;
+        }
       });
     },
     view: function view(id) {
@@ -127,6 +132,8 @@ __webpack_require__.r(__webpack_exports__);
         });
         this.$refs["onOk"].show();
         setTimeout(function () {
+          _this3.show_pagination = false;
+
           _this3.getTemplate();
         }, 500);
       }
@@ -136,7 +143,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs["onOk"].show();
     },
     closeBox: function closeBox() {
-      alert('ha ha');
+      this.res_status = '';
+      this.$refs["onOk"].hide();
     }
   }
 });
@@ -155,6 +163,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var jodit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jodit-vue */ "./node_modules/jodit-vue/dist/jodit-vue.esm.js");
+//
+//
 //
 //
 //
@@ -291,9 +301,19 @@ __webpack_require__.r(__webpack_exports__);
 
           _this2.$emit('showBox', _this2.res_status);
         });
-      } else {}
+      } else {
+        this.tForm.submit('post', url).then(function (res) {
+          _this2.res_status = res.msg;
+        })["catch"](function (err) {
+          _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(Object.values(err).join(), "</span>");
+
+          _this2.$emit('showBox', _this2.res_status);
+        });
+      }
 
       setTimeout(function () {
+        _this2.res_status = '';
+
         _this2.$emit('getTemplate');
       }, 1000);
     }
@@ -397,11 +417,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TemplateList",
-  props: ["templates"],
+  props: ["templates", "show_pagination"],
   data: function data() {
     return {
       moment: moment
@@ -664,7 +729,10 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("template-list", {
-        attrs: { templates: _vm.templates },
+        attrs: {
+          templates: _vm.templates,
+          show_pagination: _vm.show_pagination
+        },
         on: {
           getTemplate: function($event) {
             return _vm.getTemplate($event)
@@ -820,7 +888,11 @@ var render = function() {
             ],
             ref: "tm_title",
             staticClass: "form-control",
-            attrs: { type: "text", name: "tm_title" },
+            attrs: {
+              type: "text",
+              name: "tm_title",
+              placeholder: "title eg: show video on page"
+            },
             domProps: { value: _vm.tForm.tm_title },
             on: {
               input: function($event) {
@@ -844,7 +916,11 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
-            attrs: { type: "text", name: "tm_method" },
+            attrs: {
+              type: "text",
+              name: "tm_method",
+              placeholder: "method eg: blog,whatnew"
+            },
             domProps: { value: _vm.tForm.tm_method },
             on: {
               input: function($event) {
@@ -1002,6 +1078,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-outline-primary",
+                  attrs: { type: "submit" },
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -1044,187 +1121,330 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-body" }, [
-      _c("h2", [_vm._v("list template")]),
-      _vm._v(" "),
       _c(
         "ul",
         { staticClass: "list-group" },
-        _vm._l(_vm.templates.data, function(tm) {
-          return _c("li", { staticClass: "list-group-item" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("h3", { staticClass: "mb-4 text-center" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(tm.tm_title) +
-                      "\n                        "
+        [
+          _vm._l(_vm.templates.data, function(tm) {
+            return _c("li", { staticClass: "list-group-item" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c("h3", { staticClass: "mb-4 text-center" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(tm.tm_title) +
+                        "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { domProps: { innerHTML: _vm._s(tm.tm_excerpt) } },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(tm.tm_excerpt) +
+                          "\n                        "
+                      )
+                    ]
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { domProps: { innerHTML: _vm._s(tm.tm_excerpt) } }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(tm.tm_excerpt) +
-                      "\n                        "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-4" }, [
-                tm.tm_approved_at != null
-                  ? _c(
-                      "span",
-                      { staticClass: "badge badge-success p-2" },
-                      [
-                        _c("b-icon", { attrs: { icon: "person" } }),
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.moment(tm.tm_approved_at)) +
-                            "\n                       "
-                        )
-                      ],
-                      1
-                    )
-                  : _c(
-                      "span",
-                      { staticClass: "badge badge-warning p-2" },
-                      [_c("b-icon", { attrs: { icon: "lock" } })],
-                      1
-                    ),
+                _c("div", { staticClass: "col-lg-4" }, [
+                  tm.tm_approved_at != null
+                    ? _c(
+                        "span",
+                        { staticClass: "badge badge-success p-2" },
+                        [
+                          _c("b-icon", { attrs: { icon: "person" } }),
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.moment(tm.tm_approved_at)) +
+                              "\n                       "
+                          )
+                        ],
+                        1
+                      )
+                    : _c(
+                        "span",
+                        { staticClass: "badge badge-warning p-2" },
+                        [_c("b-icon", { attrs: { icon: "lock" } })],
+                        1
+                      ),
+                  _vm._v(" "),
+                  tm.tm_public != 0
+                    ? _c(
+                        "span",
+                        { staticClass: "badge badge-success p-2" },
+                        [
+                          _c("b-icon", { attrs: { icon: "unlock" } }),
+                          _vm._v(
+                            "\n                        public\n                       "
+                          )
+                        ],
+                        1
+                      )
+                    : _c(
+                        "span",
+                        { staticClass: "badge badge-warning p-2" },
+                        [
+                          _c("b-icon", { attrs: { icon: "unlock" } }),
+                          _vm._v(
+                            "\n                        private\n                       "
+                          )
+                        ],
+                        1
+                      )
+                ]),
                 _vm._v(" "),
-                tm.tm_public != 0
-                  ? _c(
-                      "span",
-                      { staticClass: "badge badge-success p-2" },
-                      [
-                        _c("b-icon", { attrs: { icon: "unlock" } }),
-                        _vm._v(
-                          "\n                        public\n                       "
-                        )
-                      ],
-                      1
-                    )
-                  : _c(
-                      "span",
-                      { staticClass: "badge badge-warning p-2" },
-                      [
-                        _c("b-icon", { attrs: { icon: "unlock" } }),
-                        _vm._v(
-                          "\n                        private\n                       "
-                        )
-                      ],
-                      1
-                    )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-5" }, [
-                _c(
-                  "span",
-                  { staticClass: "badge badge-info p-2" },
-                  [
-                    _vm._v(
-                      "\n                            created :\n                            "
-                    ),
-                    _c("b-icon", { attrs: { icon: "calendar2-day" } }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticStyle: { color: "white", "font-weight": "bold" },
-                        attrs: { href: "", title: _vm.moment(tm.created_at) }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.moment(tm.created_at).fromNow()) +
-                            "\n                            "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "badge badge-info p-2" },
-                  [
-                    _vm._v(
-                      "\n                            updated :\n                            "
-                    ),
-                    _c("b-icon", { attrs: { icon: "calendar2-day" } }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticStyle: { color: "white", "font-weight": "bold" },
-                        attrs: { href: "", title: _vm.moment(tm.updated_at) }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.moment(tm.updated_at).fromNow()) +
-                            "\n                            "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-3" }, [
-                _c("div", { staticClass: "btn-group float-right" }, [
+                _c("div", { staticClass: "col-lg-5" }, [
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-info",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.$emit("view", tm.id)
-                        }
-                      }
-                    },
-                    [_c("b-icon", { attrs: { icon: "eye" } })],
+                    "span",
+                    { staticClass: "badge badge-info p-2" },
+                    [
+                      _vm._v(
+                        "\n                            created :\n                            "
+                      ),
+                      _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticStyle: {
+                            color: "white",
+                            "font-weight": "bold"
+                          },
+                          attrs: { href: "", title: _vm.moment(tm.created_at) }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.moment(tm.created_at).fromNow()) +
+                              "\n                            "
+                          )
+                        ]
+                      )
+                    ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-primary",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.$emit("edit", tm.id)
-                        }
-                      }
-                    },
-                    [_c("b-icon", { attrs: { icon: "pen" } })],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-danger",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.$emit("del", tm.id)
-                        }
-                      }
-                    },
-                    [_c("b-icon", { attrs: { icon: "trash" } })],
+                    "span",
+                    { staticClass: "badge badge-info p-2" },
+                    [
+                      _vm._v(
+                        "\n                            updated :\n                            "
+                      ),
+                      _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticStyle: {
+                            color: "white",
+                            "font-weight": "bold"
+                          },
+                          attrs: { href: "", title: _vm.moment(tm.updated_at) }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.moment(tm.updated_at).fromNow()) +
+                              "\n                            "
+                          )
+                        ]
+                      )
+                    ],
                     1
                   )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("div", { staticClass: "btn-group float-right" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-info",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("view", tm.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "eye" } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-primary",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("edit", tm.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "pen" } })],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("del", tm.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "trash" } })],
+                      1
+                    )
+                  ])
                 ])
               ])
             ])
-          ])
-        }),
-        0
+          }),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_pagination,
+                  expression: "show_pagination"
+                }
+              ],
+              staticClass: "list-group-item"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "container ",
+                  staticStyle: { "margin-top": "3em" }
+                },
+                [
+                  _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
+                    _c(
+                      "nav",
+                      { staticClass: "nav d-flex justify-content-center" },
+                      [
+                        _c(
+                          "ul",
+                          { staticClass: "pagination flex-wrap " },
+                          [
+                            _c("li", { staticClass: "page-item" }, [
+                              _c(
+                                "div",
+                                { staticClass: "page-link disabled " },
+                                [
+                                  _vm._v(
+                                    "\n                                        \n                                            showing from "
+                                  ),
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.templates.from))
+                                  ]),
+                                  _vm._v(
+                                    " \n                                            to "
+                                  ),
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.templates.to))
+                                  ]),
+                                  _vm._v(
+                                    " of \n                                            "
+                                  ),
+                                  _c("span", [
+                                    _vm._v(_vm._s(_vm.templates.total))
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.templates.links, function(li) {
+                              return _c("li", { staticClass: "page-item" }, [
+                                !li.active && li.url != null
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "page-link p-2",
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.$emit(
+                                              "getTemplate",
+                                              li.url
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(li.label) +
+                                            " \n                                        "
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "span",
+                                      {
+                                        staticClass: "page-link active",
+                                        domProps: {
+                                          innerHTML: _vm._s(li.label)
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(li.label) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            _c("li", { staticClass: "page-item active" }, [
+                              _c("div", { staticClass: "page-link" }, [
+                                _c(
+                                  "span",
+                                  [
+                                    _c("b-icon", {
+                                      attrs: { icon: "book-half" }
+                                    }),
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(_vm.templates.current_page) +
+                                        "\n                                        "
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ])
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ]
+          )
+        ],
+        2
       )
     ])
   ])

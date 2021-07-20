@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Whatnew;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Auth;
@@ -24,12 +25,14 @@ class WhatnewController extends Controller
 
     // getWhatnew 
     public function getWhatnew(){
+        $tmp = Template::where("tm_method","whatnew")->get();
         $wn = Whatnew::with("user")
                 ->orderBy("created_at","desc")
                         ->paginate(3)
                         ->onEachSide(1);
         return response()->json([
-            "whatnew" => $wn
+            "whatnew" => $wn,
+            "template" => $tmp
         ]);
     }
 

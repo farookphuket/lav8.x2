@@ -7,6 +7,7 @@
             </div>
 
             <whatnew-form :editId="editId" @getWn="getWn($event)" 
+                    :template="template"
                 ></whatnew-form>
             <whatnew-list :whatnew="whatnew" 
                 @getWn="getWn($event)" 
@@ -30,6 +31,7 @@ export default{
             whatnew:'',
             editId:'',
             res_status:'',
+            template:'',
         }
     },
     mounted(){
@@ -49,6 +51,7 @@ export default{
             axios.get(url)
                 .then(res=>{
                     this.whatnew = res.data.whatnew
+                    this.template = res.data.template
                 })
         },
         edit(id){

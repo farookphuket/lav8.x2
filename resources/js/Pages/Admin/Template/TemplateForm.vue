@@ -4,12 +4,14 @@
             <form action="" >
                 <div class="form-group">
                     <input v-model="tForm.tm_title" class="form-control" 
-                    type="text" name="tm_title" ref="tm_title">
+                    type="text" name="tm_title" ref="tm_title" 
+                    placeholder="title eg: show video on page">
                 </div>
 
                 <div class="form-group">
                     <input v-model="tForm.tm_method" class="form-control" 
-                    type="text" name="tm_method">
+                    type="text" name="tm_method" 
+                    placeholder="method eg: blog,whatnew">
                 </div>
                 <div class="form-group">
                     <jodit-editor height="450" 
@@ -53,7 +55,7 @@
 
                         <div class="btn-group float-right">
                             <button class="btn btn-outline-primary" 
-                                @click.prevent="save(saveId)"
+                                @click.prevent="save(saveId)" type="submit"
                                 >
                                 <b-icon icon="pencil"></b-icon>
                             </button>
@@ -136,10 +138,21 @@ export default{
                         this.$emit('showBox',this.res_status)
                     })
 
-            }else{}
+            }else{
+                this.tForm.submit('post',url)
+                    .then((res)=>{
+                        this.res_status = res.msg
+                    })
+                    .catch((err)=>{
+                        this.res_status = `<span class="alert alert-danger">
+                            ${Object.values(err).join()}</span>`
+                        this.$emit('showBox',this.res_status)
+                    })
+            }
 
 
             setTimeout(()=>{
+                this.res_status = ''
                 this.$emit('getTemplate')
             },1000)
         },

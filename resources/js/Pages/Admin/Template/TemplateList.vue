@@ -1,8 +1,6 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <h2>list template</h2>
-
             <ul class="list-group">
                 <li class="list-group-item" 
                     v-for="tm in templates.data">
@@ -77,6 +75,53 @@
                         </div><!-- end of div.col-lg-4 -->
                     </div><!-- end of div.row -->
                 </li>
+
+
+                <li class="list-group-item" v-show="show_pagination">
+                    <!-- ======= pagination ======= -->
+                    <div 
+                        style="margin-top:3em;"
+                        class="container ">
+                        <div class="nav-scroller py-1 mb-2">
+                            <nav class="nav d-flex justify-content-center">
+                                <ul class="pagination flex-wrap ">
+                                    <li class="page-item">
+                                        <div class="page-link disabled ">
+                                            
+                                                showing from <span>{{templates.from}}</span> 
+                                                to <span>{{templates.to}}</span> of 
+                                                <span>{{templates.total}}</span>
+                                            
+                                        </div>
+                                    </li>
+                                    <li class="page-item" v-for="li in templates.links">
+
+                                            <a class="page-link p-2" 
+                                                v-if="!li.active && li.url != null" 
+                                                @click.prevent="$emit('getTemplate',li.url)"
+                                                v-html="li.label">
+                                                {{li.label}} 
+                                            </a>
+                                            <span class="page-link active" 
+                                                v-html="li.label" v-else>
+                                                {{li.label}}
+                                            </span>
+
+                                    </li>
+                                    <li class="page-item active">
+                                        <div class="page-link">
+                                            <span>
+                                                <b-icon icon="book-half"></b-icon>
+                                                {{templates.current_page}}
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- ======== End pagination ==== -->
+                </li>
             </ul>
         </div>
     </div>
@@ -87,7 +132,7 @@ var moment = require("moment")
 
 export default{
     name:"TemplateList",
-    props:["templates"],
+    props:["templates","show_pagination"],
     data(){
         return{
             moment:moment,

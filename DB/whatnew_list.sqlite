@@ -121,3 +121,36 @@ INSERT INTO `whatnews` (`user_id`,`token`
 
 
 
+
+ /* =========== auto script START 2021-07-20 18:14:05 pm  ==================== */
+ /* ====== auto insert script `whatnews` ======== */
+INSERT INTO `whatnews` (`user_id`,
+`token`
+,`whatnew_title`,`whatnew_body`,`is_public`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'uWBSPcW94p5UJ37fH5iMsaaGNxnYj6PabHik9V8fbPuqPcJxrcxcYhPpPnVA',
+    'สถานการณ์โควิด 19 วันที่ 20 กรกฎาคม 2564',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            ยังน่าห่วงนะครับ ยังไม่มีทีท่าว่าจะลดลงไปเลย มาตราการก็เข้มข้นเรื่อยๆ
+
+        </p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/L0brRJwbMHc?start=184" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+        <p class="text-center pt-2">
+            แชร์ข่าวจาก ยูทูป สธ.แถลงสถานการณ์โควิด-19 (20 ก.ค. 64)
+        </p>
+    
+        <p class="pt-2">
+            ก็ระวังๆ ตัวกันเองนะครับบ้านใครบ้านมัน เป็นกำลังใจให้กันครับ ในภาวะวิกฤติแบบนี้คนไทยต้องช่วยกันถึงจะรอด
+        </p>
+    </div>
+</div>',
+    '1',
+    '2021-07-20 18:14:05','2021-07-20 18:14:05'); 
+
+ 
+ /* ======== auto script 2021-07-20 18:14:05 pm END ========= */

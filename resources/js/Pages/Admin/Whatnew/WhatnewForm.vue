@@ -2,13 +2,22 @@
     <div class="card-body">
         <form action="" @submit.prevent="save(saveId)">
             <div class="form-group">
+                <select ref="sel_tmp" name="sel_tmp" class="form-control" 
+                    @change="getTemplate">
+                    <option value="0">--- Easy template select here ---</option>
+                    <option :value="tm.id" v-for="tm in template">
+                    {{tm.tm_title}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
                 <input v-model="wnForm.title" class="form-control" 
                  type="text" ref="title"
-                name="title">
+                name="title" placeholder="Enter the title">
             </div>
             <div class="form-group">
                 <jodit-editor 
-                    height="350" v-model="wnForm.body"></jodit-editor>
+                    height="550" v-model="wnForm.body"></jodit-editor>
             </div>
             <div class="row">
                 <div class="col-lg-4">
@@ -55,7 +64,7 @@
 import JoditEditor from 'jodit-vue'
 export default{
     name:"WhatnewForm",
-    props:["editId"],
+    props:["editId","template"],
     watch:{
         "editId":function(x){
             this.getEditData(x)
@@ -123,7 +132,19 @@ export default{
             this.wnForm.reset()
             this.res_status = ''
             this.saveId = 0
-        }
+        },
+        getTemplate(){
+            let url = `/admin/template/${this.$refs.sel_tmp.value}`
+            axios.get(url)
+                .then(res=>{
+                  let tData = res.data.template  
+                    this.wnForm.title = tData.tm_title
+                    this.wnForm.body = tData.tm_excerpt
+                })
+            setTimeout(()=>{
+                this.$refs.sel_tmp.value = '0'
+            },2300)
+        },
     },
 }
 </script>

@@ -3,7 +3,7 @@
 
         <blog-form :editId="editId" :category="category"
             :tags="tags" @box="box($event)" 
-            @getBlogs="getBlogs($event)"></blog-form>
+            @getBlogs="getBlogs($event)" :template="template"></blog-form>
 
         <blog-list :blogs="blogs" 
             @openMe="openMe($event)" 
@@ -29,7 +29,7 @@ export default{
         BlogList,
         BlogForm,
     },
-    props:["category"],
+    props:["category","template"],
     data(){
         return{
             blogs:[],
