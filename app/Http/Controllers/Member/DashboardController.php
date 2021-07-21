@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Whatnew;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -41,8 +42,14 @@ class DashboardController extends Controller
                         ->latest()
                         ->paginate(15)
                         ->onEachSide(1);
+
+        $tmp = Template::where("tm_approved_at","!=",null)
+                        ->orWhere("user_id",Auth::user()->id)
+                        ->get();
+
         return response()->json([
-            "whatnews" => $whatnews
+            "whatnews" => $whatnews,
+            "templates" => $tmp
         ]);
     }
 

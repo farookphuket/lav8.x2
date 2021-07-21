@@ -73,6 +73,7 @@ __webpack_require__.r(__webpack_exports__);
     BlogList: _BlogList_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     BlogForm: _BlogForm_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
+  props: ["templates"],
   data: function data() {
     return {
       blogs: [],
@@ -246,14 +247,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
-  props: ["editId", "tags"],
+  props: ["editId", "tags", "templates"],
   data: function data() {
     return {
       slug: new CustomText(),
       res_status: '',
+      sel_tm: '',
       saveId: 0,
       blogForm: new Form({
         title: '',
@@ -343,6 +354,18 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$emit('getBlogs');
       }, 7000);
+    },
+    getTemplate: function getTemplate() {
+      var _this3 = this;
+
+      var url = "/member/template/".concat(this.$refs.sel_tm.value);
+      axios.get(url).then(function (res) {
+        var tData = res.data.template;
+        _this3.blogForm.title = tData.tm_title;
+        _this3.blogForm.excerpt = tData.tm_excerpt;
+        _this3.blogForm.body = tData.tm_body;
+      });
+      this.$refs.sel_tm.value = 0;
     }
   }
 });
@@ -780,7 +803,7 @@ var render = function() {
             expression: "showForm"
           }
         ],
-        attrs: { editId: _vm.editId, tags: _vm.tags },
+        attrs: { editId: _vm.editId, tags: _vm.tags, templates: _vm.templates },
         on: {
           box: function($event) {
             return _vm.box($event)
@@ -865,6 +888,31 @@ var render = function() {
           }
         },
         [
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                ref: "sel_tm",
+                staticClass: "form-control",
+                on: { change: _vm.getTemplate }
+              },
+              [
+                _c("option", { attrs: { value: "0" } }, [
+                  _vm._v(
+                    "--- Easy template select here ---\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.templates, function(tm) {
+                  return _c("option", { domProps: { value: tm.id } }, [
+                    _vm._v(_vm._s(tm.tm_title))
+                  ])
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("input", {
               directives: [

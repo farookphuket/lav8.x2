@@ -49,7 +49,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       wns: [],
       editId: '',
-      res_status: ''
+      res_status: '',
+      templates: ''
     };
   },
   mounted: function mounted() {
@@ -76,6 +77,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (res) {
         //console.log(res.data)
         _this.wns = res.data.whatnews;
+        _this.templates = res.data.templates;
       });
     },
     edit: function edit(id) {
@@ -171,10 +173,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "WhatnewForm",
-  props: ["editId"],
+  props: ["editId", "templates"],
   data: function data() {
     return {
       saveId: 0,
@@ -247,6 +257,19 @@ __webpack_require__.r(__webpack_exports__);
       this.res_status = '';
       this.saveId = 0;
       this.wnForm.reset();
+    },
+    getTemplate: function getTemplate() {
+      var _this3 = this;
+
+      var url = "/member/template/".concat(this.$refs.sel_tm.value);
+      axios.get(url).then(function (res) {
+        var tData = res.data.template;
+        _this3.wnForm.title = tData.tm_title;
+        _this3.wnForm.body = tData.tm_excerpt;
+      });
+      setTimeout(function () {
+        _this3.$refs.sel_tm.value = 0;
+      }, 600);
     }
   }
 });
@@ -634,7 +657,7 @@ var render = function() {
         },
         [
           _c("whatnew-form", {
-            attrs: { editId: _vm.editId },
+            attrs: { editId: _vm.editId, templates: _vm.templates },
             on: {
               getWhatnew: function($event) {
                 return _vm.getWhatnew($event)
@@ -719,6 +742,29 @@ var render = function() {
             }
           },
           [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "select",
+                {
+                  ref: "sel_tm",
+                  staticClass: "form-control",
+                  on: { change: _vm.getTemplate }
+                },
+                [
+                  _c("option", { attrs: { value: "0" } }, [
+                    _vm._v("--- Easy template select here ---")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.templates, function(tm) {
+                    return _c("option", { domProps: { value: tm.id } }, [
+                      _vm._v("\n                    " + _vm._s(tm.tm_title))
+                    ])
+                  })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("input", {
                 directives: [

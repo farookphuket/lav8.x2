@@ -32,7 +32,7 @@ class TemplateController extends Controller
                         ->where("user_id",Auth::user()->id)
                         ->orWhere("tm_approved_at","!=",NULL)
                         ->orderBy("created_at","desc")
-                        ->paginate(2);
+                        ->paginate(15);
         return response()->json([
             "templates" => $tmp
         ]);

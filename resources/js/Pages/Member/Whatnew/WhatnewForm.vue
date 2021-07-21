@@ -3,6 +3,14 @@
         <div class="form form-horizontal" style="margin-bottom:4em;">
             <form action="" @submit.prevent="save(saveId)">
                 <div class="form-group">
+                    <select ref="sel_tm" @change="getTemplate" 
+                        class="form-control">
+                        <option value="0">--- Easy template select here ---</option>
+                        <option :value="tm.id" v-for="tm in templates">
+                        {{tm.tm_title}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <input v-model="wnForm.title" class="form-control" 
                         ref="title"   type="text" 
                     name="title" placeholder="enter the title">
@@ -58,7 +66,7 @@
 import JoditEditor from 'jodit-vue'
 export default{
     name:"WhatnewForm",
-    props:["editId"],
+    props:["editId","templates"],
     data(){
         return{
             saveId:0,
@@ -130,7 +138,20 @@ export default{
             this.res_status = ''
             this.saveId = 0 
             this.wnForm.reset()
-        }
+        },
+        getTemplate(){
+            let url = `/member/template/${this.$refs.sel_tm.value}`
+            axios.get(url)
+                .then(res=>{
+                    let tData = res.data.template
+                    this.wnForm.title = tData.tm_title
+                    this.wnForm.body = tData.tm_excerpt
+                })
+            setTimeout(()=>{
+                this.$refs.sel_tm.value = 0
+            },600)
+
+        },
     }
 }
 </script>

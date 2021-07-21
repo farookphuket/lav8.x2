@@ -65,7 +65,8 @@ __webpack_require__.r(__webpack_exports__);
     getTemplate: function getTemplate(page) {
       var _this = this;
 
-      this.editId = 0;
+      this.editId = 0; //this.show_pagination = false
+
       var url = '';
 
       if (page) {
@@ -78,7 +79,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (res) {
         _this.templates = res.data.templates; //console.log(res.data)
 
-        if (Object.keys(_this.templates.data).length >= 2) {
+        if (Object.keys(_this.templates.data).length >= 14) {
           _this.show_pagination = true;
         }
       });
@@ -1083,88 +1084,106 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _c("li", { staticStyle: { "margin-top": "2em" } }, [
-            _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
-              _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
+          _c(
+            "li",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show_pagination,
+                  expression: "show_pagination"
+                }
+              ],
+              staticStyle: { "margin-top": "2em" }
+            },
+            [
+              _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
                 _c(
-                  "ul",
-                  { staticClass: "pagination flex-wrap" },
+                  "nav",
+                  { staticClass: "nav d-flex justify-content-center" },
                   [
-                    _c("li", { staticClass: "page-item disabled" }, [
-                      _c("div", { staticClass: "page-link" }, [
-                        _vm._v(
-                          "\n                                showing from " +
-                            _vm._s(_vm.templates.from) +
-                            "\n                                to "
-                        ),
-                        _c("span", [_vm._v(_vm._s(_vm.templates.to))]),
-                        _vm._v(" of\n                                "),
-                        _c("span", [_vm._v(_vm._s(_vm.templates.total))])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.templates.links, function(li) {
-                      return _c("li", { staticClass: "page-item" }, [
-                        !li.active && li.url != null
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "page-link p-2",
-                                attrs: { href: "" },
-                                domProps: { innerHTML: _vm._s(li.label) },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.$emit("getTemplate", li.url)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(li.label) +
-                                    "\n                            "
+                    _c(
+                      "ul",
+                      { staticClass: "pagination flex-wrap" },
+                      [
+                        _c("li", { staticClass: "page-item disabled" }, [
+                          _c("div", { staticClass: "page-link" }, [
+                            _vm._v(
+                              "\n                                showing from " +
+                                _vm._s(_vm.templates.from) +
+                                "\n                                to "
+                            ),
+                            _c("span", [_vm._v(_vm._s(_vm.templates.to))]),
+                            _vm._v(" of\n                                "),
+                            _c("span", [_vm._v(_vm._s(_vm.templates.total))])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.templates.links, function(li) {
+                          return _c("li", { staticClass: "page-item" }, [
+                            !li.active && li.url != null
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "page-link p-2",
+                                    attrs: { href: "" },
+                                    domProps: { innerHTML: _vm._s(li.label) },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.$emit("getTemplate", li.url)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(li.label) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          : _c(
-                              "span",
-                              {
-                                staticClass: "page-link active",
-                                domProps: { innerHTML: _vm._s(li.label) }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(li.label) +
-                                    "\n                            "
+                              : _c(
+                                  "span",
+                                  {
+                                    staticClass: "page-link active",
+                                    domProps: { innerHTML: _vm._s(li.label) }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(li.label) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _c("li", { staticClass: "page-item active" }, [
-                      _c(
-                        "span",
-                        { staticClass: "page-link " },
-                        [
-                          _c("b-icon", { attrs: { icon: "book-half" } }),
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.templates.current_page) +
-                              "\n                            "
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "page-item active" }, [
+                          _c(
+                            "span",
+                            { staticClass: "page-link " },
+                            [
+                              _c("b-icon", { attrs: { icon: "book-half" } }),
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.templates.current_page) +
+                                  "\n                            "
+                              )
+                            ],
+                            1
                           )
-                        ],
-                        1
-                      )
-                    ])
-                  ],
-                  2
+                        ])
+                      ],
+                      2
+                    )
+                  ]
                 )
               ])
-            ])
-          ])
+            ]
+          )
         ],
         2
       )
