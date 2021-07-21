@@ -4,7 +4,7 @@
 
 
 
-            <whatnew-form :editId="editId" 
+            <whatnew-form :editId="editId" :templates="templates"
                 @getWhatnew="getWhatnew($event)"></whatnew-form>
 
             <whatnew-list :wns="wns"  @edit="edit($event)" 
@@ -36,6 +36,7 @@ export default{
             wns:[],
             editId:'',
             res_status:'',
+            templates:'',
         }
     },
     mounted(){
@@ -57,6 +58,7 @@ export default{
                 .then(res=>{
                     //console.log(res.data)
                     this.wns = res.data.whatnews
+                    this.templates = res.data.templates
                 })
         },
         edit(id){

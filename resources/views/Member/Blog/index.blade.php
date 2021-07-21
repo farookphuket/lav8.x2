@@ -1,4 +1,4 @@
-@extends('Theme.classlist.list')
+@extends('Theme.classlist.list-no-ads')
 
 @section("head_script")
     <script>
@@ -13,6 +13,6 @@
 ?>
     @section('meta_title',$title)
 
-<member-blog></member-blog>
+<member-blog :templates="{{$templates}}"></member-blog>
 
 @endsection

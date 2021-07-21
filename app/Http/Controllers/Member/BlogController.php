@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Models\Template;
 use Auth;
 use DB;
 use Illuminate\Support\Str;
@@ -40,8 +41,14 @@ class BlogController extends Controller
         $last_blog = Blog::with('user')
                         ->latest()->first();
 
+        $tmp = Template::where("tm_method","blog")
+                        ->where("tm_approved_at","!=",null)
+                        ->orWhere("user_id",Auth::user()->id)
+                        ->get();
+
         return view('Member.Blog.index')->with([
-            "last_blog" => $last_blog
+            "last_blog" => $last_blog,
+            "templates" => $tmp
         ]);
     }
 

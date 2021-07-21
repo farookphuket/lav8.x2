@@ -55,7 +55,7 @@
                     </div><!-- end of div.row -->
                 </li>
 
-                <li style="margin-top:2em;">
+                <li style="margin-top:2em;" v-show="show_pagination">
 
                 <div class="nav-scroller py-1 mb-2">
                     <nav class="nav d-flex justify-content-center">

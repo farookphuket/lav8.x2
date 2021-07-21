@@ -50,6 +50,7 @@ export default{
     methods:{
         getTemplate(page){
             this.editId = 0
+            //this.show_pagination = false
             let url = ''
             if(page){
                 url = page 
@@ -61,7 +62,7 @@ export default{
                 .then(res=>{
                     this.templates = res.data.templates
                     //console.log(res.data)
-                    if(Object.keys(this.templates.data).length >= 2){
+                    if(Object.keys(this.templates.data).length >= 14){
                         this.show_pagination = true
                     }
                 })

@@ -24,7 +24,7 @@
         </div>
 
         <blog-form :editId="editId" :tags="tags" 
-            @box="box($event)"
+            @box="box($event)" :templates="templates"
             @getBlogs="getBlogs($event)" v-show="showForm"></blog-form>
 
         <div class="col-lg-12" style="margin-top:2em;">
@@ -59,6 +59,7 @@ export default{
         BlogList,
         BlogForm,
     },
+    props:["templates"],
     data(){
         return{
             blogs:[],
