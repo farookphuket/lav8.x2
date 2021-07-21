@@ -318,9 +318,11 @@ class BlogController extends Controller
         $content .= " 
     INSERT INTO `{$this->comment_table}`(`user_id`,`blog_id`,`comment_title`,
     `comment_body`,`comment_approve`,`created_at`,`updated_at`) VALUES(
-        '{$bk->user_id}','{$bk->blog_id}','{$bk->comment_title}',
-        '{$bk->created_at}','{$bk->updated_at}'
-);
+        '{$bk->user_id}',
+        '{$bk->blog_id}',
+        '{$bk->comment_title}',
+        '{$bk->created_at}',
+        '{$bk->updated_at}');
 ";
         write2text($file,$content);
     }
@@ -329,9 +331,9 @@ class BlogController extends Controller
     /* backup for comment END */
 
     /* ===================== backup insert blog START =================== */
-    public function backupInsertBlog(){
+    public function backupInsertBlog($id){
         // get the last insert row
-        $blog = Blog::latest()->first();
+        $blog = Blog::find($id);
         
         $blog_file = base_path("DB/blog_list.sqlite");
         $blog_content = "/* ===== auto backup blogs table ".date("Y-m-d H:i:s");
@@ -339,7 +341,9 @@ class BlogController extends Controller
         $blog_content .= "
 INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
 `is_public`,`created_at`,`updated_at`) VALUES(
-    '{$blog->user_id}','{$blog->slug}','{$blog->title}',
+    '{$blog->user_id}',
+    '{$blog->slug}',
+    '{$blog->title}',
     '{$blog->excerpt}',
     '{$blog->body}',
     '{$blog->is_public}',
@@ -367,9 +371,10 @@ INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
         $con2 .= "
 INSERT INTO `{$this->tag_link}`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
 VALUES(
-    '{$item->blog_id}','{$item->tag_id}',
-    '{$item->created_at}','{$item->updated_at}'
-);
+    '{$item->blog_id}',
+    '{$item->tag_id}',
+    '{$item->created_at}',
+    '{$item->updated_at}');
 ";
         write2text($file,$con2);
         endforeach;
@@ -386,9 +391,10 @@ VALUES(
         $content .= "
 INSERT INTO `{$this->tag_table}`(`user_id`,`tag_name`,`created_at`,
 `updated_at`) VALUES(
-    '{$tag->user_id}','{$tag->tag_name}','{$tag->created_at}',
-    '{$tag->updated_at}'
-);
+    '{$tag->user_id}',
+    '{$tag->tag_name}',
+    '{$tag->created_at}',
+    '{$tag->updated_at}');
 ";
 
         write2text($file,$content);
