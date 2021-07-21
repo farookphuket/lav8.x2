@@ -1,4 +1,4 @@
-@extends("Theme.classlist.list")
+@extends("Theme.classlist.list-no-ads")
 
 
 
