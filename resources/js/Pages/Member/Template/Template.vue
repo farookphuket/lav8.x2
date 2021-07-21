@@ -1,16 +1,16 @@
 <template>
     <div class="container-fluid">
 
-        <template-form :editId="editId" 
+        <template-form :editId="editId" @box="box($event)"
             @getTemplate="getTemplate($event)"></template-form>
 
         <template-list :user_id="user_id" :templates="templates"
             @getTemplate="getTemplate($event)" @edit="edit($event)" 
-            @del="del($event)" 
+            @del="del($event)" @box="box($event)"
             @showTemplate="showTemplate($event)" 
             :show_pagination="show_pagination"></template-list>
 
-        <b-modal title="server say : " ref="onOk" ok-only>
+        <b-modal title="server say : " ref="onOk" centered ok-only>
             <span v-html="res_status">
                 {{res_status}} 
             </span>
@@ -49,6 +49,7 @@ export default{
     },
     methods:{
         getTemplate(page){
+            this.editId = 0
             let url = ''
             if(page){
                 url = page 
@@ -91,6 +92,10 @@ export default{
                 })
             this.$refs["big_box"].show()
         },
+        box(msg){
+            this.res_status = msg
+            this.$refs["onOk"].show()
+        }
     },
 }
 </script>

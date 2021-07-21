@@ -10,8 +10,8 @@
                 <div class="form-group">
                     <select ref="tm_method" name="tm_method" 
                         class="form-control">
-                        <option value="1">whatnew</option>
-                        <option value="2">blog</option>
+                        <option value="whatnew">whatnew</option>
+                        <option value="blog">blog</option>
                     </select>
                 </div>
 
@@ -52,6 +52,12 @@
                                 class="btn btn-outline-primary"
                                 @click.prevent="save(saveId)">
                                 <b-icon icon="pen"></b-icon>
+                            </button>
+
+                            <button  
+                                class="btn btn-outline-danger"
+                                @click.prevent="emForm">
+                                <b-icon icon="backspace"></b-icon>
                             </button>
                         </div><!-- end of div.btn-group -->
                     </div><!-- end of div.col-lg-4 -->
@@ -95,6 +101,10 @@ export default{
                         this.tForm.tm_title = tData.tm_title
                         this.$refs.tm_method.value = tData.tm_method
                         this.$refs.tm_title.focus()
+                        this.tForm.tm_excerpt = tData.tm_excerpt
+                        this.tForm.tm_body = tData.tm_body
+                        this.saveId = tData.id
+                        if(tData.tm_public != 0) this.tForm.tm_public = true
                     })
             }
         },
@@ -111,6 +121,8 @@ export default{
                         this.res_status = `<span class="alert alert-danger 
                         p-2">${Object.values(err).join()}</span>`
                     })
+
+
             }else{
 
                 this.tForm.submit('post',url)
@@ -121,8 +133,20 @@ export default{
                         this.res_status = `<span class="alert alert-danger 
                         p-2">${Object.values(err).join()}</span>`
                     })
+
+
             }
-            this.$emit('box',this.res_status)
+            setTimeout(()=>{
+                this.res_status = ''
+                this.$emit('getTemplate')
+            },3600)
+        },
+        emForm(){
+            this.tForm.reset()
+            this.res_status = ''
+            setTimeout(()=>{
+                this.$emit('getTemplate')
+            },2500)
         },
     },
 }

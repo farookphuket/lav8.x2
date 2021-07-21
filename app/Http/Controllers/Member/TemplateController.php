@@ -11,7 +11,7 @@ use Auth;
 
 class TemplateController extends Controller
 {
-    protected $tmp_table = "templates";
+    protected $tm_table = "templates";
     /**
      * Display a listing of the resource.
      *
@@ -79,11 +79,18 @@ class TemplateController extends Controller
         $valid["tm_excerpt"] = xx_clean(request()->tm_excerpt);
         $valid["tm_body"] = xx_clean(request()->tm_body);
         $valid["tm_public"] = $pub;
-        $valid["tm_method"] = $method;
+        $valid["tm_method"] = xx_clean($method);
         /* ========== preparing data to insert ==================*/ 
 
         // create template
         Template::create($valid);
+
+        // get the last insert field 
+        $tm = Template::latest()->first();
+
+        /* ========= make backup to file =======================*/
+        $this->backupInsertTemplate($tm->id);
+        /* ========= make backup to file =======================*/
 
         $msg = "<span class=\"alert alert-success\">Success : Template has 
             been created</span>";
@@ -129,6 +136,34 @@ class TemplateController extends Controller
     public function update($id)
     {
         //
+
+        $valid = request()->validate([
+            "tm_title" => ["required","min:4","max:80"],
+            "tm_excerpt" => ["required"]
+        ]);
+
+        // public his own template
+        $pub = !request()->tm_public?0:1;
+
+        
+        $method = request()->tm_method;
+        
+        /* ========== preparing data to insert ==================*/ 
+        $valid["tm_title"] = xx_clean(request()->tm_title);
+        $valid["tm_excerpt"] = xx_clean(request()->tm_excerpt);
+        $valid["tm_body"] = xx_clean(request()->tm_body);
+        $valid["tm_public"] = $pub;
+        $valid["tm_method"] = xx_clean($method);
+        $valid["updated_at"] = now();
+        /* ========== preparing data to insert ==================*/ 
+
+        // update field 
+        Template::where("id",$id)->update($valid);
+
+        /* ========== make backup to file =======================*/
+        $this->backupUpdateTemplate($id);
+        /* ========== make backup to file =======================*/
+
 
         $msg = "<span class=\"alert alert-success\">Success : Template has 
             been updated</span>";

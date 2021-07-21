@@ -65,6 +65,7 @@ __webpack_require__.r(__webpack_exports__);
     getTemplate: function getTemplate(page) {
       var _this = this;
 
+      this.editId = 0;
       var url = '';
 
       if (page) {
@@ -110,6 +111,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this3.template);
       });
       this.$refs["big_box"].show();
+    },
+    box: function box(msg) {
+      this.res_status = msg;
+      this.$refs["onOk"].show();
     }
   }
 });
@@ -128,6 +133,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var jodit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jodit-vue */ "./node_modules/jodit-vue/dist/jodit-vue.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -226,6 +237,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.$refs.tm_method.value = tData.tm_method;
 
           _this.$refs.tm_title.focus();
+
+          _this.tForm.tm_excerpt = tData.tm_excerpt;
+          _this.tForm.tm_body = tData.tm_body;
+          _this.saveId = tData.id;
+          if (tData.tm_public != 0) _this.tForm.tm_public = true;
         });
       }
     },
@@ -250,7 +266,20 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      this.$emit('box', this.res_status);
+      setTimeout(function () {
+        _this2.res_status = '';
+
+        _this2.$emit('getTemplate');
+      }, 3600);
+    },
+    emForm: function emForm() {
+      var _this3 = this;
+
+      this.tForm.reset();
+      this.res_status = '';
+      setTimeout(function () {
+        _this3.$emit('getTemplate');
+      }, 2500);
     }
   }
 });
@@ -268,6 +297,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -607,6 +645,9 @@ var render = function() {
       _c("template-form", {
         attrs: { editId: _vm.editId },
         on: {
+          box: function($event) {
+            return _vm.box($event)
+          },
           getTemplate: function($event) {
             return _vm.getTemplate($event)
           }
@@ -629,6 +670,9 @@ var render = function() {
           del: function($event) {
             return _vm.del($event)
           },
+          box: function($event) {
+            return _vm.box($event)
+          },
           showTemplate: function($event) {
             return _vm.showTemplate($event)
           }
@@ -637,7 +681,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-modal",
-        { ref: "onOk", attrs: { title: "server say : ", "ok-only": "" } },
+        {
+          ref: "onOk",
+          attrs: { title: "server say : ", centered: "", "ok-only": "" }
+        },
         [
           _c("span", { domProps: { innerHTML: _vm._s(_vm.res_status) } }, [
             _vm._v("\n            " + _vm._s(_vm.res_status) + " \n        ")
@@ -739,9 +786,11 @@ var render = function() {
               attrs: { name: "tm_method" }
             },
             [
-              _c("option", { attrs: { value: "1" } }, [_vm._v("whatnew")]),
+              _c("option", { attrs: { value: "whatnew" } }, [
+                _vm._v("whatnew")
+              ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "2" } }, [_vm._v("blog")])
+              _c("option", { attrs: { value: "blog" } }, [_vm._v("blog")])
             ]
           )
         ]),
@@ -863,6 +912,21 @@ var render = function() {
                 },
                 [_c("b-icon", { attrs: { icon: "pen" } })],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-danger",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.emForm($event)
+                    }
+                  }
+                },
+                [_c("b-icon", { attrs: { icon: "backspace" } })],
+                1
               )
             ])
           ])
@@ -956,6 +1020,21 @@ var render = function() {
                         _c(
                           "button",
                           {
+                            staticClass: "btn btn-outline-info",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.$emit("showTemplate", tm.id)
+                              }
+                            }
+                          },
+                          [_c("b-icon", { attrs: { icon: "eye" } })],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
                             staticClass: "btn btn-outline-primary",
                             on: {
                               click: function($event) {
@@ -965,6 +1044,21 @@ var render = function() {
                             }
                           },
                           [_c("b-icon", { attrs: { icon: "pencil" } })],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-danger",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.$emit("del", tm.id)
+                              }
+                            }
+                          },
+                          [_c("b-icon", { attrs: { icon: "trash" } })],
                           1
                         )
                       ])

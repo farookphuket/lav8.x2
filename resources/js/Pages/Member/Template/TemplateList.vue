@@ -30,9 +30,18 @@
                         <div class="col-lg-8">
                             <div class="btn-group float-right" 
                                 v-if="tm.user_id == user_id">
+
+                                <button class="btn btn-outline-info" 
+                                    @click.prevent="$emit('showTemplate',tm.id)">
+                                    <b-icon icon="eye"></b-icon>
+                                </button>
                                 <button class="btn btn-outline-primary" 
                                     @click.prevent="$emit('edit',tm.id)">
                                     <b-icon icon="pencil"></b-icon>
+                                </button>
+                                <button class="btn btn-outline-danger" 
+                                    @click.prevent="$emit('del',tm.id)">
+                                    <b-icon icon="trash"></b-icon>
                                 </button>
                             </div><!-- end of div.btn-group v-if -->
                             <div class="float-right" v-else>
