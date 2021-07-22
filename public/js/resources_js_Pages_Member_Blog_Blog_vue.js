@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
     BlogList: _BlogList_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     BlogForm: _BlogForm_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
-  props: ["templates"],
+  props: ["templates", "category"],
   data: function data() {
     return {
       blogs: [],
@@ -256,10 +256,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
-  props: ["editId", "tags", "templates"],
+  props: ["editId", "tags", "templates", "category"],
   data: function data() {
     return {
       slug: new CustomText(),
@@ -270,6 +283,7 @@ __webpack_require__.r(__webpack_exports__);
         title: '',
         excerpt: '',
         body: '',
+        category: '',
         new_tag: '',
         is_public: '',
         user_tag: []
@@ -366,6 +380,11 @@ __webpack_require__.r(__webpack_exports__);
         _this3.blogForm.body = tData.tm_body;
       });
       this.$refs.sel_tm.value = 0;
+    },
+    selectCat: function selectCat() {
+      // this.blogForm.category = this.$refs.sel_cat.value
+      // console.log(this.blogForm.category)
+      return this.blogForm.category = this.$refs.sel_cat.value;
     }
   }
 });
@@ -803,7 +822,12 @@ var render = function() {
             expression: "showForm"
           }
         ],
-        attrs: { editId: _vm.editId, tags: _vm.tags, templates: _vm.templates },
+        attrs: {
+          editId: _vm.editId,
+          tags: _vm.tags,
+          category: _vm.category,
+          templates: _vm.templates
+        },
         on: {
           box: function($event) {
             return _vm.box($event)
@@ -906,6 +930,39 @@ var render = function() {
                 _vm._l(_vm.templates, function(tm) {
                   return _c("option", { domProps: { value: tm.id } }, [
                     _vm._v(_vm._s(tm.tm_title))
+                  ])
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "select",
+              {
+                ref: "sel_cat",
+                staticClass: "form-control",
+                attrs: { name: "category" },
+                on: {
+                  change: function($event) {
+                    $event.preventDefault()
+                    return _vm.selectCat($event)
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "0" } }, [
+                  _vm._v("-- select category --")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.category, function(cat) {
+                  return _c("option", { domProps: { value: cat.id } }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(cat.cat_title) +
+                        "\n                    "
+                    )
                   ])
                 })
               ],

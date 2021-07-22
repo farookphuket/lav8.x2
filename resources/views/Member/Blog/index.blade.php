@@ -13,6 +13,7 @@
 ?>
     @section('meta_title',$title)
 
-<member-blog :templates="{{$templates}}"></member-blog>
+<member-blog :templates="{{$templates}}" 
+:category="{{$category}}"></member-blog>
 
 @endsection

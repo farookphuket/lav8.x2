@@ -12,6 +12,19 @@
                                 v-for="tm in templates">{{tm.tm_title}}</option>
                     </select>
                 </div>
+
+                <!-- category -->
+                <div class="form-group">
+                    <select ref="sel_cat" class="form-control"
+                        name="category" @change.prevent="selectCat">
+                        <option value="0">-- select category --</option>
+                        <option :value="cat.id" v-for="cat in category">
+                        {{cat.cat_title}}
+                        </option>
+                    </select>
+                </div>
+                <!-- category -->
+
                 <div class="form-group">
                     <input v-model="blogForm.title" 
                     class="form-control" ref="title"
@@ -96,7 +109,7 @@
 import JoditEditor from 'jodit-vue'
 export default{
     name:"BlogForm",
-    props:["editId","tags","templates"],
+    props:["editId","tags","templates","category"],
     data(){
         return{
             
@@ -108,6 +121,7 @@ export default{
                 title:'',
                 excerpt:'',
                 body:'',
+                category:'',
                 new_tag:'',
                 is_public:'',
                 user_tag:[]
@@ -205,6 +219,11 @@ export default{
                     this.blogForm.body = tData.tm_body
                 })
             this.$refs.sel_tm.value = 0
+        },
+        selectCat(){
+           // this.blogForm.category = this.$refs.sel_cat.value
+           // console.log(this.blogForm.category)
+            return this.blogForm.category = this.$refs.sel_cat.value    
         },
     },
 }

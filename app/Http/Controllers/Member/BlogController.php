@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Models\Category;
 use App\Models\Template;
 use Auth;
 use DB;
@@ -21,6 +22,8 @@ class BlogController extends Controller
     protected $tag_link;
     protected $tag_table;
     protected $blog_table;
+
+    protected $blog_cat = "blog_category";
 
     public function __construct(){
         $this->comment_table = "blog_comment";
@@ -45,10 +48,14 @@ class BlogController extends Controller
                         ->where("tm_approved_at","!=",null)
                         ->orWhere("user_id",Auth::user()->id)
                         ->get();
+        // category
+        $cat = Category::where("cat_type","blog")->get();
+
 
         return view('Member.Blog.index')->with([
             "last_blog" => $last_blog,
-            "templates" => $tmp
+            "templates" => $tmp,
+            "category" => $cat
         ]);
     }
 
@@ -63,6 +70,7 @@ class BlogController extends Controller
     {
         $blogs = Blog::with('user')
             ->with("tags")
+            ->with("category")
             ->where("is_public",1)
             ->orWhere("user_id",Auth::user()->id)
             ->orderBy("created_at","desc")
@@ -98,6 +106,9 @@ class BlogController extends Controller
         $is_public = !request()->is_public?$is_public = 0:$is_public = 1;
         $newtag = request()->new_tag;
         $tags = request()->user_tag;
+
+        $cat_id = request()->category; 
+
         $validate = request()->validate([
             "title" => ["required","min:8","max:80"],
             "new_tag" => ["min:3","max:15","nullable"]
@@ -121,8 +132,18 @@ class BlogController extends Controller
             $this->makeTag($newPost);
         endif;
 
+        
+        // category
+        DB::table($this->blog_cat)
+            ->insert([
+                "category_id" => $cat_id,
+                "blog_id" => $newPost->id,
+                "created_at" => now(),
+                "updated_at" => now()
+            ]);
+
         // ====== make a backup for new post
-        $this->backupInsertBlog();
+        $this->backupInsertBlog($newPost->id);
 
         $msg = "<span class=\"alert alert-success\">
             success : data has been created </span>";
@@ -378,6 +399,22 @@ VALUES(
 ";
         write2text($file,$con2);
         endforeach;
+
+        // link with category 
+        $get_cat = DB::table($this->blog_cat)
+                        ->where("blog_id",$blog->id)
+                        ->first();
+        $file_3 = base_path("DB/blog_category.sqlite");
+        $cont_3 = "\n 
+/* ======= blog id {$blog->id} link with category id {$get_cat->id} ======== */
+INSERT INTO `{$this->blog_cat}`(`category_id`,`blog_id`,`created_at`,
+`updated_at`) VALUES(
+    '{$get_cat->category_id}',
+    '{$get_cat->blog_id}',
+    '{$get_cat->created_at}',
+    '{$get_cat->updated_at}');
+";
+        write2text($file_3,$cont_3);
     }
     /* ===================== backup insert blog END   =================== */
 
