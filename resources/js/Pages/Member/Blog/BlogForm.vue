@@ -161,6 +161,7 @@ export default{
                                 this.blogForm.excerpt = val.excerpt
                                 this.blogForm.body = val.body
                                 this.saveId = val.id
+                                
                                 if(val.is_public != '0'){
                                     this.blogForm.is_public = true
                                 }
@@ -182,7 +183,7 @@ export default{
 
             let url = ''
             if(id){
-                alert(`will update ${id}`)
+                //alert(`will update ${id}`)
                 url = `/member/blog/${id}`
                 this.blogForm.submit('put',url)
                     .then((res)=>{

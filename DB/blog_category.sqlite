@@ -19,15 +19,6 @@ INSERT INTO `blog_category`(`category_id`,`blog_id`,`created_at`,`updated_at`)
 
 
 
- /* =========== auto script START 2021-07-16 13:52:47 pm  ==================== */
- 
-/* ======== backup blog category link ==========*/
-DELETE FROM `blog_category` 
-            WHERE blog_id='2';
 
-INSERT INTO `blog_category`(`category_id`,`blog_id`,`created_at`,
-`updated_at`) VALUES(
-    '1','2',
-    '2021-07-15 08:13:25','2021-07-16 13:52:47');
- 
- /* ======== auto script 2021-07-16 13:52:47 pm END ========= */
+
+

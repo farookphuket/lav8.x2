@@ -348,7 +348,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = '';
 
       if (id) {
-        alert("will update ".concat(id));
+        //alert(`will update ${id}`)
         url = "/member/blog/".concat(id);
         this.blogForm.submit('put', url).then(function (res) {
           //console.log(res.msg)
