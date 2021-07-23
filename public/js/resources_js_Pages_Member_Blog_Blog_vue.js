@@ -269,6 +269,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogForm",
@@ -279,6 +284,7 @@ __webpack_require__.r(__webpack_exports__);
       res_status: '',
       sel_tm: '',
       saveId: 0,
+      btn_label: 'Create New Blog',
       blogForm: new Form({
         title: '',
         excerpt: '',
@@ -306,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
       this.blogForm.user_tag = [];
 
       if (x != 0) {
+        this.btn_label = 'Upadate Post';
         var url = "/member/blog/".concat(x, "/edit");
         axios.get(url).then(function (res) {
           res.data.blog.forEach(function (val) {
@@ -402,6 +409,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1044,7 +1065,7 @@ var render = function() {
               "div",
               { staticClass: "col-md-8" },
               _vm._l(_vm.tags, function(ll) {
-                return _c("span", [
+                return _c("span", { staticClass: "form-check-group pl-4" }, [
                   _c("label", { attrs: { for: "" } }, [
                     _c("input", {
                       directives: [
@@ -1055,6 +1076,7 @@ var render = function() {
                           expression: "blogForm.user_tag"
                         }
                       ],
+                      staticClass: "form-check-input mb-2",
                       attrs: { type: "checkbox", name: "user_tag" },
                       domProps: {
                         value: ll.id,
@@ -1092,13 +1114,22 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "alert alert-warning" }, [
-                      _vm._v(
-                        "\n                                    " +
-                          _vm._s(ll.tag_name) +
-                          "\n                                "
-                      )
-                    ])
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "badge badge-info p-2 \n                                      mr-2 pl-2 text-white"
+                      },
+                      [
+                        _c("b-icon", { attrs: { icon: "tag" } }),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(ll.tag_name) +
+                            "\n                                "
+                        )
+                      ],
+                      1
+                    )
                   ])
                 ])
               }),
@@ -1136,62 +1167,66 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("label", { attrs: { for: "" } }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.blogForm.is_public,
-                      expression: "blogForm.is_public"
-                    }
-                  ],
-                  staticClass: "my-checkbox",
-                  attrs: { type: "checkbox", name: "is_public" },
-                  domProps: {
-                    checked: Array.isArray(_vm.blogForm.is_public)
-                      ? _vm._i(_vm.blogForm.is_public, null) > -1
-                      : _vm.blogForm.is_public
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.blogForm.is_public,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.blogForm,
-                              "is_public",
-                              $$a.concat([$$v])
-                            )
+            _c("div", { staticClass: "col-md-4 mt-2" }, [
+              _c(
+                "label",
+                { staticClass: "form-check-group", attrs: { for: "" } },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.blogForm.is_public,
+                        expression: "blogForm.is_public"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "checkbox", name: "is_public" },
+                    domProps: {
+                      checked: Array.isArray(_vm.blogForm.is_public)
+                        ? _vm._i(_vm.blogForm.is_public, null) > -1
+                        : _vm.blogForm.is_public
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.blogForm.is_public,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.blogForm,
+                                "is_public",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.blogForm,
+                                "is_public",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
                         } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.blogForm,
-                              "is_public",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
+                          _vm.$set(_vm.blogForm, "is_public", $$c)
                         }
-                      } else {
-                        _vm.$set(_vm.blogForm, "is_public", $$c)
                       }
                     }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.blogForm.is_public == true
-                  ? _c("span", { staticClass: "alert alert-success" }, [
-                      _vm._v("Public")
-                    ])
-                  : _c("span", { staticClass: "alert alert-warning" }, [
-                      _vm._v("Private")
-                    ])
-              ])
+                  }),
+                  _vm._v(" "),
+                  _vm.blogForm.is_public == true
+                    ? _c("span", { staticClass: "badge badge-success p-2" }, [
+                        _vm._v("Public")
+                      ])
+                    : _c("span", { staticClass: "badge badge-warning p-2" }, [
+                        _vm._v("Private")
+                      ])
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-4" }, [
@@ -1200,29 +1235,25 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "col-md-4 mt-2" }, [
+              _c("div", { staticClass: "float-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v(_vm._s(_vm.btn_label))]
+                )
+              ])
+            ])
           ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "float-right" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-outline-primary", attrs: { type: "submit" } },
-          [_vm._v("Save")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -1254,7 +1285,7 @@ var render = function() {
             _c(
               "a",
               {
-                attrs: { href: "" },
+                attrs: { href: "", title: "click to read more" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -1264,9 +1295,11 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                " + _vm._s(bl.title) + "_ \n            "
-                )
-              ]
+                  "\n                " + _vm._s(bl.title) + "\n                "
+                ),
+                _c("b-icon", { attrs: { icon: "eye" } })
+              ],
+              1
             )
           ]),
           _vm._v(" "),
@@ -1299,6 +1332,7 @@ var render = function() {
               _c("span", { staticStyle: { "magin-top": "1.3em" } }, [
                 _c(
                   "ul",
+                  { staticStyle: { "text-decoration": "none" } },
                   _vm._l(bl.tags, function(ta) {
                     return _c(
                       "li",
@@ -1330,7 +1364,27 @@ var render = function() {
                   }),
                   0
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "float-right" },
+                [
+                  _vm._v(
+                    "\n                    category :\n                    "
+                  ),
+                  _vm._l(bl.category, function(ca) {
+                    return _c("span", { staticClass: "badge badge-info p-2" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(ca.cat_title) +
+                          "\n                    "
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "float-right" }, [

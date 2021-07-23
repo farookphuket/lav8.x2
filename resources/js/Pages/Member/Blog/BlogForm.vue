@@ -48,13 +48,17 @@
 
                     <div class="row">
                         <div class="col-md-8">
-                            <span v-for="ll in tags">
+                            <span v-for="ll in tags" class="form-check-group pl-4">
                                 <label for="">
                                     <input v-model="blogForm.user_tag" 
                                     :value="ll.id" 
-                                    type="checkbox" name="user_tag">  
-                                    <span class="alert alert-warning" 
+                                    type="checkbox" 
+                                    class="form-check-input mb-2"
+                                    name="user_tag">  
+                                    <span class="badge badge-info p-2 
+                                          mr-2 pl-2 text-white" 
                                         >
+                                        <b-icon icon="tag"></b-icon>
                                         {{ll.tag_name}}
                                     </span>
 
@@ -70,29 +74,30 @@
                     </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <label for="">
+                    <div class="col-md-4 mt-2">
+                        <label for="" class="form-check-group">
                             <input v-model="blogForm.is_public" 
-                            class="my-checkbox" type="checkbox" 
+                            class="form-check-input" type="checkbox" 
                             name="is_public"> 
 
                             <span 
-                                class="alert alert-success" 
+                                class="badge badge-success p-2" 
                                 v-if="blogForm.is_public == true">Public</span>
-                            <span class="alert alert-warning" 
+                            <span class="badge badge-warning p-2" 
                                 v-else>Private</span>
                         </label>
+
                     </div><!-- end of checkbox -->
 
                     <div class="col-md-4">
                         <div v-html="res_status">{{res_status}}</div>
                     </div><!-- end of status -->
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 mt-2">
 
                         <div class="float-right">
                             <button class="btn btn-outline-primary" 
-                                type="submit">Save</button>
+                                    type="submit">{{btn_label}}</button>
                         </div>
                     </div>
 
@@ -117,6 +122,7 @@ export default{
             res_status:'',
             sel_tm:'',
             saveId:0,
+            btn_label:'Create New Blog',
             blogForm:new Form({
                 title:'',
                 excerpt:'',
@@ -143,6 +149,7 @@ export default{
             this.blogForm.is_public = false
             this.blogForm.user_tag = []
             if(x != 0){
+                this.btn_label = 'Upadate Post'
                 let url = `/member/blog/${x}/edit`
                 axios.get(url)
                     .then(res=>{

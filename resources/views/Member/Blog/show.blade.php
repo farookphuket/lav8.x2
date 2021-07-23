@@ -9,6 +9,12 @@
     <!-- found some data -->
     @foreach($blog as $it)
 
+        @section("meta_title",$it->title)
+
+        @section("meta_keywords",$it->title)
+
+        @section("meta_des",$it->title)
+
                 <h4>{{$it->title}}</h4>
 
                     <span>

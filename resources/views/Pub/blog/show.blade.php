@@ -7,6 +7,10 @@
 
     @section('meta_title',$item->title)    
         
+    @section("meta_keywords",$item->title)
+
+    @section("meta_des",$item->title)
+
 
     <h4>{{$item->title}}</h4>
     <span>
