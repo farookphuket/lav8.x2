@@ -833,7 +833,7 @@ var render = function() {
       { staticClass: "container" },
       [
         _vm._l(_vm.faqs.data, function(li) {
-          return _c("div", { staticClass: "card" }, [
+          return _c("div", { staticClass: "card mt-2" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", [_vm._v(_vm._s(li.title))])
             ]),
@@ -935,7 +935,7 @@ var render = function() {
                 expression: "faqs.data != 0"
               }
             ],
-            staticClass: "nav-scroller py-1 mb-2"
+            staticClass: "nav-scroller py-1 mb-2 mt-4"
           },
           [
             _c("nav", { staticClass: "nav d-flex justify-content-center" }, [

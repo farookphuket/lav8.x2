@@ -22,6 +22,8 @@ class VisitorsController extends Controller
     protected $browser = '';
     protected $os = '';
 
+    protected $visitor_table = "visitors";
+
     public function __construct(){
         
         // return single number with 0
@@ -107,8 +109,6 @@ class VisitorsController extends Controller
 
         if(count($get) == 0){
 
-            //open file 
-            $file = base_path("DB/visitors_list.sqlite");
             $last_sql = Visitor::create([
                 "ip" => $this->ip,
                 "browser" => $this->browser,
@@ -119,25 +119,9 @@ class VisitorsController extends Controller
                 "year_num" => $this->year,
             ]);
 
+            $vt = Visitor::latest()->first();
             // ============ write data to file ================
-            $content = "/* add to visitors table using auto script {$this->today_long} */
-                INSERT INTO `visitors` (
-                `ip`,
-                `browser`,`os`,
-                `day_num`,`month_num`,
-                `year_num`,`date_visit`,
-                `created_at`,`updated_at`)
-                VALUES (
-                '{$this->ip}',
-                '{$this->browser}','{$this->os}',
-                '{$this->day}','{$this->month}','{$this->year}',
-                '{$this->today_short}',
-                '{$this->today_long}',
-                '{$this->today_long}');
-                ";
-
-            // call helper file
-           write2text($file,$content); 
+            $this->backupVisitor($vt->id,"insert");
         }
 
     }
@@ -207,4 +191,43 @@ class VisitorsController extends Controller
     {
         //
     }
+
+
+    /* ============= backupVisitor 25 Jul 2021 START ======================= */
+    public function backupVisitor($id,$command=false){
+        // get the specific record
+        $visit = Visitor::find($id);
+
+
+        //open file 
+        $file = base_path("DB/visitors_list.sqlite");
+        $cont = "";
+        switch($command):
+            case"insert":
+
+                $cont .= "\n 
+/* ======== add to visitors table using auto script {$this->today_long} ==== */
+INSERT INTO `{$this->visitor_table}` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '{$visit->ip}',
+    '{$visit->browser}','{$visit->os}',
+    '{$visit->day_num}','{$visit->month_num}','{$visit->year_num}',
+    '{$visit->date_visit}',
+    '{$visit->created_at}',
+    '{$visit->updated_at}');
+            ";
+            break;
+            default:
+            $cont .= "\n 
+/* ============= DELETE Record {$id} on ".date("Y-m-d H:i:s")." ============ */
+DELETE FROM `{$this->visitor_table}` WHERE id='{$visit->id}';
+";
+            break;
+        endswitch;
+
+       // save backup to file
+       write2text($file,$cont); 
+    }
+    /* ============= backupVisitor 25 Jul 2021 END ========================= */
 }

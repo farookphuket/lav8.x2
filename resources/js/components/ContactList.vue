@@ -4,7 +4,7 @@
 
         <div class="container">
             <!-- ===== Start loop throught the object item ======== --> 
-            <div class="card" 
+            <div class="card mt-2" 
                 v-for="li in faqs.data">
                 <div class="card-header">
                     <h3>{{li.title}}</h3>
@@ -64,7 +64,7 @@
 
  <!-- ========================= Show pagination 5 Jul 2021 =============== -->
 
-    <div class="nav-scroller py-1 mb-2" v-show="faqs.data != 0">
+    <div class="nav-scroller py-1 mb-2 mt-4" v-show="faqs.data != 0">
         <nav class="nav d-flex justify-content-center">
             <ul class="pagination flex-wrap">
                 <li class="page-item disabled ">
