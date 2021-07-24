@@ -4,7 +4,7 @@
            <div class="col-lg-12">
                <h1>Show my timeline</h1>
                <div class="clearfix">
-                   <div class="float-right">
+                   <div class="float-right" v-show="showPrintTimeline">
                        <a href="" class="btn btn-outline-primary btn-xl" 
                            @click.prevent="$emit('print')">
                             <b-icon icon="printer"></b-icon>
@@ -82,13 +82,14 @@
 var moment = require('moment')
 export default{
     name:"TimelineList",
-    props:["timelines","showPagination"],
+    props:["timelines","showPagination","showPrintTimeline"],
     data(){
         return{
             moment:moment,
 
         }
     },
+
 
 
 }

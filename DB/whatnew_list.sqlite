@@ -154,3 +154,70 @@ INSERT INTO `whatnews` (`user_id`,
 
  
  /* ======== auto script 2021-07-20 18:14:05 pm END ========= */
+
+ /* =========== auto script START 2021-07-24 13:20:38 pm  ==================== */
+ /* ====== auto insert script `whatnews` ======== */
+INSERT INTO `whatnews` (`user_id`,
+`token`
+,`whatnew_title`,`whatnew_body`,`is_public`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'fGDB97RMPEQNZeEypAjqfRNMNyhqK8jPnTl5TmSdHmfdOPfPgooiXtOPNkhe',
+    'วันนี้ 24 กรกฎา 2564 หมอยังไม่พร้อม',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>วันนี้อยากรู้ว่า หมอพร้อมหรือยังเอ่ย? ยังไม่พร้อมนะครับ</p>
+    </div>
+    <div class="col-lg-6">
+        <img src="https://i.ibb.co/GQ3jLbx/Screenshot-20210724-074718.jpg" class="responsive" alt="photo tag">
+        <p class="text-center pt-2">24 Jul 2021 หมอยังไม่พร้อม</p>
+    </div>
+    <div class="col-lg-6">
+        <img src="https://i.ibb.co/Xy5W0qC/Screenshot-20210724-083637.jpg" class="responsive" alt="photo tag">
+        <p class="text-center pt-2">
+            24 Jul 2021 หมอยังไม่พร้อม
+
+        </p>
+    </div>
+    <div class="col-lg-12">
+        <p class="pt-2">
+            หมอยังไม่พร้อมวันนี้เราก็ต้องรอกันต่อไป ไม่อยากไปยืนรอ นั่งรอที่โรงพยาบาล เพื่อให้ได้คำตอบว่า "ไม่มีคิวค่ะ" เอาจริงๆ คือ
+            ไม่อยากออกไปเจอผู้คนเลยครับ เพราะว่า ไม่รู้ว่าใครเป็นยังไง ทุกวันนี้ "เซฟ" กว่านี้คงไม่มีแล้วมั๊ง ถ้าออกไปข้างนอกนี่ </p>
+        <ul>
+            <li>
+            หากเห็นว่ามีคนเยอะ ไม่เข้าเด็ดขาด!
+                <span class="badge badge-success p-2">
+                    <i class="lni lni-checkmark-circle"></i>
+                </span>
+
+            </li>
+            <li>ไปตลาดสวมหน้ากาก 2 ชั้น ซื้อของเมื่อไหร่ กดเจลล้างมือ จับเงินเมื่อไหร่ กดเจลล้างมือ
+                <span class="badge badge-success p-2">
+                    <i class="lni lni-checkmark-circle"></i>
+                </span>
+            </li>
+            <li>ซื้อของเสร็จไม่ถึง 10 นาที ก็รีบๆ ออกจากตลาด
+                
+                 <span class="badge badge-success p-2">
+                    <i class="lni lni-checkmark-circle"></i>
+                    
+                </span>
+            </li>
+            <li>ไม่ออกไปไหนเลย ไม่เจอใครเลย จนกว่าของกินจะหมด (อาจจะ 3-4 วัน ถึงจะออกไปตลาดอีก)
+                 <span class="badge badge-success p-2">
+                    <i class="lni lni-checkmark-circle"></i>
+                </span>
+            </li>
+        </ul>
+        <p class="pt-2">
+           มีอะไรที่ผมยังขาดไปมั้ยนี่ ก็อยากจะล๊อคดาวน์ตัวเองนั่นแหละครับ แต่ในความเป็นจริงคงทำไม่ได้ เพราะว่าผมยังต้องออกไปซื้อของมากิน ไม่มีกิน คือ ตาย อดตาย ผมคงไม่ยอม
+        </p>
+    </div>
+</div>',
+    '1',
+    '2021-07-24 13:20:38','2021-07-24 13:20:38'); 
+
+ 
+ /* ======== auto script 2021-07-24 13:20:38 pm END ========= */
+
+

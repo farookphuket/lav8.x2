@@ -96,3 +96,52 @@ INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
  
  /* ======== auto script 2021-07-20 18:29:29 pm END ========= */
 
+
+ /* =========== auto script START 2021-07-24 13:03:12 pm  ==================== */
+ 
+
+/* ============= auto backup insert 2021-07-24 13:03:12 ================= */
+INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
+`tm_body`,`tm_public`,`tm_approved_at`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'whatnew',
+    'post with multi photo at the bottom',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            the content will goes here
+        </p>
+    </div>
+    <div class="col-lg-6">
+        <img src="https://i.ibb.co/GQ3jLbx/Screenshot-20210724-074718.jpg" class="responsive" alt="photo tag">
+        <p class="text-center pt-2">
+          photo text here  
+        </p>
+    </div>
+    <div class="col-lg-6">
+        <img src="https://i.ibb.co/Xy5W0qC/Screenshot-20210724-083637.jpg" class="responsive" alt="photo tag">
+         <p class="text-center pt-2">
+            photo text here  
+        </p>
+    </div>
+</div>',
+    '<div class="row">
+    <div class="col-lg-12">
+        <h1 class="text-center">
+            No content need.
+        </h1>
+        <div class="alert alert-warning text-center">
+            <p>
+                No need content here as it is the template for whatnew.
+            </p>
+        </div>
+    </div>
+</div>',
+    '1',
+    '2021-07-24 13:03:12',
+    '2021-07-24 13:03:12',
+    '2021-07-24 13:03:12');
+
+
+ 
+ /* ======== auto script 2021-07-24 13:03:12 pm END ========= */

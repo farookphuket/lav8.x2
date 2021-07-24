@@ -34,6 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -48,7 +49,8 @@ __webpack_require__.r(__webpack_exports__);
       timelines: [],
       editId: 0,
       res_status: '',
-      showPagination: false
+      showPagination: false,
+      showPrintTimeline: false
     };
   },
   mounted: function mounted() {
@@ -77,6 +79,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (Object.keys(_this.timelines.data).length >= 2) {
           _this.showPagination = true;
+          _this.showPrintTimeline = true;
         }
       });
     },
@@ -349,7 +352,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TimelineList",
-  props: ["timelines", "showPagination"],
+  props: ["timelines", "showPagination", "showPrintTimeline"],
   data: function data() {
     return {
       moment: moment
@@ -605,7 +608,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("timeline-list", {
-        attrs: { timelines: _vm.timelines, showPagination: _vm.showPagination },
+        attrs: {
+          showPrintTimeline: _vm.showPrintTimeline,
+          timelines: _vm.timelines,
+          showPagination: _vm.showPagination
+        },
         on: {
           print: function($event) {
             return _vm.print($event)
@@ -789,23 +796,37 @@ var render = function() {
           _c("h1", [_vm._v("Show my timeline")]),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }, [
-            _c("div", { staticClass: "float-right" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-outline-primary btn-xl",
-                  attrs: { href: "" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.$emit("print")
-                    }
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.showPrintTimeline,
+                    expression: "showPrintTimeline"
                   }
-                },
-                [_c("b-icon", { attrs: { icon: "printer" } })],
-                1
-              )
-            ])
+                ],
+                staticClass: "float-right"
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-primary btn-xl",
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$emit("print")
+                      }
+                    }
+                  },
+                  [_c("b-icon", { attrs: { icon: "printer" } })],
+                  1
+                )
+              ]
+            )
           ])
         ]),
         _vm._v(" "),
