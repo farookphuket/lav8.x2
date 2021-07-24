@@ -14,6 +14,13 @@ lav8.x2 is the current project that I working on now (15 Ap 2021)
 
 > this is the update code list that I have made.
 
+
+
+---
+## ========= date 22 Jul 2021 
+
+> update backup blog script to make less complicated.
+
 ---
 ## ========= date 5 July 2021 
 > update the whatnew in admin and make a backup to file while insert to the DB 

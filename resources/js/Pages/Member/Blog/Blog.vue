@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <blog-form :editId="editId" :tags="tags" 
+        <blog-form :editId="editId" :tags="tags" :category="category"
             @box="box($event)" :templates="templates"
             @getBlogs="getBlogs($event)" v-show="showForm"></blog-form>
 
@@ -59,7 +59,7 @@ export default{
         BlogList,
         BlogForm,
     },
-    props:["templates"],
+    props:["templates","category"],
     data(){
         return{
             blogs:[],

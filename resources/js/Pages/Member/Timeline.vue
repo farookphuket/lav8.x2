@@ -4,7 +4,8 @@
             @getTimelines="getTimelines($event)"  
             :editId="editId" :user_id="user_id"></timeline-form>
 
-        <timeline-list @print="print($event)"
+        <timeline-list @print="print($event)" 
+            :showPrintTimeline="showPrintTimeline"
             :timelines="timelines" @edit="edit($event)" @del="del($event)" 
             :showPagination="showPagination">
         </timeline-list>
@@ -35,6 +36,7 @@ export default {
             editId:0,
             res_status:'',
             showPagination:false,
+            showPrintTimeline:false,
         }
     },
     mounted(){
@@ -57,6 +59,7 @@ export default {
                     this.timelines = res.data.timelines
                     if(Object.keys(this.timelines.data).length >= 2){
                         this.showPagination = true
+                        this.showPrintTimeline = true
                     }
                 })
         },

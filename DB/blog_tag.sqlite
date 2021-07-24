@@ -25,18 +25,4 @@
 
 
 
- /* =========== auto script START 2021-07-16 13:52:47 pm  ==================== */
- /* ===== delete the current tag link ===========*/DELETE FROM `blog_tag` WHERE blog_id='2';/* === re-insert new update tag link ============= */
-INSERT INTO `blog_tag`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
-VALUES(
-    '2',
-    '1',
-    '2021-06-23 07:56:30','2021-06-23 07:56:30');
-/* === re-insert new update tag link ============= */
-INSERT INTO `blog_tag`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
-VALUES(
-    '2',
-    '2',
-    '2021-06-23 07:56:30','2021-06-23 07:56:30');
- 
- /* ======== auto script 2021-07-16 13:52:47 pm END ========= */
+

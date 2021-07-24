@@ -24,8 +24,12 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 <title>@hasSection("meta_title") @yield('meta_title') @else 
 welcome to see-southern.com @endif</title>
 
+<meta name="keywords" content="@hasSection('meta_keywords') @yield('meta_keywords') @else see southern thailand,เมืองใต้บ้านเรา,ภาคใต้ประเทศไทย @endif">
 
-<meta name="description" content="see southern thailand คนใต้บ้านเรานิ มาลองแลกันต๊ะ">
+
+<meta name="description" content="@hasSection('meta_des') @yield('meta_des') @else see southern thailand เมืองใต้บ้านเรา ภาคใต้ประเทศไทย บ้านเราหรอยๆ @endif">
+
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 

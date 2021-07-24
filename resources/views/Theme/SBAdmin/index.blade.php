@@ -14,6 +14,8 @@
             type="image/x-icon"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         <script src="{{asset('SBAdmin/extra/all.min.js')}}"></script>
+
+        <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
         @yield('head_script')
     </head>
     <body class="sb-nav-fixed">

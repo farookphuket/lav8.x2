@@ -5,9 +5,12 @@
            class="card-body">
         
            <h3>
-                <a href="" @click.prevent="$emit('show',bl.slug)">
-                    {{bl.title}}_ 
+                <a href="" title="click to read more"
+                    @click.prevent="$emit('show',bl.slug)">
+                    {{bl.title}}
+                    <b-icon icon="eye"></b-icon>
                 </a>
+                
            </h3>
            <p>{{bl.slug}}</p>
            <div v-html="bl.excerpt">{{bl.excerpt}}</div>
@@ -27,7 +30,7 @@
                <div>
 
                     <span style="magin-top:1.3em;">
-                        <ul>
+                        <ul style="text-decoration:none;">
                             <li v-for="ta in bl.tags" 
                                 style="display:inline-block;
                                 padding:2px;"
@@ -38,10 +41,21 @@
                                     {{ta.tag_name}}
                                     </span>
                                 </li>
+
                         </ul>
                     </span>
+
+                    <div class="float-right">
+                        category :
+                        <span class="badge badge-info p-2" 
+                            v-for="ca in bl.category">
+                            {{ca.cat_title}}
+                        </span>
+                    </div>
+
                </div>
                <!-- === tags end -->
+
                <div class="float-right">
                     <span v-if="user_id == bl.user.id">
                         <button class="btn btn-outline-primary" 

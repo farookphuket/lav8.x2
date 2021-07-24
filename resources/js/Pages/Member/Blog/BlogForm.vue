@@ -12,6 +12,19 @@
                                 v-for="tm in templates">{{tm.tm_title}}</option>
                     </select>
                 </div>
+
+                <!-- category -->
+                <div class="form-group">
+                    <select ref="sel_cat" class="form-control"
+                        name="category" @change.prevent="selectCat">
+                        <option value="0">-- select category --</option>
+                        <option :value="cat.id" v-for="cat in category">
+                        {{cat.cat_title}}
+                        </option>
+                    </select>
+                </div>
+                <!-- category -->
+
                 <div class="form-group">
                     <input v-model="blogForm.title" 
                     class="form-control" ref="title"
@@ -35,13 +48,17 @@
 
                     <div class="row">
                         <div class="col-md-8">
-                            <span v-for="ll in tags">
+                            <span v-for="ll in tags" class="form-check-group pl-4">
                                 <label for="">
                                     <input v-model="blogForm.user_tag" 
                                     :value="ll.id" 
-                                    type="checkbox" name="user_tag">  
-                                    <span class="alert alert-warning" 
+                                    type="checkbox" 
+                                    class="form-check-input mb-2"
+                                    name="user_tag">  
+                                    <span class="badge badge-info p-2 
+                                          mr-2 pl-2 text-white" 
                                         >
+                                        <b-icon icon="tag"></b-icon>
                                         {{ll.tag_name}}
                                     </span>
 
@@ -57,29 +74,30 @@
                     </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <label for="">
+                    <div class="col-md-4 mt-2">
+                        <label for="" class="form-check-group">
                             <input v-model="blogForm.is_public" 
-                            class="my-checkbox" type="checkbox" 
+                            class="form-check-input" type="checkbox" 
                             name="is_public"> 
 
                             <span 
-                                class="alert alert-success" 
+                                class="badge badge-success p-2" 
                                 v-if="blogForm.is_public == true">Public</span>
-                            <span class="alert alert-warning" 
+                            <span class="badge badge-warning p-2" 
                                 v-else>Private</span>
                         </label>
+
                     </div><!-- end of checkbox -->
 
                     <div class="col-md-4">
                         <div v-html="res_status">{{res_status}}</div>
                     </div><!-- end of status -->
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 mt-2">
 
                         <div class="float-right">
                             <button class="btn btn-outline-primary" 
-                                type="submit">Save</button>
+                                    type="submit">{{btn_label}}</button>
                         </div>
                     </div>
 
@@ -96,7 +114,7 @@
 import JoditEditor from 'jodit-vue'
 export default{
     name:"BlogForm",
-    props:["editId","tags","templates"],
+    props:["editId","tags","templates","category"],
     data(){
         return{
             
@@ -104,10 +122,12 @@ export default{
             res_status:'',
             sel_tm:'',
             saveId:0,
+            btn_label:'Create New Blog',
             blogForm:new Form({
                 title:'',
                 excerpt:'',
                 body:'',
+                category:'',
                 new_tag:'',
                 is_public:'',
                 user_tag:[]
@@ -129,6 +149,7 @@ export default{
             this.blogForm.is_public = false
             this.blogForm.user_tag = []
             if(x != 0){
+                this.btn_label = 'Upadate Post'
                 let url = `/member/blog/${x}/edit`
                 axios.get(url)
                     .then(res=>{
@@ -140,6 +161,7 @@ export default{
                                 this.blogForm.excerpt = val.excerpt
                                 this.blogForm.body = val.body
                                 this.saveId = val.id
+                                
                                 if(val.is_public != '0'){
                                     this.blogForm.is_public = true
                                 }
@@ -161,7 +183,7 @@ export default{
 
             let url = ''
             if(id){
-                alert(`will update ${id}`)
+                //alert(`will update ${id}`)
                 url = `/member/blog/${id}`
                 this.blogForm.submit('put',url)
                     .then((res)=>{
@@ -205,6 +227,11 @@ export default{
                     this.blogForm.body = tData.tm_body
                 })
             this.$refs.sel_tm.value = 0
+        },
+        selectCat(){
+           // this.blogForm.category = this.$refs.sel_cat.value
+           // console.log(this.blogForm.category)
+            return this.blogForm.category = this.$refs.sel_cat.value    
         },
     },
 }
