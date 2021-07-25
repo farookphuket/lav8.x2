@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+
+    protected $user_table = "users";
+    protected $role_user_table = "role_user";
     /**
      * Display a listing of the resource.
      *
@@ -69,27 +72,7 @@ class RegisterController extends Controller
         
         $get = User::latest()->first();
         // ====== backup user 
-        $file = base_path("DB/user_list.sqlite");
-        $content = "/* ========== auto backup ".date("Y-m-d H:i:s")." ============= */";
-        $content .= "
-    INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
-    `updated_at`) VALUES 
-    ('{$get->name}',
-    '{$get->email}',
-    '{$get->password}',
-    '0',
-    '{$get->created_at}',
-    '{$get->updated_at}');                                          
-
-    /* ===== attach new user {$get->name} to role member  */
-    INSERT INTO `role_user` (`role_id`,`user_id`,`created_at`,`updated_at`) 
-    VALUES ('2','{$get->id}',
-    '{$get->created_at}',
-    '{$get->updated_at}');                                          
-
-";
-        // === write to file 
-        write2text($file,$content);
+        $this->backupUser($get->id,"insert");
 
 
         $msg = "<span class=\"badge badge-success\">
@@ -144,4 +127,55 @@ class RegisterController extends Controller
     {
         //
     }
+    /* ============= backupUser 25 Jul 2021 START ========================== */
+    public function backupUser($id,$command=false){
+        $user = User::find($id);
+
+        $file = base_path("DB/user_list.sqlite");
+        $cont = "";
+
+        switch($command):
+            case"insert":
+
+                $cont .= "\n
+/* ========== auto backup ".date("Y-m-d H:i:s")." ============= */
+INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
+`updated_at`) VALUES 
+    (
+    '{$user->name}',
+    '{$user->email}',
+    '{$user->password}',
+    '0',
+    '{$user->created_at}',
+    '{$user->updated_at}');                                          
+
+    /* ===== attach new user {$user->name} to role member  */
+INSERT INTO `role_user` (`role_id`,`user_id`,`created_at`,`updated_at`) 
+VALUES (
+    '2',
+    '{$user->id}',
+    '{$user->created_at}',
+    '{$user->updated_at}');                                          
+";
+
+            break;
+            default:
+                $cont .= "\n
+/* ======== Delete the user id {$user->id} on ".date("Y-m-d H:i:s")." ====== */
+DELETE FROM `{$this->user_table}` WHERE id='{$user->id}';
+
+/* 
+ * ".date("Y-m-d H:i:s")." delete user id {$user->id} from role table
+ */
+DELETE FROM `{$this->role_user_table}` WHERE id='{$user->id}';
+";               
+
+            break;
+        endswitch;
+
+        // === write to file 
+        write2text($file,$cont);
+    }
+
+    /* ============= backupUser 25 Jul 2021 END   ========================== */
 }

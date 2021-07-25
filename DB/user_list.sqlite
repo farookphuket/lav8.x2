@@ -30,3 +30,27 @@
     '2020-10-29 06:11:28');                                          
 
 /* ===================== Delfault user please do not delete ================ */
+
+ /* =========== auto script START 2021-07-25 07:55:07 am  ==================== */
+ 
+
+/* ========== auto backup 2021-07-25 07:55:07 ============= */
+INSERT INTO `users` (`name`,`email`,`password`,`is_admin`,`created_at`,
+`updated_at`) VALUES 
+    (
+    'visit',
+    'visit@me.me',
+    '$2y$10$K8hg2RdoOeZNev3sDvgEAuX677x.QjtZT.EUpV4KuN1ELqNvDXQG.',
+    '0',
+    '2021-07-25 07:55:07',
+    '2021-07-25 07:55:07');                                          
+
+    /* ===== attach new user visit to role member  */
+INSERT INTO `role_user` (`role_id`,`user_id`,`created_at`,`updated_at`) 
+VALUES (
+    '2',
+    '4',
+    '2021-07-25 07:55:07',
+    '2021-07-25 07:55:07');                                          
+ 
+ /* ======== auto script 2021-07-25 07:55:07 am END ========= */

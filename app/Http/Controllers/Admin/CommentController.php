@@ -126,27 +126,14 @@ class CommentController extends Controller
         DB::table($this->comment_table)
                     ->where("id",$id)
                     ->update($validate);
-        //===== make backup from last change 
 
+        //===== make backup from last change 
         $bk = DB::table($this->comment_table)
                         ->where("id",$id)
                         ->first();
-
-        $file = base_path("DB/blog_comment_list.sqlite");
-        $content = "/* ============== auto update script ".date("Y-m-d H:i:s"); 
-        $content .= " =============== */";
-
-        $content .= "
-    UPDATE `{$this->comment_table}` SET 
-    comment_title='{$bk->comment_title}',
-    comment_body='{$bk->comment_body}',
-    updated_at='{$bk->updated_at}',
-    comment_approve='{$bk->comment_approve}' 
-    WHERE id={$id};
-";
-        write2text($file,$content);
-
+        $this->backupComment($bk->id,"edit");
         //===== end of backup
+
         $msg = "<span class=\"alert alert-success\">
             Success : data has been save {$id}</span>";
         return response()->json([
@@ -164,4 +151,44 @@ class CommentController extends Controller
     {
         //
     }
+
+    /* ============ backupComment 25 Jul 2021 ============================== */
+    public function backupComment($id,$command=false){
+        // get the comment 
+        $comment = DB::table($this->comment_table)
+                        ->where("id",$id)
+                        ->first();
+
+        // write to this file
+        $file = base_path("DB/blog_comment_list.sqlite");
+        $cm = "";
+
+        switch($command):
+        case"insert":
+
+        break;
+        case"edit":
+
+            $cm .= "\n
+/* ======== update comment id {$}*/
+    UPDATE `{$this->comment_table}` SET 
+    comment_title='{$comment->comment_title}',
+    comment_body='{$comment->comment_body}',
+    updated_at='{$comment->updated_at}',
+    comment_approve='{$comment->comment_approve}' 
+    WHERE id={$id};
+";
+
+        break;
+        default:
+        $cm .= "\n
+/* =========== delete comment {$id} ".date("Y-m-d H:i:s")." ================ */
+DELETE FROM `$this->comment_table` WHERE id='{$id}';
+";
+        break;
+        endswitch;
+        write2text($file,$cm);
+    }
+
+    /* ============ backupComment 25 Jul 2021 ============================== */
 }
