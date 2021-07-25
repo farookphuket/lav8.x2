@@ -205,7 +205,10 @@ class BlogController extends Controller
         DB::table($this->comment_table)->insert($validate);
 
         // ===== make backup for comment
-        $this->backupInsertComment();
+        $cm = DB::table($this->comment_table)
+                    ->latest()
+                    ->first();
+        $this->backupComment($cm->id,"insert");
         
         $msg = "<span class=\"alert alert-success\">
             your comment has been created  </span>";
@@ -335,24 +338,46 @@ class BlogController extends Controller
 
     /* backup for comment START */
 
-    public function backupInsertComment(){
+    public function backupComment($id,$cmd=false){
 
         // get the last insert row
         $bk = DB::table($this->comment_table)
-                ->latest()->first();
+                ->where("blog_id",$id)->first();
         $file = base_path("DB/blog_comment_list.sqlite");
-        $content = "/* ====== auto back up INSERT ".date("Y-m-d H:i:s");
-        $content .= " table {$this->comment_table} ===== */";
-        $content .= " 
-    INSERT INTO `{$this->comment_table}`(`user_id`,`blog_id`,`comment_title`,
-    `comment_body`,`comment_approve`,`created_at`,`updated_at`) VALUES(
+
+        $cm = "";
+        switch($cmd):
+            case"insert":
+
+                $cm .= "\n
+/* =========================================================================== 
+ * blog id {$bk->blog_id} has 
+ * comment id {$bk->comment_id} on ".date("Y-m-d H:i:s")."
+ * ===========================================================================
+ * */
+INSERT INTO `{$this->comment_table}`(`user_id`,`blog_id`,`comment_title`,
+`comment_body`,`comment_approve`,`created_at`,`updated_at`) VALUES(
         '{$bk->user_id}',
         '{$bk->blog_id}',
         '{$bk->comment_title}',
+        '{$bk->comment_body}',
+        '{$bk->comment_approve}',
         '{$bk->created_at}',
         '{$bk->updated_at}');
 ";
-        write2text($file,$content);
+            break;
+            default:
+                $cm .= "\n
+/* ===========================================================================
+ * Delete comment that relatest to blog id {$bk->blog_id} 
+ * on ".date("Y-m-d H:i:s")." as the blog id {$bk->blog_id} has been deleted
+ * ===========================================================================
+ * /
+DELETE FROM {$this->comment_table} WHERE blog_id='{$bk->blog_id}';
+    ";
+            break;
+        endswitch;
+        write2text($file,$cm);
     }
 
 
@@ -417,6 +442,8 @@ DELETE FROM `{$this->blog_table}` WHERE id='{$blog->id}';
 
         // delete tag 
         $this->backupTagLink($blog->id);
+
+        // delete the comment that relatest to this post id 
 
         break;
         endswitch;

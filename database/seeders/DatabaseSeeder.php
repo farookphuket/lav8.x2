@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             WhatnewSeeder::class,
             VisitorSeeder::class,
             TagSeeder::class,
+            CommentSeeder::class,
             BlogSeeder::class,
             PhotoSeeder::class,
             TimelineSeeder::class,

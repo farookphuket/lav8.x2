@@ -37,5 +37,10 @@ class BlogSeeder extends Seeder
         DB::unprepared(file_get_contents($category));
         $this->command->info("category link has been Added");
 
+// add read count for the blog 25 Jul 2021
+        $category = 'DB/blog_count_read.sqlite';
+        DB::unprepared(file_get_contents($category));
+        $this->command->info("blog count read link has been Added");
+
     }
 }
