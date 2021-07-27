@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Template;
 use Auth;
 use DB;
@@ -19,6 +20,10 @@ class BlogController extends Controller
     protected $tag_link = '';
     protected $tag_table = '';
     protected $category_link = "blog_category";
+    protected $read_count_table = "blog_count_read";
+
+    protected $comment_table = "comments";
+    protected $comment_link_table = "blog_comment";
 
     public function __construct(){
         $this->blog_table = "blogs";
@@ -36,6 +41,7 @@ class BlogController extends Controller
        $category = Category::all(); 
        $template = Template::where('tm_method','blog')->get();
 
+       
        return view("Admin.Blog.index")->with([
            "category" => $category,
            "template" => $template
@@ -55,6 +61,7 @@ class BlogController extends Controller
         $blogs = Blog::with("user")        
                     ->with("tags")
                     ->with("category")
+                    ->with("comments")
                     ->orderBy("created_at","desc")
                     ->paginate(3)
                     ->onEachSide(1);
@@ -94,7 +101,8 @@ class BlogController extends Controller
             "title" => ["required","min:5","max:80"]
         ]);
 
-
+        // category 
+        $cat_id = request()->category;
 
         $validate["user_id"] = Auth::user()->id;
         $validate["is_public"] = $is_public;
@@ -110,15 +118,25 @@ class BlogController extends Controller
             $new_tag = $this->makeTag($newPost);
         endif;
 
-        // set the category for this post 
-        $this->updateCategoryLink($newPost->id);
+        // make this blog link to the category 
+        DB::table($this->category_link)
+            ->insert([
+                "category_id" => $cat_id,
+                "blog_id" => $newPost->id,
+                "created_at" => now(),
+                "updated_at" => now()
+            ]);
+
+        // get the last insert row from blog_category table 
+        $cat = DB::table($this->category_link)
+                    ->latest()->first();
+        // ===== backup blog link to category 
+        $this->backupCategoryLink($cat->blog_id,"edit");
 
         // ===== make a backup for this post
-        $this->backupBlog();
+        $this->backupBlog($newPost->id,"insert");
 
 
-        // make a backup category link for this post 
-        $this->backupCategoryLink($newPost->id);
 
 
         $msg = "<span class=\"alert alert-success\">
@@ -141,8 +159,12 @@ class BlogController extends Controller
             ]);
 
             $obj->tags()->attach($new_tag);
+
+            // get the last row
+            $tag = Tag::last()->first();
+
             // make backup tag
-            $this->backupTag();
+            $this->backupTag($tag->id,"insert");
         endif;
 
         $new_tag = Tag::latest()->first();
@@ -150,84 +172,9 @@ class BlogController extends Controller
     }
 
 
-    /**
-     * write to backup file for insert command
-     *
-     * @param  
-     * @return work with store function
-     */
-    public function backupBlog()
-    {
-        // === backup blog 
-        $blog = Blog::latest()->first();
-        $blog_file = base_path("DB/blog_list.sqlite");
-        $con1 = "/* ==== auto backup {$this->blog_table} ".date("Y-m-d H:i:s");
-        $con1 .= " ===== INSERT Command */";
-        $con1 .= "
-    INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
-    `is_public`,`created_at`,`updated_at`) VALUES(
-        '{$blog->user_id}',
-        '{$blog->slug}',
-        '{$blog->title}',
-        '{$blog->excerpt}',
-        '{$blog->body}',
-        '{$blog->is_public}',
-        '{$blog->created_at}','{$blog->updated_at}'
-);
-";
-        write2text($blog_file,$con1);
-
-        // ==========================
-        $now = now();
-        // the attach will not insert created_at,updated_at field so 
-        // this 2 fields will be null we have to update this 
-        DB::table($this->tag_link)
-                    ->where("blog_id",$blog->id)
-                    ->update([
-                        "created_at" => $now,
-                       "updated_at" => $now 
-                    ]);
-        $get_tag = DB::table($this->tag_link)
-            ->where("blog_id",$blog->id)
-            ->get();
-        //===== tag can be more than one item
-        foreach($get_tag as $item):
-            $file = base_path("DB/blog_tag.sqlite");
-            $con2 = "/* ======= auto tag link ".date("Y-m-d H:i:s");
-            $con2 .= " ======= table {$this->tag_link} ========== */";
-            $con2 .= "
-    INSERT INTO `{$this->tag_link}`(`blog_id`,`tag_id`,`created_at`,
-    `updated_at`) VALUES(
-        '{$item->blog_id}','{$item->tag_id}',
-        '{$item->created_at}','{$item->updated_at}'
-);
-";
-        write2text($file,$con2);
-        endforeach;
-    }
 
 
-    /**
-     * write to backup file for insert command
-     * for backup tag
-     * @param  
-     * @return work with store function
-     */
 
-    public function backupTag(){
-        $tag = Tag::latest()->first();
-        $file = base_path("DB/tag_list.sqlite");
-        $content = "/* ================= auto INSERT ".date("Y-m-d H:i:s");
-        $content .= " === for {$this->tag_table} table ========== */";
-        $content .= "
-    INSERT INTO `{$this->tag_table}`(`user_id`,`tag_name`,`created_at`,
-    `updated_at`) VALUES(
-        '{$tag->user_id}','{$tag->tag_name}',
-        '{$tag->created_at}','{$tag->updated_at}'
-);
-";
-        write2text($file,$content);
-    }
 
     /**
      * Display the specified resource.
@@ -241,6 +188,12 @@ class BlogController extends Controller
                     ->with("tags")
                     ->where("slug",$slug)
                     ->first();
+
+        // update read count 
+        $this->updateReadCount($get->id);
+
+
+
         return view("Admin.Blog.show")->with([
             "blog" => $get
         ]);
@@ -301,14 +254,11 @@ class BlogController extends Controller
             $new_tag = $this->makeTag($newPost);
         endif;
 
-        // update the category 
-        $this->updateCategoryLink($id);
-
-        // make a backup category link for this post 
-        $this->backupCategoryLink($id);
 
         // make a backup to file 
-        $this->backupUpdateBlog($id);
+        $this->backupBlog($id,"edit");
+
+
         $msg = "<span class=\"alert alert-success\">
             Succes : data has been updated</span>";
         return response()->json([
@@ -326,6 +276,10 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
+
+        // backup to file 
+        $this->backupBlog($id);
+
         $del = Blog::where('id',$id)->first();
         $del->tags()->detach();
         $del->delete();
@@ -338,39 +292,53 @@ class BlogController extends Controller
         ]);
     }
 
-    /* =============== updateCategoryLink 16 Jul 2021 ===================*/
-    public function updateCategoryLink($id){
-        $get_cat = DB::table($this->category_link)
-                        ->where("blog_id",$id)
-                        ->get();
-        if(count($get_cat) == 0):
-            DB::table($this->category_link)
-            ->insert([
-                "category_id" => request()->category,
-                "blog_id" => $id,
-                "created_at" => now(),
-                "updated_at" => now()
-            ]); 
-        else:
-        DB::table($this->category_link)
-            ->where("blog_id",$id) 
-            ->update([
-                "category_id" => request()->category,
-                "updated_at" => now()
-            ]);
-        endif;
-            
-    }
 
-    /* =============== updateCategoryLink 16 Jul 2021 ===================*/
 
-    /* ========================== backup update blog 12 Jul 2021 =========== */
-    public function backupUpdateBlog($id){
+    /* this method "backupBlog" will write the sql to file for backup 
+     * the method will call some other method like "backupTagLink",
+     * "backupCategoryLink","backupCommentLink"
+     *
+     * */
+    /* =============== backup Blog ========================================= */
+    public function backupBlog($id,$cmd=false)
+    {
+        // === backup blog 
         $blog = Blog::find($id);
-        $file = base_path("DB/blog_list.sqlite");
+        $blog_file = base_path("DB/blog_list.sqlite");
 
-        $cont = "/* =============== update script =========================*/";
-        $cont .= "
+
+
+        $command = "";
+        switch($cmd):
+            case"insert":
+
+                $command .= "\n 
+/* ============================================================================
+* backup script blog id {$id} on ".date("Y-m-d H:i:s")."
+* =============================================================================
+* */
+INSERT INTO `{$this->blog_table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,
+`is_public`,`created_at`,`updated_at`) VALUES(
+    '{$blog->user_id}',
+    '{$blog->slug}',
+    '{$blog->title}',
+    '{$blog->excerpt}',
+    '{$blog->body}',
+    '{$blog->is_public}',
+    '{$blog->created_at}',
+    '{$blog->updated_at}');
+";
+                // ======= backup tag link
+                $this->backupTagLink($blog->id,"edit");
+
+            break;
+            case"edit":
+
+                $command .= "\n
+/* ============================================================================
+* backup update blog id {$blog->id} on ".date("Y-m-d H:i:s")."
+* =============================================================================
+* */
 UPDATE `{$this->blog_table}` SET title='{$blog->title}',
 slug='{$blog->slug}',
 excerpt='{$blog->excerpt}',
@@ -380,71 +348,308 @@ updated_at='{$blog->updated_at}'
 WHERE id='{$blog->id}';
 ";
 
-        write2text($file,$cont);
-        
-        // update tag 
-        $tags = DB::table($this->tag_link)
-                    ->where("blog_id",$blog->id)
-                    ->get();
-        if(count($tags) != 0):
-
-            $f2 = base_path("DB/blog_tag.sqlite");
-        $c2 = "/* ===== delete the current tag link ===========*/";
-        $c2 .= "DELETE FROM `$this->tag_link` WHERE blog_id='{$blog->id}';";
-            foreach($tags as $tag):
-                $c2 .= "/* === re-insert new update tag link ============= */";
-        $c2 .= "
-INSERT INTO `{$this->tag_link}`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
-VALUES(
-    '{$tag->blog_id}',
-    '{$tag->tag_id}',
-    '{$tag->created_at}','{$tag->updated_at}');
+                
+                // ======= backup tag link
+                $this->backupTagLink($blog->id,"edit");
+            break;
+            default:
+                $command .= "\n
+/* ============================================================================
+ * Delete blog {$blog->id} on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$this->blog_table}` WHERE id='{$blog->id}';
 ";
 
-            endforeach; 
-        write2text($f2,$c2);
-        endif;
+            /*
+             * after we have delete the specific blog id 
+             * all of the link table will be orphan so we have to make sure 
+             * that this will not be an orphan link left on the next migrate
+             * other wise the command will be Error as it's cannot find the 
+             * specific id for the blog id 
+             * the table link that relatest to this blog id in case delete
+             * has 4 tables 
+             * "blog_category","blog_tag","blog_comment","blog_count_read"
+             * */
+            // ======= delete backup tag link
+            $this->backupTagLink($blog->id);
 
+            // == delete category link 
+            $this->backupCategoryLink($blog->id);
+
+            // == delete read count 
+            $this->backupReadCount($blog->id);
+
+            // delete the comment link 
+            Comment::backupBlogCommentLink($blog->id);
+
+            break;
+        endswitch;
+
+        write2text($file,$command);
     }
-    /* ========================== backup update blog 12 Jul 2021 =========== */
+
+
+    // ============= tag table backup
+    public function backupTag($id,$cmd=false){
+        /*
+         * this method will be call when to create new tag 
+         * relatest to store,update method on blog
+         * */
+        $tag = Tag::find($id);
+        $file = base_path("DB/tag_list.sqlite");
+
+        $command = "";
+    
+        switch($cmd):
+
+        case"insert":
+
+            $command .= "\n
+/* ============================================================================
+* backup insert new tag {$id} on ".date("Y-m-d H:i:s")."
+* =============================================================================
+* */
+INSERT INTO `{$this->tag_table}`(`user_id`,`tag_name`,`created_at`,
+`updated_at`) VALUES(
+    '{$tag->user_id}',
+    '{$tag->tag_name}',
+    '{$tag->created_at}',
+    '{$tag->updated_at}');
+";
+        break;
+        case"edit":
+            $command .= "\n
+/* ============================================================================
+ * backup update tag id {$id} on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+UPDATE `{$this->tag_table}` SET tag_name='{$tag->tag_name}',
+updated_at='{$tag->updated_at}' WHERE id='{$tag->id}';
+";
+        break;
+        default:
+            $command .= "\n
+/* ============================================================================
+ * DELETE command for tags table on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$this->tag_table}` WHERE id='{$id}';
+";
+        break;
+        endswitch;
+
+
+        write2text($file,$command);
+    }
 
     /* ============= backupCategoryLink 16 Jul 2021 =========================*/
-    public function backupCategoryLink($blog_id){
+    public function backupCategoryLink($blog_id,$cmd=false){
         $cat_link = DB::table($this->category_link)
                     ->where("blog_id",$blog_id)
                     ->get();
         $file = base_path("DB/blog_category.sqlite");
-        $cont = "\n/* ======== backup blog category link ==========*/";
-        if(count($cat_link) != 0):
-            $cont .= "\nDELETE FROM `{$this->category_link}` 
-            WHERE blog_id='{$blog_id}';\n";
-            foreach($cat_link as $cat):
-                $cont .= "
-INSERT INTO `{$this->category_link}`(`category_id`,`blog_id`,`created_at`,
-`updated_at`) VALUES(
-    '{$cat->category_id}','{$cat->blog_id}',
-    '{$cat->created_at}','{$cat->updated_at}');
-"; 
-            endforeach;
+        $cont = "";
 
-        else:
+        switch($cmd):
+            case"edit":
 
-            foreach($cat_link as $cat):
+                if(count($cat_link) != 0):
+                    $cont .= "\n 
+/* ============================================================================
+ * just to prevent from the repetition so delete the old link to 
+ * blog id {$blog_id} on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */                    
+DELETE FROM `{$this->category_link}` WHERE blog_id='{$blog_id}';\n";
+
+               endif; 
+
+                    foreach($cat_link as $cat):
+                        $cont .= "\n
+/* ============================================================================
+ * backup the blog id {$blog_id} to link to {$cat->category_id} 
+ * on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */                    
+        INSERT INTO `{$this->category_link}`(`category_id`,`blog_id`,`created_at`,
+        `updated_at`) VALUES(
+            '{$cat->category_id}','{$cat->blog_id}',
+            '{$cat->created_at}','{$cat->updated_at}');
+        "; 
+                    endforeach;
+
+            break;
+            default:
+
                 $cont .= "\n
-INSERT INTO `{$this->category_link}`(`category_id`,`blog_id`,`created_at`,
-`updated_at`) VALUES(
-    '{$cat->category_id}','{$cat->blog_id}',
-    '{$cat->created_at}','{$cat->updated_at}');
-"; 
-            endforeach;
+/* ============================================================================
+ * backup DELETE category as The blog id {$blog_id} 
+ * has deleted on ".date("Y-m-d H:i:s")."   
+ * ============================================================================
+*/ 
+DELETE FROM `{$this->category_link}` WHERE blog_id='{$blog_id}';";
+            break;
+        endswitch;
 
-       endif; 
+
         write2text($file,$cont);
     }
 
     /* ============= backupCategoryLink 16 Jul 2021 =========================*/
 
+    /* ============= backupTagLink 27 Jul 2021 START ======================= */
+    public function backupTagLink($id,$cmd=false){
+        /*
+         * this method will call by "backupBlog" 
+         * this method will write the insert command to file 
+         * "DB/blog_tag.sqlite" to backup the blog tag link 
+         *
+         * */
 
+        // file to write the command
+        $file = base_path("DB/blog_tag.sqlite");
+
+        // get the tag that link to the specific blog_id 
+        $tags = DB::table($this->tag_link)
+                        ->where("blog_id",$id)
+                        ->get();
+
+        // the command to write
+        $command = "";
+
+        switch($cmd):
+            case"edit":
+                if(count($tags) != 0):
+
+                    $command .= "\n
+/* ============================================================================
+ * delete the tag link from blog id {$id} on ".date("Y-m-d H:i:s")."
+ * to prevent this command from repetition
+ * ============================================================================
+ * */
+DELETE FROM `{$this->tag_link}` WHERE blog_id='{$id}';\n
+";
+                endif;
+                
+                // tag link can be more than one 
+                foreach($tags as $ta):
+                    $command .= "\n 
+/* ============================================================================
+ * backup tag link for blog id {$id} on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+INSERT INTO `{$this->tag_link}`(`blog_id`,`tag_id`,`created_at`,`updated_at`) 
+VALUES(
+    '{$ta->blog_id}',
+    '{$ta->tag_id}',
+    '{$ta->created_at}',
+    '{$ta->updated_at}');
+";
+                endforeach;
+
+            break;
+            default:
+                $command .= "\n
+/* ============================================================================
+ * delete the tag link from blog id {$id} on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$this->tag_link}` WHERE blog_id='{$id}';
+";
+            break;
+        endswitch;
+
+        // write the command to file
+        write2text($file,$command);
+    }
+
+    /* ============= backupTagLink 27 Jul 2021 END   ======================= */
+
+
+
+    /* ============ update read count 26 Jul 2021 ========================== */
+    public function updateReadCount($blog_id){
+
+        $blog = Blog::find($blog_id);
+
+        $count_read = DB::table($this->read_count_table)
+                    ->where("blog_id",$blog_id)
+                    ->whereDay("last_readed_at","=",date("Y-m-d"))
+                    ->where("ip",getUserIp())
+                    ->get();
+        $new_read = "";
+        if(count($count_read) == 0):
+            $new_read = [
+                "blog_id" => $blog_id,
+                "ip" => getUserIp(),
+                "os" => getUserOs(),
+                "browser" => getUserBrowser(),
+                "last_readed_at" => now(),
+                "created_at" => now(),
+                "updated_at" => now()
+            ];
+        DB::table($this->read_count_table)
+            ->insert($new_read);
+
+        // get the read count of this blog id
+        $new_count = DB::table($this->read_count_table)
+                        ->where("blog_id",$blog->id)
+                        ->get();
+                        
+        // update field read count
+        Blog::where("id",$blog_id)
+            ->update([
+                "read_count" => count($new_count)
+            ]);
+
+        // make backup to file
+        $this->backupReadCount($blog->id,"insert");
+
+        endif;
+    }
+
+    public function backupReadCount($id,$cmd=false){
+        $file = base_path("DB/blog_count_read.sqlite");
+
+        $r_count = DB::table($this->read_count_table)
+                        ->where("blog_id",$id)
+                        ->latest()
+                        ->first();
+        $command = "";
+        switch($cmd):
+            case"insert":
+                $command .= "\n
+/* ============================================================================
+*  read count for blog id {$id} on ".date("Y-m-d H:i:s")."
+* =============================================================================
+*/
+INSERT INTO `{$this->read_count_table}`(`blog_id`,`ip`,`browser`,`os`,
+`last_readed_at`,`created_at`,`updated_at`) VALUES(
+    '{$r_count->blog_id}',
+    '{$r_count->ip}',
+    '{$r_count->browser}',
+    '{$r_count->os}',
+    '{$r_count->created_at}',
+    '{$r_count->updated_at}');
+";
+            break;
+            default:
+                $command .= "\n 
+/* ============================================================================
+ *  delete this read count link as the blog id {$r_count->blog_id} has been 
+ *  removed , this command created on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$this->read_count_table}` WHERE blog_id='{$r_count->blog_id}';
+";
+            break;
+        endswitch;
+
+        write2text($file,$command);
+
+    }
+    /* ============ update read count 26 Jul 2021 ========================== */
 
 
 }

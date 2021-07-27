@@ -60,12 +60,16 @@ __webpack_require__.r(__webpack_exports__);
 
       url = "/admin/getComments";
       axios.get(url).then(function (res) {
-        //console.log(res.data)
+        console.log(res.data);
         _this.comments = res.data.comments;
       });
     },
     edit: function edit(id) {
       this.editId = id;
+    },
+    openBlog: function openBlog(slug) {
+      var url = "/admin/blog/".concat(slug);
+      location.href = url;
     }
   }
 });
@@ -195,6 +199,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -508,6 +515,9 @@ var render = function() {
           edit: function($event) {
             return _vm.edit($event)
           },
+          openBlog: function($event) {
+            return _vm.openBlog($event)
+          },
           getComments: function($event) {
             return _vm.getComments($event)
           }
@@ -677,78 +687,104 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "card mb-4" },
-    _vm._l(_vm.comments, function(co) {
+    _vm._l(_vm.comments.data, function(co) {
       return _c("div", { staticClass: "card-body" }, [
-        _c("h3", [_vm._v(_vm._s(co.title))]),
+        _c("h3", [_vm._v(_vm._s(co.comment_title))]),
         _vm._v(" "),
         _c("ul", { staticClass: "list-group" }, [
-          _c("li", { staticClass: "list-group-item" }, [
-            _c("a", { attrs: { href: "" } }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(co.comment_title) +
-                  " · \n                    \n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "span",
-              [
-                _c("b-icon", { attrs: { icon: "person" } }),
-                _vm._v(
-                  "                        \n                    " +
-                    _vm._s(co.user.name) +
-                    " · \n                    "
-                ),
-                _c("b-icon", { attrs: { icon: "calendar2-day" } }),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.moment(co.created_at)) +
-                    "\n                "
+          _c(
+            "li",
+            { staticClass: "list-group-item" },
+            [
+              _vm._l(co.blogs, function(bl) {
+                return _c(
+                  "a",
+                  {
+                    attrs: { href: "#", title: bl.title },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$emit("openBlog", bl.slug)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(bl.title) +
+                            "\n                    "
+                        ),
+                        _c("b-icon", { attrs: { icon: "arrow-up-right" } })
+                      ],
+                      1
+                    )
+                  ]
                 )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("span", { staticClass: "float-right" }, [
+              }),
+              _vm._v(" "),
               _c(
-                "a",
-                { attrs: { href: "", title: _vm.moment(co.created_at) } },
+                "span",
                 [
+                  _c("b-icon", { attrs: { icon: "person" } }),
                   _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.moment(co.created_at).fromNow()) +
-                      "\n                    "
+                    "                        \n                    " +
+                      _vm._s(co.user.name) +
+                      " · \n                    "
+                  ),
+                  _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.moment(co.created_at)) +
+                      "\n                "
                   )
-                ]
+                ],
+                1
               ),
               _vm._v(" "),
-              co.created_at != co.updated_at
-                ? _c("a", { attrs: { href: "" } }, [
+              _c("span", { staticClass: "float-right" }, [
+                _c(
+                  "a",
+                  { attrs: { href: "", title: _vm.moment(co.created_at) } },
+                  [
                     _vm._v(
-                      "\n                        · replies " +
-                        _vm._s(_vm.moment(co.updated_at).fromNow()) +
+                      "\n                        " +
+                        _vm._s(_vm.moment(co.created_at).fromNow()) +
                         "\n                    "
                     )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-outline-primary",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.$emit("edit", co.id)
+                  ]
+                ),
+                _vm._v(" "),
+                co.created_at != co.updated_at
+                  ? _c("a", { attrs: { href: "" } }, [
+                      _vm._v(
+                        "\n                        · replies " +
+                          _vm._s(_vm.moment(co.updated_at).fromNow()) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-primary",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$emit("edit", co.id)
+                      }
                     }
-                  }
-                },
-                [_c("b-icon", { attrs: { icon: "pen" } })],
-                1
-              )
-            ])
-          ]),
+                  },
+                  [_c("b-icon", { attrs: { icon: "pen" } })],
+                  1
+                )
+              ])
+            ],
+            2
+          ),
           _vm._v(" "),
           _c(
             "li",

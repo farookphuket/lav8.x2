@@ -530,6 +530,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1408,6 +1429,43 @@ var render = function() {
                               [_c("b-icon", { attrs: { icon: "lock" } })],
                               1
                             )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-8 mt-4 mb-4" },
+                      _vm._l(bl.comments, function(cm) {
+                        return _c(
+                          "span",
+                          [
+                            _c("b-icon", { attrs: { icon: "chat-quote" } }),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(bl.comments.length) +
+                                "\n                            "
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 mt-4 mb-4" }, [
+                      _c("div", { staticClass: "float-right" }, [
+                        _c(
+                          "span",
+                          [
+                            _c("b-icon", { attrs: { icon: "eye" } }),
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(bl.read_count) +
+                                "\n                                "
+                            )
+                          ],
+                          1
+                        )
                       ])
                     ]),
                     _vm._v(" "),

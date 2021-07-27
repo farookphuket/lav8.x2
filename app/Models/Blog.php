@@ -26,4 +26,8 @@ class Blog extends Model
     public function category(){
         return $this->belongsToMany(Category::class);
     }
+
+    public function comments(){
+        return $this->belongsToMany(Comment::class);
+    }
 }

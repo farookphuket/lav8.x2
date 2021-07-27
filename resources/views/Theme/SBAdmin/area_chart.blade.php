@@ -80,10 +80,22 @@
                 <ul>
                     @foreach($last_comment as $item)
                         <li>
-                            {{$item->comment_title}} &middot; 
-                            {{$item->created_at}}
-                            &middot; 
-                            {{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{$item->comment_title}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{$item->created_at}}
+                                     &middot; 
+                                    {{\Carbon\Carbon::parse(
+                                        $item->created_at)
+                                        ->diffForHumans()}}
+                                </div>
+                                <div class="col-md-3">
+                                    {{$item->user->name}}
+                                </div>
+                            </div>
+                            
                         </li>
                     @endforeach
                 </ul>

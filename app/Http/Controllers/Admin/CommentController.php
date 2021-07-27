@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 use DB;
@@ -12,11 +13,14 @@ use Auth;
 class CommentController extends Controller
 {
     protected $comment_table = '';
+    protected $blog_comment_link = 'blog_comment';
     protected $reply_table = '';
 
     public function __construct(){
-        $this->comment_table = 'blog_comment';
+        $this->comment_table = 'comments';
+        
         $this->reply_table = 'blog_reply';
+
     }
 
 
@@ -38,12 +42,10 @@ class CommentController extends Controller
      */
     public function getComments()
     {
-        $comments = Blog::with("user")
-                        ->join($this->comment_table,
-                            "{$this->comment_table}.blog_id","=",
-                            "blogs.id")
-                            ->select("blogs.title","{$this->comment_table}.*")
-                            ->get();
+        $comments = Comment::with("user")
+                        ->with("blogs")
+                        ->orderBy("created_at","desc")
+                        ->paginate(3);
 
 
         return response()->json([
@@ -170,7 +172,7 @@ class CommentController extends Controller
         case"edit":
 
             $cm .= "\n
-/* ======== update comment id {$}*/
+/* ======== update comment id {$id}*/
     UPDATE `{$this->comment_table}` SET 
     comment_title='{$comment->comment_title}',
     comment_body='{$comment->comment_body}',

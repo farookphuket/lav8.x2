@@ -81,6 +81,7 @@ export default{
 
         },
         openMe(slug){
+
             let url = `/admin/blog/${slug}`
             location.href=url
         },

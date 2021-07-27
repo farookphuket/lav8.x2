@@ -20,3 +20,4 @@ INSERT INTO `blog_comment`(`user_id`,`blog_id`,`comment_id`,`created_at`,
 
 /* =========================== auto script will goes here ================== */
 
+
