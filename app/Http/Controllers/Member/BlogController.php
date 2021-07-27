@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Template;
@@ -71,6 +72,7 @@ class BlogController extends Controller
         $blogs = Blog::with('user')
             ->with("tags")
             ->with("category")
+
             ->where("is_public",1)
             ->orWhere("user_id",Auth::user()->id)
             ->orderBy("created_at","desc")
@@ -247,6 +249,7 @@ class BlogController extends Controller
 
         $bl = Blog::with('user')
             ->with("tags")
+            ->with("comments")
             ->where('slug',$blog->slug)
             ->get();
         return view('Member.Blog.show')->with([

@@ -28,6 +28,6 @@ class Blog extends Model
     }
 
     public function comments(){
-        return $this->belongsToMany(Comment::class);
+        return $this->belongsToMany(Comment::class)->with("user");
     }
 }

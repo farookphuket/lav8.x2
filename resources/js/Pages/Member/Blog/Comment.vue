@@ -4,7 +4,7 @@
         <comment-form :blog_id="blog_id" @getComments="getComments($event)" 
             @box="box($event)" :editId="editId"></comment-form>
 
-        <comment-list :comments="comments" 
+        <comment-list :comments="comments" :showPagination="showPagination"
             :slug="slug" :blog_id="blog_id" 
             @getComments="getComments($event)"></comment-list>
 
@@ -35,13 +35,15 @@ export default{
             comments:[],
             cook_blog_id:'',
             slug:'',
+            showPagination:false,
 
         }
     },
     mounted(){
 
-        if(this.$cookies.get("cook_blog_id") != this.blog_id){
+        if(parseInt(this.$cookies.get("cook_blog_id")) != this.blog_id){
             this.$cookies.remove("mcomment_old")
+
         }
 
         this.getComments()
@@ -65,7 +67,7 @@ export default{
                     //console.log(res.data)
                     this.comments = res.data.comments
                     this.slug = res.data.slug
-                    
+                    if(Object.keys(this.comments.data).length >=2) this.showPagination = true
 
                 })
         },

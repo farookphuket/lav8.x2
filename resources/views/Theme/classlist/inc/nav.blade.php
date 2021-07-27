@@ -77,6 +77,12 @@
                     
                     <li>
                         <a 
+                        class="@if($mem_req == '/comment') active @endif"
+                        href="{{route('member.comment.index')}}">Comment</a>
+
+                    </li>
+                    <li>
+                        <a 
                         class="@if($mem_req == '/photo') active @endif"
                         href="{{route('member.photo.index')}}">Photo</a>
 

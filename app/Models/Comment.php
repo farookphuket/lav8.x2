@@ -14,9 +14,9 @@ class Comment extends Model
         "user_id","comment_title","comment_body","comment_approved_at"
     ];
 
-    protected $blog_comment_link_table = 'blog_comment';
+    protected static $blog_comment_link_table = 'blog_comment';
 
-    protected $comment_table = 'comments';
+    protected static $comment_table = 'comments';
 
     /**
      * undocumented function
@@ -35,30 +35,74 @@ class Comment extends Model
      */
     public function blogs()
     {
-        return $this->belongsToMany(Blog::class);
+        return $this->belongsToMany(Blog::class)->with("users");
     }
     
 
     /* ============= backupComment 27 Jul 2021 START =================== */
 
     public static function backupComment($comment_id,$cmd=false){
+        
+        // the comment table
+        $table = static::$comment_table;
+
+        $cmt = Comment::find($comment_id);
         $file = base_path("DB/comment_list.sqlite");
         $command = "";
 
         switch($cmd):
-
-            default:
+            case"insert":
+                $command .= "\n 
+/* ============================================================================
+ * backup insert to {$table} the id '{$cmt->id}'
+ *
+ * ============================================================================
+ * */
+INSERT INTO `{$table}`(`user_id`,`comment_title`,`comment_body`,`created_at`,
+`updated_at`) VALUES(
+    '{$cmt->user_id}',
+    '{$cmt->comment_title}',
+    '{$cmt->comment_body}',
+    '{$cmt->created_at}',
+    '{$cmt->updated_at}');
+";
                 
             break;
+            case"edit":
+                $command .= "\n 
+/* ============================================================================
+ * update script on comment table '{$cmt->id}'
+ * on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+UPDATE `{$table}` SET comment_title='{$cmt->comment_title}',
+comment_body='{$cmt->comment_body}',
+updated_at='{$cmt->updated_at}' WHERE id='{$cmt->id}';
+";
+            break;
+            default:
+        $command .= "\n
+/* ============================================================================
+ * DELETE comment id {$comment_id} as the link table has been delete 
+ * on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$table}` WHERE id='{$comment_id}';
+"; 
+            break;
         endswitch;
+
+        write2text($file,$command);
     }
     /* ============= backupComment 27 Jul 2021 END   =================== */
 
     /* ============= backupBlogCommentLink 27 Jul 2021 START================ */
     public static function backupBlogCommentLink($blog_id,$cmd=false){
 
+        $table = static::$blog_comment_link_table;
+
         $file = base_path("DB/blog_comment_list.sqlite");
-        $cmt = DB::table($this->blog_comment_link_table)
+        $cmt = DB::table($table)
                     ->where("blog_id",$blog_id)
                     ->get();
         $comment_id = "";
@@ -81,7 +125,7 @@ class Comment extends Model
  * delete the link just to prevent from having repetition 
  * ============================================================================
  * */
-DELETE FROM `{$this->blog_comment_link_table}` WHERE blog_id='{$blog_id}';
+DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
 ";
                 endif;
                 foreach($cmt as $comment):
@@ -92,8 +136,9 @@ DELETE FROM `{$this->blog_comment_link_table}` WHERE blog_id='{$blog_id}';
  * blog id '{$blog_id}' linking to '{$comment->comment_id}'
  * ============================================================================
  * */
-INSERT INTO `{$this->blog_comment_link_table}`(`blog_id`,`comment_id`,
+INSERT INTO `{$table}`(`user_id`,`blog_id`,`comment_id`,
 `created_at`,`updated_at`) VALUES(
+    '{$comment->user_id}',
     '{$comment->blog_id}',
     '{$comment->comment_id}',
     '{$comment->created_at}',
@@ -110,11 +155,11 @@ INSERT INTO `{$this->blog_comment_link_table}`(`blog_id`,`comment_id`,
  * has been deleted on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$this->blog_comment_link_table}` WHERE blog_id='{$blog_id}';
+DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
 ";     
 
                 // delete the comment 
-                $this->backupComment($comment_id);
+                static::backupComment($comment_id);
             break;
         endswitch;
 

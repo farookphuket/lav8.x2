@@ -194,6 +194,7 @@ class BlogController extends Controller
 
 
 
+
         return view("Admin.Blog.show")->with([
             "blog" => $get
         ]);
@@ -279,6 +280,9 @@ class BlogController extends Controller
 
         // backup to file 
         $this->backupBlog($id);
+
+        // delete comment link 
+        Comment::backupBlogCommentLink($id);
 
         $del = Blog::where('id',$id)->first();
         $del->tags()->detach();

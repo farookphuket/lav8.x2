@@ -48,11 +48,12 @@ __webpack_require__.r(__webpack_exports__);
       editId: '',
       comments: [],
       cook_blog_id: '',
-      slug: ''
+      slug: '',
+      showPagination: false
     };
   },
   mounted: function mounted() {
-    if (this.$cookies.get("cook_blog_id") != this.blog_id) {
+    if (parseInt(this.$cookies.get("cook_blog_id")) != this.blog_id) {
       this.$cookies.remove("mcomment_old");
     }
 
@@ -80,6 +81,7 @@ __webpack_require__.r(__webpack_exports__);
         //console.log(res.data)
         _this.comments = res.data.comments;
         _this.slug = res.data.slug;
+        if (Object.keys(_this.comments.data).length >= 2) _this.showPagination = true;
       });
     },
     box: function box(msg) {
@@ -169,7 +171,7 @@ __webpack_require__.r(__webpack_exports__);
       if (id) {
         url = "/member/updateComment/".concat(id);
       } else {
-        url = "/member/saveComment";
+        url = "/member/comment";
         this.cForm.submit("post", url).then(function (res) {
           _this.res_status = res.msg;
 
@@ -261,11 +263,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CommentList",
-  props: ["comments", "blog_id", "slug"],
+  props: ["comments", "blog_id", "slug", "showPagination"],
   data: function data() {
     return {
       moment: moment
@@ -524,7 +527,12 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("comment-list", {
-        attrs: { comments: _vm.comments, slug: _vm.slug, blog_id: _vm.blog_id },
+        attrs: {
+          comments: _vm.comments,
+          showPagination: _vm.showPagination,
+          slug: _vm.slug,
+          blog_id: _vm.blog_id
+        },
         on: {
           getComments: function($event) {
             return _vm.getComments($event)
@@ -718,8 +726,14 @@ var render = function() {
       _vm._l(_vm.comments.data, function(co) {
         return _c("div", { staticClass: "review-item pt-60 mb-30" }, [
           _c("div", { staticClass: "media" }, [
-            _c("div", { staticClass: "info" }, [
-              _c("h4", {}, [_vm._v(_vm._s(co.name) + ' " \n                ')])
+            _c("div", { staticClass: "info mr-4" }, [
+              _c("h4", {}, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(co.user.name) +
+                    " \n                "
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "rating" }, [
@@ -736,13 +750,27 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { domProps: { innerHTML: _vm._s(co.comment_body) } }, [
-            _vm._v("\n            " + _vm._s(co.comment_body) + "\n        ")
+            _vm._v(
+              "\n                " + _vm._s(co.comment_body) + "\n            "
+            )
           ])
         ])
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showPagination,
+              expression: "showPagination"
+            }
+          ],
+          staticClass: "nav-scroller py-1 mb-2 mt-4"
+        },
+        [
           _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
             _c(
               "ul",
@@ -821,8 +849,8 @@ var render = function() {
               2
             )
           ])
-        ])
-      ])
+        ]
+      )
     ],
     2
   )

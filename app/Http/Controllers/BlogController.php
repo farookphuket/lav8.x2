@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
 
 use DB;
+use Auth;
 
 class BlogController extends Controller
 {
@@ -97,6 +99,11 @@ class BlogController extends Controller
         $blog_id = request()->blog_id;
         $blog = Blog::where("id",$blog_id)->first();
         $slug = $blog->slug;
+
+        $comments = $blog->comments()
+                        ->orderBy("comments.created_at","desc")
+                        ->paginate(2);
+        /*
         $comments = DB::table("users")
             ->join("{$this->comment_table}","{$this->comment_table}.user_id",
             "=","users.id")
@@ -105,6 +112,7 @@ class BlogController extends Controller
             ->orderBy("created_at","desc")
             ->paginate(2)
             ->onEachSide(2);
+         */
 
         return response()->json([
             "comments" => $comments,
