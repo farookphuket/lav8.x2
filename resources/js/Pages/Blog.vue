@@ -6,6 +6,7 @@
     <div class="col-lg-12">
         <blog-list  
             :blogs="blogs" @openMe="openMe($event)" 
+            :showPagination="showPagination"
             @getBlogs="getBlogs($event)"></blog-list>
     </div>
 
@@ -32,6 +33,7 @@ export default{
             showSearch:false,
             blogs:[],
             post_tag:[],
+            showPagination:false,
         }
     },
     mounted(){
@@ -53,6 +55,7 @@ export default{
                 .then(res=>{
 //                    console.log(res.data)
                     this.blogs = res.data.blogs
+                    if(Object.keys(this.blogs.data).length >= 14) this.showPagination = true
                 })
         },
         getTags(page){

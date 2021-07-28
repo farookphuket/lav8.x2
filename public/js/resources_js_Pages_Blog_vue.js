@@ -31,6 +31,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -46,7 +47,8 @@ __webpack_require__.r(__webpack_exports__);
       search: [],
       showSearch: false,
       blogs: [],
-      post_tag: []
+      post_tag: [],
+      showPagination: false
     };
   },
   mounted: function mounted() {
@@ -73,6 +75,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(url).then(function (res) {
         //                    console.log(res.data)
         _this.blogs = res.data.blogs;
+        if (Object.keys(_this.blogs.data).length >= 14) _this.showPagination = true;
       });
     },
     getTags: function getTags(page) {
@@ -248,12 +251,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogList",
-  props: ["blogs"],
+  props: ["blogs", "showPagination"],
   data: function data() {
     return {
-      sTitle: new CustomText()
+      sTitle: new CustomText(),
+      moment: moment
     };
   }
 });
@@ -657,7 +684,7 @@ var render = function() {
       { staticClass: "col-lg-12" },
       [
         _c("blog-list", {
-          attrs: { blogs: _vm.blogs },
+          attrs: { blogs: _vm.blogs, showPagination: _vm.showPagination },
           on: {
             openMe: function($event) {
               return _vm.openMe($event)
@@ -779,28 +806,131 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(0, true),
-                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "col-lg-4" },
-                  _vm._l(bl.category, function(ca) {
-                    return _c(
-                      "span",
-                      { staticClass: "badge badge-primary pt-2" },
+                  [
+                    _vm._v(
+                      "\n                                category\n                                "
+                    ),
+                    _vm._l(bl.category, function(ca) {
+                      return _c(
+                        "span",
+                        { staticClass: "badge badge-primary pt-2" },
+                        [
+                          _c("b-icon", { attrs: { icon: "bookmark-check" } }),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(ca.cat_title) +
+                              "\n                                "
+                          )
+                        ],
+                        1
+                      )
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-4" }, [
+                  _vm._v(
+                    "\n\n                                created :\n                                "
+                  ),
+                  _c("span", { staticClass: "badge badge-info p-2" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "text-white",
+                        attrs: { href: "", title: _vm.moment(bl.created_at) }
+                      },
                       [
-                        _c("b-icon", { attrs: { icon: "bookmark-check" } }),
+                        _c("b-icon", { attrs: { icon: "calendar2-day" } }),
                         _vm._v(
-                          "\n                                    " +
-                            _vm._s(ca.cat_title) +
-                            "\n                                "
+                          "\n                                        " +
+                            _vm._s(_vm.moment(bl.created_at).fromNow()) +
+                            "\n                                    "
                         )
                       ],
                       1
                     )
-                  }),
-                  0
-                )
+                  ]),
+                  _vm._v(" "),
+                  bl.created_at != bl.updated_at
+                    ? _c("span", {}, [
+                        _vm._v(
+                          "\n                                    updated :\n                                    "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "",
+                              title: _vm.moment(bl.updated_at)
+                            }
+                          },
+                          [
+                            _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.moment(bl.updated_at).fromNow()) +
+                                "\n                                    "
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-4" }, [
+                  _c("div", { staticClass: "float-right btn-group" }, [
+                    _c(
+                      "span",
+                      { staticClass: "badge badge-info p-2" },
+                      [
+                        _c("b-icon", { attrs: { icon: "eye" } }),
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(bl.read_count) +
+                            "\n\n                                    "
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { staticClass: "badge badge-primary p-2" },
+                      [
+                        _c("b-icon", { attrs: { icon: "chat-right-text" } }),
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(bl.comment_count) +
+                            "\n\n                                    "
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-info p-2",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("openMe", bl.slug)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                        Read More...\n                                    "
+                        )
+                      ]
+                    )
+                  ])
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -819,112 +949,97 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.blogs.data != 0,
-              expression: "blogs.data != 0"
+              value: _vm.showPagination,
+              expression: "showPagination"
             }
           ],
-          staticClass: "container "
+          staticClass: "nav-scroller py-1 mb-2"
         },
         [
-          _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
-            _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
-              _c(
-                "ul",
-                { staticClass: "pagination flex-wrap " },
-                [
-                  _c("li", { staticClass: "page-item" }, [
-                    _c("div", { staticClass: "page-link disabled " }, [
-                      _vm._v(
-                        "\n                                \n                                    showing from "
-                      ),
-                      _c("span", [_vm._v(_vm._s(_vm.blogs.from))]),
-                      _vm._v(" \n                                    to "),
-                      _c("span", [_vm._v(_vm._s(_vm.blogs.to))]),
-                      _vm._v(" of \n                                    "),
-                      _c("span", [_vm._v(_vm._s(_vm.blogs.total))])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.blogs.links, function(li) {
-                    return _c("li", { staticClass: "page-item" }, [
-                      !li.active && li.url != null
-                        ? _c(
-                            "a",
-                            {
-                              staticClass: "page-link p-2",
-                              domProps: { innerHTML: _vm._s(li.label) },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.$emit("getBlogs", li.url)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(li.label) +
-                                  " \n                                "
-                              )
-                            ]
-                          )
-                        : _c(
-                            "span",
-                            {
-                              staticClass: "page-link active",
-                              domProps: { innerHTML: _vm._s(li.label) }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(li.label) +
-                                  "\n                                "
-                              )
-                            ]
-                          )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "page-item active" }, [
-                    _c("div", { staticClass: "page-link" }, [
-                      _c(
-                        "span",
-                        [
-                          _c("b-icon", { attrs: { icon: "book-half" } }),
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(_vm.blogs.current_page) +
-                              "\n                                "
-                          )
-                        ],
-                        1
-                      )
-                    ])
+          _c("nav", { staticClass: "nav d-flex justify-content-center" }, [
+            _c(
+              "ul",
+              { staticClass: "pagination flex-wrap " },
+              [
+                _c("li", { staticClass: "page-item" }, [
+                  _c("div", { staticClass: "page-link disabled " }, [
+                    _vm._v(
+                      "\n                                \n                                    showing from "
+                    ),
+                    _c("span", [_vm._v(_vm._s(_vm.blogs.from))]),
+                    _vm._v(" \n                                    to "),
+                    _c("span", [_vm._v(_vm._s(_vm.blogs.to))]),
+                    _vm._v(" of \n                                    "),
+                    _c("span", [_vm._v(_vm._s(_vm.blogs.total))])
                   ])
-                ],
-                2
-              )
-            ])
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.blogs.links, function(li) {
+                  return _c("li", { staticClass: "page-item" }, [
+                    !li.active && li.url != null
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "page-link p-2",
+                            domProps: { innerHTML: _vm._s(li.label) },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.$emit("getBlogs", li.url)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(li.label) +
+                                " \n                                "
+                            )
+                          ]
+                        )
+                      : _c(
+                          "span",
+                          {
+                            staticClass: "page-link active",
+                            domProps: { innerHTML: _vm._s(li.label) }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(li.label) +
+                                "\n                                "
+                            )
+                          ]
+                        )
+                  ])
+                }),
+                _vm._v(" "),
+                _c("li", { staticClass: "page-item active" }, [
+                  _c("div", { staticClass: "page-link" }, [
+                    _c(
+                      "span",
+                      [
+                        _c("b-icon", { attrs: { icon: "book-half" } }),
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.blogs.current_page) +
+                            "\n                                "
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ],
+              2
+            )
           ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8" }, [
-      _c("span", { staticClass: "badge badge-info p2" }, [
-        _vm._v(
-          "\n                                    category\n                                "
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

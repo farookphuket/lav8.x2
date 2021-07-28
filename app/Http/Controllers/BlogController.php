@@ -71,6 +71,7 @@ class BlogController extends Controller
         $blogs = Blog::with("user")
             ->with("tags")
             ->with("category")
+            ->with("comments")
             ->where("is_public",1)
             ->orderBy("created_at","desc")
             ->paginate(15)
@@ -159,11 +160,15 @@ class BlogController extends Controller
             ->get();
         $show = Blog::with("user")
                     ->with("tags")
+                    ->with("comments")
                     ->where([
                         "is_public" => 1,
                         "slug" => $blog->slug
                     ])
                     ->get();
+
+        // count the read time 
+        Blog::blogCountRead($blog->id);
 
         return view('Pub.blog.show')->with([
             "blog" => $show,

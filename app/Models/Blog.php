@@ -20,6 +20,9 @@ class Blog extends Model
 
     protected static $blog_count_read_table = 'blog_count_read';
 
+    // get the comment link table 
+    protected static $blog_comment_link_table = "blog_comment";
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -135,8 +138,11 @@ DELETE FROM `{$table}` WHERE id='{$blog->id}';
     /*
      * count read 
      * */
-    public static function blogCountRead($blog_id,$cmd=false){
+    public static function blogCountRead($blog_id){
         $table = static::$blog_count_read_table;
+
+        // comment link table 
+        $comment_link_table = static::$blog_comment_link_table;
 
         $blog_table = static::$blog_table;
 
@@ -169,10 +175,16 @@ DELETE FROM `{$table}` WHERE id='{$blog->id}';
                                     ->where("blog_id",$blog_id)
                                     ->get();
 
+            // count comment relatest to this blog id
+            $get_comment = count(DB::table($comment_link_table)
+                                    ->where("blog_id",$blog_id)
+                                    ->get());
+
             // update read count field in blogs table 
             Blog::where("id",$blog_id)
                 ->update([
-                    "read_count" => count($new_read_count)
+                    "read_count" => count($new_read_count),
+                    "comment_count" => $get_comment
                 ]);
 
             // get the last record
