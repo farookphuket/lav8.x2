@@ -25,10 +25,8 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 
 @hasSection('meta_title')
     <title>@yield('meta_title')</title>
-    <meta name="keywords" 
-            content="@yield('meta_title')">
-    <meta name="description" 
-            content="@yield('meta_title')">
+    <meta name="keywords" content="@yield('meta_title')">
+    <meta name="description" content="@yield('meta_title')">
     @else
         <title>
         see southern thailand คนใต้บ้านเรานิ มาลองแลกันต๊ะ

@@ -54,12 +54,15 @@ class DashboardController extends Controller
                             ->latest()
                             ->limit(4)
                             ->get();
+
+        $wn = Whatnew::latest()->first();
         return view("Admin.index")
             ->with([
                 "last_user" => $last_user,
                 "last_contact" => $last_contact,
                 "last_blog" => $last_blog,
-                "last_comment" => $last_comment
+                "last_comment" => $last_comment,
+                "whatnew" => $wn
             ]);
     }
 

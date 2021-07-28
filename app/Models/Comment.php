@@ -35,7 +35,7 @@ class Comment extends Model
      */
     public function blogs()
     {
-        return $this->belongsToMany(Blog::class)->with("users");
+        return $this->belongsToMany(Blog::class)->with("user");
     }
     
 
