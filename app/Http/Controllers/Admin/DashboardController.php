@@ -10,6 +10,7 @@ use App\Models\Landing;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Whatnew;
 
 use DB;
@@ -21,8 +22,12 @@ class DashboardController extends Controller
     protected $comment_table;
 
     protected $wn_table;
+    protected $comment_link = "blog_comment";
+
     public function __construct(){
-        $this->comment_table = "blog_comment";
+
+        $this->comment_table = "comments";
+        
         $this->wn_table = "whatnews";
     }
     /**
@@ -45,16 +50,19 @@ class DashboardController extends Controller
                             ->limit(4)
                             ->get();
 
-        $last_comment = DB::table($this->comment_table)
+        $last_comment =     Comment::with("user")
                             ->latest()
                             ->limit(4)
                             ->get();
+
+        $wn = Whatnew::latest()->first();
         return view("Admin.index")
             ->with([
                 "last_user" => $last_user,
                 "last_contact" => $last_contact,
                 "last_blog" => $last_blog,
-                "last_comment" => $last_comment
+                "last_comment" => $last_comment,
+                "whatnew" => $wn
             ]);
     }
 

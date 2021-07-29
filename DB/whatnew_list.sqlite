@@ -109,19 +109,6 @@ INSERT INTO `whatnews` (`user_id`,`token`
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
  /* =========== auto script START 2021-07-20 18:14:05 pm  ==================== */
  /* ====== auto insert script `whatnews` ======== */
 INSERT INTO `whatnews` (`user_id`,
@@ -236,3 +223,89 @@ INSERT INTO `whatnews` (`user_id`,
  /* ======== auto script 2021-07-24 13:20:38 pm END ========= */
 
 
+
+ /* =========== auto script START 2021-07-28 19:25:53 pm  ==================== */
+ /* ====== auto insert script `whatnews` ======== */
+INSERT INTO `whatnews` (`user_id`,
+`token`
+,`whatnew_title`,`whatnew_body`,`is_public`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'Uo9a8an8Xct5kfwSuPTvhnuEIerSgWB84q9ik83pfWFRqBMPNmsCnUpXxNSK',
+    'สถานการณ์โควิด 19 วันที่ 28 กรกฎาคม 2564',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            ยังน่าห่วงนะครับ ยังไม่มีทีท่าว่าจะลดลงไปเลย มาตราการอะไรก็เอาไม่อยู่หรอกครับ 
+            ว่าอันที่จริงแล้วเชื้อมันไม่สามารถเดินทางไปเองได้ ถ้าคนไม่พาไป 
+
+        </p>
+        <div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eLcqJg6fzrs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="text-center pt-2">
+            แชร์ข่าวจาก ยูทูป วันเดียวติดเชื้อโควิดเพิ่มทะลุ 16,000 หลายจังหวัดยังพบกลุ่มก้อนใหม่ l TNNข่าวเที่ยง l 28-7-64
+        </p>
+
+        <p class="pt-2">
+
+สถานการณ์โควิด-19 ยังพบผู้ติดเชื้อรายใหม่เพิ่มอย่างต่อเนื่อง //ขณะที่ตัวเลขฉีดวัคซีนสะสมทั่วประเทศ กว่า 16 ล้าน 4แสนเข็ม/ และมีผู้ป่วยรักษาหายเพิ่มขึ้นวันนี้ กว่า 10,000 ราย วันนี้ตัวเลขผู้ติดเชื้อหลายจังหวัดยังสูงขึ้นต่อเนื่อง โดยที่จังหวัด ประจวบฯ พบการระบาดกลุ่มก้อนในที่พักคนงานก่อสร้างกลางเมืองหัวหิน หลังหัวหน้าคนงานติดเชื้อ ก่อนแพร่ระบาดติดคนงาน ขณะนี้ยอดเพิ่มกว่า 100 คน 
+        </p>
+        <p class="pt-2">
+            ช่องทางติดตามสถานีข่าว TNN ช่อง16
+            https://www.tnnthailand.com
+            https://tv.trueid.net/live/tnn16
+            https://www.youtube.com/c/tnn16
+            https://www.facebook.com/TNNthailand/
+            https://www.facebook.com/TNN16LIVE/
+            https://twitter.com/tnnthailand
+            https://www.instagram.com/tnn_online/
+            https://www.tiktok.com/@tnnonline
+            Line @TNNONLINE หรือคลิก https://lin.ee/4fP2tltIo
+        </p>
+        <p class="pt-2">
+            ทันโลก ทันเศรษฐกิจ ทันทุกความจริง กับ TNNช่อง16 
+            สถานีข่าวที่ถือหลักการของการนำเสนอข่าวตรงประเด็น รวดเร็ว ถูกต้อง 
+            แม่นยำ และเป็นกลาง โดยทีมข่าวมืออาชีพ
+        </p>
+    </div>
+</div>',
+    '1',
+    '2021-07-28 19:25:53','2021-07-28 19:25:53'); 
+
+ 
+ /* ======== auto script 2021-07-28 19:25:53 pm END ========= */
+
+ /* =========== auto script START 2021-07-28 19:43:21 pm  ==================== */
+ /* ====== auto insert script `whatnews` ======== */
+INSERT INTO `whatnews` (`user_id`,
+`token`
+,`whatnew_title`,`whatnew_body`,`is_public`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'j8PhZWcJLW0HJoMASCTl3b69W4Yw3OKRKFx9zAnCKmx2jH7SFlOHViA1O6s3',
+    'รายการรีวิวมือถือและอุปกรณ์ของคุณ ณดุจ (วันที่ผมดู 28 Jul 2021)',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            ถ้าพูดถึงวงการ รีวิวอุปกรณ์ มือถือ แลปทอป กล้อง ต้องคนนี้ครับ ยอมรับว่าเค้าเก่งจริงๆ ผมดูเกือบทุกคลิปเลย ชอบการรีวิวแบบนี้ครับ ชอบการพูดภาษาไทยที่ชัดเจน สามารถออกเสียง ร เรือ ได้(หลายๆ ช่องไม่สามารถออกเสียง ร เรือ ได้ เค้าคงไม่ค่อยได้เรียนภาษาไทย หรืออาจจะหลับตอนครูสอนวิชาภาษาไทยในชั้นประถม) 
+         </p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/b01IKodNjGs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+         </div>
+        <p class="text-center pt-2">
+            MediaTek จากวันที่ทุกคนร้องอี๋ สู่การยอมรับจากแบรนด์ทั่วโลกในตอนนี้
+        </p>
+        <p class="pt-2"> 
+        ขอสนับสนุนให้คนไทย พูด อ่าน เขียน ภาษาไทยให้ ถูกต้อง ชัดเจน เพราะหากว่าตัวเราเองซึ่งได้ชื่อว่าเป็น "เจ้าของภาษา" ยังไม่สามารถพูดภาษาของตัวเองให้ถูกต้องได้ แล้วเราจะ 
+        <span class="badge badge-warning p-2">
+             พูดภาษาไทยให้ใครฟัง?    
+        </span>
+        </p>
+    </div>
+</div>',
+    '1',
+    '2021-07-28 19:43:21','2021-07-28 19:43:21'); 
+
+ 
+ /* ======== auto script 2021-07-28 19:43:21 pm END ========= */

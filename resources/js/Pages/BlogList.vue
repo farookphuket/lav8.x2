@@ -35,19 +35,56 @@
 
                                 </div>
                                 <!-- category -->
-                                <div class="col-lg-8">
-                                    <span class="badge badge-info p2">
-                                        category
-                                    </span>
-                                </div>
                                 <div class="col-lg-4">
+                                    category
                                     <span v-for="ca in bl.category" 
                                         class="badge badge-primary pt-2">
                                         <b-icon icon="bookmark-check"></b-icon>
                                         {{ca.cat_title}}
                                     </span>
+                                    <!-- category -->
                                 </div>
-                                <!-- category -->
+
+                                <div class="col-lg-4">
+
+                                    created :
+                                    <span class="badge badge-info p-2">
+                                        <a href="" class="text-white" 
+                                        :title="moment(bl.created_at)">
+                                            <b-icon icon="calendar2-day"></b-icon>
+                                            {{moment(bl.created_at).fromNow()}}
+                                        </a>
+                                    </span>
+                                    <span v-if="bl.created_at != bl.updated_at" 
+                                    class="">
+                                        updated :
+                                        <a href="" class="" 
+                                        :title="moment(bl.updated_at)">
+                                            <b-icon icon="calendar2-day"></b-icon>
+                                            {{moment(bl.updated_at).fromNow()}}
+                                        </a>
+                                    </span>
+                                </div><!-- end of div.col-lg-4 show date -->
+                                
+                                <div class="col-lg-4">
+                                    <div class="float-right btn-group">
+                                        <span class="badge badge-info p-2">
+                                            <b-icon icon="eye"></b-icon>
+                                            {{bl.read_count}}
+
+                                        </span>
+
+                                        <span class="badge badge-primary p-2">
+                                            <b-icon icon="chat-right-text"></b-icon>
+                                            {{bl.comment_count}}
+
+                                        </span>
+                                        <button @click.prevent="$emit('openMe',bl.slug)"
+                                        class="btn btn-outline-info p-2">
+                                            Read More...
+                                        </button>
+                                    </div><!-- end of div.btn-group -->
+                                </div><!-- end of div.col-lg-4 show button -->
                             </div>
                         </div>
                     <hr style="margin-top:2em;margin-bottom:2em;">
@@ -57,8 +94,7 @@
             <!-- =====nav ===-->
 
             <!-- ======= pagination ======= -->
-            <div class="container " v-show="blogs.data != 0">
-                <div class="nav-scroller py-1 mb-2">
+                <div class="nav-scroller py-1 mb-2" v-show="showPagination">
                     <nav class="nav d-flex justify-content-center">
                         <ul class="pagination flex-wrap ">
                             <li class="page-item">
@@ -95,36 +131,22 @@
                         </ul>
                     </nav>
                 </div>
-            </div>
             <!-- ======== End pagination ==== -->
             <!-- =====END === -->
-            <!--
-            <nav aria-label="Page navigation example" v-if="blogs.data >= '2'">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#0" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#0">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#0">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#0">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#0">Next</a>
-                    </li>
-                </ul>
-            </nav>
-            -->
+
         </div>
     </div>
 </template>
 
 <script>
-
+var moment = require("moment")
 export default{
     name:"BlogList",
-    props:["blogs"],
+    props:["blogs","showPagination"],
     data(){
         return{
-            sTitle:new CustomText()
+            sTitle:new CustomText(),
+            moment:moment,
         }
     },
 }

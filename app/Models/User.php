@@ -82,5 +82,8 @@ class User extends Authenticatable
     public function template(){
         return $this->hasMany(Template::class);
     }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 
 }

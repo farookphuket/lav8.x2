@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Template;
@@ -71,6 +72,7 @@ class BlogController extends Controller
         $blogs = Blog::with('user')
             ->with("tags")
             ->with("category")
+
             ->where("is_public",1)
             ->orWhere("user_id",Auth::user()->id)
             ->orderBy("created_at","desc")
@@ -142,9 +144,14 @@ class BlogController extends Controller
                 "updated_at" => now()
             ]);
 
-        // ====== make a backup for new post
-        $this->backupBlog($newPost->id,"insert");
+        // backup blog category link to file
+        Category::backupBlogCategoryLink($newPost->id,"edit");
 
+        // ====== make a backup for new post
+        Blog::backupBlog($newPost->id,"insert");
+
+        // backup the blog tag link
+        Tag::backupBlogTagLink($newPost->id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             success : data has been created </span>";
@@ -172,7 +179,9 @@ class BlogController extends Controller
             $tag->tags()->attach($newTag);
 
             // === make backup tag
-            $this->backupInsertTag();
+            //$this->backupInsertTag();
+            // new backup script 28 Jul 2021
+            Tag::backupTag($newTag->id,"insert");
         endif;
         return $get;
     }
@@ -247,8 +256,13 @@ class BlogController extends Controller
 
         $bl = Blog::with('user')
             ->with("tags")
+            ->with("comments")
             ->where('slug',$blog->slug)
             ->get();
+
+        // make count on this blog id then make a backup script to file
+        Blog::blogCountRead($blog->id,"edit");
+
         return view('Member.Blog.show')->with([
             "blog" => $bl
         ]);
@@ -304,7 +318,7 @@ class BlogController extends Controller
         endif;
 
         // make a backup to file 
-        $this->backupBlog($blog->id,"update");
+        Blog::backupBlog($blog->id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             success : data has been updated </span>";
@@ -323,7 +337,7 @@ class BlogController extends Controller
     {
 
         // backup blog
-        $this->backupBlog($id);
+        Blog::backupBlog($id);
 
         $del = Blog::where('id',$id)->first();
         $del->delete();

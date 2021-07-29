@@ -1,14 +1,17 @@
 <template>
     <div class="card mb-4">
 
-        <div class="card-body" v-for="co in comments">
-            <h3 >{{co.title}}</h3>
+        <div class="card-body" v-for="co in comments.data">
+            <h3 >{{co.comment_title}}</h3>
             <ul class="list-group">
 
                 <li class="list-group-item">
-                    <a href="">
-                        {{co.comment_title}} &middot; 
-                        
+                    <a href="#" :title="bl.title" v-for="bl in co.blogs" 
+                    @click.prevent="$emit('openBlog',bl.slug)">
+                       <span >
+                        {{bl.title}}
+                        <b-icon icon="arrow-up-right"></b-icon>
+                       </span>
                     </a>
                     <span >
                         <b-icon icon="person"></b-icon>                        

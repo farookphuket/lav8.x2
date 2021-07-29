@@ -20,7 +20,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Member.index');
+        $wn = Whatnew::latest()->first();
+        return view('Member.index')->with([
+            "whatnew" => $wn
+        ]);
     }
 
 

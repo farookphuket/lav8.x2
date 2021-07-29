@@ -9,8 +9,8 @@
         </ol>
         <comment-form :editId="editId" 
             @getComments="getComments($event)"></comment-form>
-       <comment-list :comments="comments" 
-            @edit="edit($event)"
+            <comment-list :comments="comments" 
+            @edit="edit($event)" @openBlog="openBlog($event)"
            @getComments="getComments($event)"></comment-list>
     </div>
 </template>
@@ -44,12 +44,16 @@ export default{
             url = `/admin/getComments`
             axios.get(url)
                 .then(res=>{
-                    //console.log(res.data)
+                    console.log(res.data)
                     this.comments = res.data.comments
                 })
         },
         edit(id){
             this.editId = id
+        },
+        openBlog(slug){
+            let url = `/admin/blog/${slug}`
+            location.href=url
         },
     },
 }

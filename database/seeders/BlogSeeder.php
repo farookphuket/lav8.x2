@@ -27,10 +27,6 @@ class BlogSeeder extends Seeder
         DB::unprepared(file_get_contents($blog_tag));
         $this->command->info("Blog Tag has been Linked");
 
- //       Eloquent::unguard();
-        $comment = 'DB/blog_comment_list.sqlite';
-        DB::unprepared(file_get_contents($comment));
-        $this->command->info("comment has been Added");
 
 // add category for the blog 15 Jul 2021
         $category = 'DB/blog_category.sqlite';

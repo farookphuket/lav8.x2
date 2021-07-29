@@ -111,6 +111,9 @@ Vue.component('MemberProfile',()=>import('./Pages/Member/Profile/profile.vue'))
 
 // template 19 Jul 2021 
 Vue.component('MemberTemplate',()=>import('./Pages/Member/Template/Template.vue'))
+
+// comment 27 Jul 2021 
+Vue.component('MemberComment',()=>import("./Pages/Member/Comment/Comment.vue"))
 /* ======================= Member Section END ============== */
 /* ========================================================= */
 
