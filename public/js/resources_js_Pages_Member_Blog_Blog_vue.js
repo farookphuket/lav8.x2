@@ -536,6 +536,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1309,7 +1348,7 @@ var render = function() {
             _vm._v(_vm._s(bl.excerpt))
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "clearfix" }, [
+          _c("div", { staticClass: "clearfix mb-4" }, [
             _vm.user_id == bl.user.id
               ? _c("div", { staticClass: "float-left" }, [
                   bl.is_public == "1"
@@ -1387,81 +1426,170 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "float-right" }, [
-              _vm.user_id == bl.user.id
-                ? _c(
-                    "span",
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.$emit("edit", bl.id)
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4" }, [
+                bl.created_at == bl.updated_at
+                  ? _c("div", [
+                      _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "#",
+                              title: _vm.moment(bl.created_at)
                             }
-                          }
-                        },
-                        [_c("b-icon", { attrs: { icon: "pen" } })],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-danger",
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.$emit("del", bl.id)
+                          },
+                          [
+                            _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.moment(bl.created_at).fromNow()) +
+                                "\n                            "
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  : _c("div", [
+                      _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "#",
+                              title: _vm.moment(bl.created_at)
                             }
-                          }
-                        },
-                        [
-                          _c("b-icon", {
-                            attrs: { icon: "trash", variant: "danger" }
-                          })
-                        ],
-                        1
+                          },
+                          [
+                            _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.moment(bl.created_at).fromNow()) +
+                                "\n                            "
+                            )
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(
+                        "\n                        last update\n                        "
                       ),
-                      _vm._v(" "),
-                      _c("b-icon", { attrs: { icon: "person" } }),
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(bl.user.name) +
-                          "\n                "
-                      )
-                    ],
-                    1
-                  )
-                : _c(
+                      _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "#",
+                              title: _vm.moment(bl.updated_at)
+                            }
+                          },
+                          [
+                            _c("b-icon", { attrs: { icon: "calendar2-day" } }),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.moment(bl.updated_at).fromNow()) +
+                                "\n                            "
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-8" }, [
+                _c("div", { staticClass: "btn-group float-left" }, [
+                  _c(
                     "span",
+                    { staticClass: "badge badge-info p-2 mr-2" },
                     [
-                      _c("b-icon", { attrs: { icon: "person" } }),
+                      _c("b-icon", { attrs: { icon: "chat-left-text" } }),
                       _vm._v(
-                        "\n                    " +
-                          _vm._s(bl.user.name) +
-                          " \n                "
+                        "\n                            " +
+                          _vm._s(bl.comment_count) +
+                          "\n                        "
                       )
                     ],
                     1
                   ),
-              _vm._v(" "),
-              _c("span", [
-                _c(
-                  "a",
-                  { attrs: { href: "#", title: _vm.moment(bl.created_at) } },
-                  [
-                    _c("b-icon", { attrs: { icon: "calendar2-day" } }),
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.moment(bl.created_at).fromNow()) +
-                        "\n                    "
-                    )
-                  ],
-                  1
-                )
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { staticClass: "badge badge-info p-2" },
+                    [
+                      _c("b-icon", { attrs: { icon: "eye" } }),
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(bl.read_count) +
+                          "\n                        "
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn-group float-right" }, [
+                  _vm.user_id == bl.user.id
+                    ? _c(
+                        "span",
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-primary",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.$emit("edit", bl.id)
+                                }
+                              }
+                            },
+                            [_c("b-icon", { attrs: { icon: "pen" } })],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-danger",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.$emit("del", bl.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("b-icon", {
+                                attrs: { icon: "trash", variant: "danger" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("b-icon", { attrs: { icon: "person" } }),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(bl.user.name) +
+                              "\n                        "
+                          )
+                        ],
+                        1
+                      )
+                    : _c(
+                        "span",
+                        [
+                          _c("b-icon", { attrs: { icon: "person" } }),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(bl.user.name) +
+                              " \n                        "
+                          )
+                        ],
+                        1
+                      )
+                ])
               ])
             ])
           ]),
@@ -1470,7 +1598,7 @@ var render = function() {
             staticStyle: {
               width: "80%",
               border: "2px solid #e7e7e7",
-              "margin-top": "2em"
+              margin: "auto"
             }
           })
         ])

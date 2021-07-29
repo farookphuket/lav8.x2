@@ -264,6 +264,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -721,11 +724,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "review-item-wrapper" },
+    { staticClass: "review-item-wrapper mt-4" },
     [
+      _c("div", { staticClass: "float-right mt-4 mb-2" }, [
+        _vm._v("\n        Comments "),
+        _c("span", { staticClass: "badge badge-info p-2" }, [
+          _vm._v(_vm._s(_vm.comments.total))
+        ])
+      ]),
+      _vm._v(" "),
       _vm._l(_vm.comments.data, function(co) {
         return _c("div", { staticClass: "review-item pt-60 mb-30" }, [
-          _c("div", { staticClass: "media" }, [
+          _c("div", { staticClass: "media mb-4" }, [
             _c("div", { staticClass: "info mr-4" }, [
               _c("h4", {}, [
                 _vm._v(
@@ -745,7 +755,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("h3", { staticClass: "text-center" }, [
+          _c("h3", { staticClass: "text-center mb-4" }, [
             _vm._v(_vm._s(co.comment_title))
           ]),
           _vm._v(" "),

@@ -87,7 +87,7 @@ updated_at='{$cmt->updated_at}' WHERE id='{$cmt->id}';
  * on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE id='{$comment_id}';
+/* DELETE FROM `{$table}` WHERE id='{$comment_id}'; */
 "; 
             break;
         endswitch;
@@ -125,7 +125,7 @@ DELETE FROM `{$table}` WHERE id='{$comment_id}';
  * delete the link just to prevent from having repetition 
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 ";
                 endif;
                 foreach($cmt as $comment):
@@ -155,7 +155,7 @@ INSERT INTO `{$table}`(`user_id`,`blog_id`,`comment_id`,
  * has been deleted on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 ";     
 
                 // delete the comment 

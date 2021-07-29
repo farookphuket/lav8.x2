@@ -11,7 +11,6 @@ INSERT INTO `comments`(`user_id`,`comment_title`,`comment_body`,
         'this is my test comment ha ha ทดสอบนะจ๊ะ นี่คือข้อมูลทดสอบ',
 '<div class="row">
     <div class="col-lg-12">
-        <h2>this is my test comment on blog</h2>
         <p>
             Hi there, this is the test message of the comment that made by me 
            on the 25-Jul-2021 you can simply just delete it.
@@ -24,6 +23,9 @@ INSERT INTO `comments`(`user_id`,`comment_title`,`comment_body`,
             <span class="badge badge-info p-2">
                 /app/DB/comment_list.sqlite
             </span>
+            &nbsp; file ชื่อ "comment_list.sqlite" ท่านสามารถแก้ไขไฟล์เหล่านี้ได้ 
+            (ยกเว้นไฟล์ชื่อ "DB_Sample.sqlite" ที่เป็นฐานข้อมูล)
+            แต่อย่าลบข้อมูลออกทั้งหมด เพราะว่ามันจะ Error ตอนที่ท่านสั่ง php artisan db:seed
         </p>
         <div class="mt-2">
             <img src="https://i.ibb.co/gFcVSbS/2021-07-25-comment-sqlite.png" 
@@ -52,3 +54,123 @@ INSERT INTO `comments`(`user_id`,`comment_title`,`comment_body`,
 
 
 
+
+ /* =========== auto script START 2021-07-29 08:56:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 08:56:01
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 08:56:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 08:56:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 08:56:01
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 08:56:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:07:49 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:07:49
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 09:07:49 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:07:49 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:07:49
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 09:07:49 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:35:26 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:35:26
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 09:35:26 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:35:26 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:35:26
+ * ============================================================================
+ * */
+DELETE FROM `comments` WHERE id='';
+ 
+ /* ======== auto script 2021-07-29 09:35:26 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:57:41 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:57:41
+ * ============================================================================
+ * */
+/* DELETE FROM `comments` WHERE id=''; */
+ 
+ /* ======== auto script 2021-07-29 09:57:41 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:57:41 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:57:41
+ * ============================================================================
+ * */
+/* DELETE FROM `comments` WHERE id=''; */
+ 
+ /* ======== auto script 2021-07-29 09:57:41 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:58:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:58:01
+ * ============================================================================
+ * */
+/* DELETE FROM `comments` WHERE id=''; */
+ 
+ /* ======== auto script 2021-07-29 09:58:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:58:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * DELETE comment id  as the link table has been delete 
+ * on 2021-07-29 09:58:01
+ * ============================================================================
+ * */
+/* DELETE FROM `comments` WHERE id=''; */
+ 
+ /* ======== auto script 2021-07-29 09:58:01 am END ========= */

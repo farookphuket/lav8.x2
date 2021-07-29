@@ -69,7 +69,7 @@ updated_at='{$tag->updated_at}' WHERE id='{$tag->id}';
  * backup tag id {$tag->id}  DELETE on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE id='{$tag->id}';
+/* DELETE FROM `{$table}` WHERE id='{$tag->id}'; */
 ";
         break;
         endswitch;
@@ -126,7 +126,7 @@ DELETE FROM `{$table}` WHERE id='{$tag->id}';
  * on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 ";
                 endif;
 
@@ -153,7 +153,7 @@ INSERT INTO `{$table}`(`blog_id`,`tag_id`,`created_at`,`updated_at`) VALUES(
  * on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 ";
                // the tag itself can be empty so no need to delete 
                // we just delete the link as the blog id has already removed. 

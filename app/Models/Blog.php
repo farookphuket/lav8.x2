@@ -77,6 +77,14 @@ INSERT INTO `{$table}`(`user_id`,`slug`,`title`,`excerpt`,`body`,`is_public`,
     '{$blog->created_at}',
     '{$blog->updated_at}');
 ";
+
+
+            // backup Tag link in blog_tag_table 
+            Tag::backupBlogTagLink($blog->id,"edit");
+
+            // backup the category from blog_category_table 
+            Category::backupBlogCategoryLink($blog->id,"edit");
+
             break;
             case"edit":
                 $command .= "\n
@@ -91,6 +99,13 @@ body='{$blog->body}',
 is_public='{$blog->is_public}',
 updated_at='{$blog->updated_at}' WHERE id='{$blog->id}';
 ";
+            
+            
+            // backup Tag link in blog_tag_table 
+            Tag::backupBlogTagLink($blog->id,"edit");
+
+            // backup the category from blog_category_table 
+            Category::backupBlogCategoryLink($blog->id,"edit");
             break;
             default:
 
@@ -99,7 +114,7 @@ updated_at='{$blog->updated_at}' WHERE id='{$blog->id}';
  * blog id {$blog->id} backup DELETE on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE id='{$blog->id}';
+/* DELETE FROM `{$table}` WHERE id='{$blog->id}'; */
 
 ";
             /*
@@ -251,7 +266,7 @@ INSERT INTO `{$table}`(`blog_id`,`ip`,`os`,`browser`,`last_readed_at`,
  * script on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 ";
             break;
         endswitch;

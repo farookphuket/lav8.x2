@@ -14,7 +14,7 @@
            </h3>
            <p>{{bl.slug}}</p>
            <div v-html="bl.excerpt">{{bl.excerpt}}</div>
-           <div class="clearfix">
+           <div class="clearfix mb-4">
                <div class="float-left" 
                     v-if="user_id == bl.user.id"
                    >
@@ -56,32 +56,71 @@
                </div>
                <!-- === tags end -->
 
-               <div class="float-right">
-                    <span v-if="user_id == bl.user.id">
-                        <button class="btn btn-outline-primary" 
-                            @click.prevent="$emit('edit',bl.id)">
-                            <b-icon icon="pen"></b-icon>
-                        </button>
-                        <button class="btn btn-outline-danger" 
-                            @click.prevent="$emit('del',bl.id)">
-                            <b-icon icon="trash" variant="danger"></b-icon>
-                        </button> 
-                        <b-icon icon="person"></b-icon>
-                        {{bl.user.name}}
-                    </span>
-                    <span v-else>
-                        <b-icon icon="person"></b-icon>
-                        {{bl.user.name}} 
-                    </span>
-                    <span>
-                        <a href="#" :title="moment(bl.created_at)">
-                            <b-icon icon="calendar2-day"></b-icon>
-                            {{moment(bl.created_at).fromNow()}}
-                        </a>
-                    </span>
-               </div>
+               <div class="row">
+                    <div class="col-md-4">
+                        <div v-if="bl.created_at == bl.updated_at">
+
+                            <span>
+                                <a href="#" :title="moment(bl.created_at)">
+                                    <b-icon icon="calendar2-day"></b-icon>
+                                    {{moment(bl.created_at).fromNow()}}
+                                </a>
+                            </span>
+                        </div>
+                        <div v-else>
+                            <span>
+                                <a href="#" :title="moment(bl.created_at)">
+                                    <b-icon icon="calendar2-day"></b-icon>
+                                    {{moment(bl.created_at).fromNow()}}
+                                </a>
+                            </span>
+                            last update
+                            <span>
+                                <a href="#" :title="moment(bl.updated_at)">
+                                    <b-icon icon="calendar2-day"></b-icon>
+                                    {{moment(bl.updated_at).fromNow()}}
+                                </a>
+                            </span>
+                        </div>
+                    </div><!-- end of div.col-md-4 show edit time -->
+
+                    <div class="col-md-8">
+                        <div class="btn-group float-left">
+                            <span class="badge badge-info p-2 mr-2">
+                                <b-icon icon="chat-left-text"></b-icon>
+                                {{bl.comment_count}}
+                            </span>
+                            <span class="badge badge-info p-2">
+                                <b-icon icon="eye"></b-icon>
+                                {{bl.read_count}}
+                            </span>
+                        </div>
+                        <div class="btn-group float-right">
+
+                            <span v-if="user_id == bl.user.id">
+                                <button class="btn btn-outline-primary" 
+                                    @click.prevent="$emit('edit',bl.id)">
+                                    <b-icon icon="pen"></b-icon>
+                                </button>
+                                <button class="btn btn-outline-danger" 
+                                    @click.prevent="$emit('del',bl.id)">
+                                    <b-icon icon="trash" variant="danger"></b-icon>
+                                </button> 
+                                <b-icon icon="person"></b-icon>
+                                {{bl.user.name}}
+                            </span>
+                            <span v-else>
+                                <b-icon icon="person"></b-icon>
+                                {{bl.user.name}} 
+                            </span>
+                        </div><!-- end of div.btn-group -->
+
+                    </div><!-- end of div.col-md-8 show edit button -->
+               </div><!-- end of div.row -->
+
            </div>
-           <hr style="width:80%;border:2px solid #e7e7e7;margin-top:2em;">
+           <hr style="width:80%;border:2px solid #e7e7e7;
+           margin:auto;">
 
            
        </div>

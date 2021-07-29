@@ -100,7 +100,7 @@ WHERE id='{$category_id}';
  *
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE id='{$category_id}';
+/* DELETE FROM `{$table}` WHERE id='{$category_id}'; */
 ";
             break;
         endswitch;
@@ -151,7 +151,7 @@ DELETE FROM `{$table}` WHERE id='{$category_id}';
  * backup DELETE row command to prevent from redundant row of the blog_id
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';\n
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */ \n
 ";
                 endif;
                 foreach($category as $ca):
@@ -178,7 +178,7 @@ VALUES(
  * on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE blog_id='{$blog_id}';
+/* DELETE FROM `{$table}` WHERE blog_id='{$blog_id}'; */
 "; 
             break;
         endswitch;

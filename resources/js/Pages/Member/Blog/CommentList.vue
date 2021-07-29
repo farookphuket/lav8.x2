@@ -1,9 +1,12 @@
 <template>
     
-    <div class="review-item-wrapper">
+    <div class="review-item-wrapper mt-4">
+        <div class="float-right mt-4 mb-2">
+            Comments <span class="badge badge-info p-2">{{comments.total}}</span>
+        </div>
         <div class="review-item pt-60 mb-30" 
             v-for="co in comments.data">
-            <div class="media">
+            <div class="media mb-4">
                 <div class="info mr-4">
                     <h4 class="">
                         {{co.user.name}} 
@@ -16,7 +19,7 @@
                 </div>
             </div>
 
-                <h3 class="text-center">{{co.comment_title}}</h3>
+                <h3 class="text-center mb-4">{{co.comment_title}}</h3>
                 <div v-html="co.comment_body">
                     {{co.comment_body}}
                 </div>

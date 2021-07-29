@@ -342,10 +342,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       setTimeout(function () {
-        _this2.$emit('getBlogs');
-
-        _this2.res_status = '';
-        _this2.$refs.sel_cat.value = "0";
+        location.reload();
       }, 3200);
     },
     getCat: function getCat() {

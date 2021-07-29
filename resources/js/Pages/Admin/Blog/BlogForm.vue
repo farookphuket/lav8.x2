@@ -218,9 +218,7 @@ export default{
             }
             setTimeout(()=>{
 
-                this.$emit('getBlogs')
-                this.res_status = ''
-                this.$refs.sel_cat.value = "0"
+                location.reload()
             },3200)
             
         },
