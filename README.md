@@ -56,7 +56,7 @@ Blog::backupBlog($blog_id);
 > permanently remove due to the error on refresh will be occoure 
 > so now back up will be writen to the backup file for a new refresh 
 > but the "has removed" item will be re-insert on the `php artisan db:seed` 
-> command run. 
+> command run so make sure you have check this very well. 
 
 ---
 ## ========= date 22 Jul 2021 
