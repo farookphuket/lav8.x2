@@ -309,3 +309,45 @@ INSERT INTO `whatnews` (`user_id`,
 
  
  /* ======== auto script 2021-07-28 19:43:21 pm END ========= */
+
+
+
+
+ /* =========== auto script START 2021-07-30 19:26:37 pm  ==================== */
+ 
+
+/* ============================================================================
+ * backup INSERT Whatnew on 2021-07-30 19:26:37
+ * ============================================================================
+ * */
+INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
+`is_public`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'TgrjYFhNXbGXw97i0ad2LlKem6a8MJS5s7RbGJGKu7iRwTOZ1ElFUMNaNzv4',
+    'ข่าวโควิด 19 วันที่ 30 Jul 2021'
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            สถานการณ์คือ เห้อ..........ดูข่าวเอานะ ตอนนี้ยังเป็นหมื่นกว่าอยู่เลย เบื่อพูด
+            
+        </p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/ro-VusN1faY?start=48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
+        <p class="text-center pt-2">
+            Live! แถลงจากศูนย์บริหารสถานการณ์โควิด-19 (30 ก.ค.64)           
+        </p>
+        <p class="pt-2">
+           ก็อย่างที่บอกนั่นแหละครับ เชื้อโควิดน่ะมันเดินไปเองไม่ได้ เราเป็นคนพามันไป เราทุกคนเป็นคนพามันไปติดคนอื่น ถ้าตัวเรายังไม่คิดทำให้ตัวเองปลอดภัย คนอื่นๆ ก็ไม่ปลอดภัยด้วย 
+        </p>
+        <p class="pt-2">
+            ทุกวันนี้คือ ต้องอยู่ห่างๆ กันครับบ้านเดียวกันก็ต้องอยู่ห่างๆ กันเพราะแม้แต่ลมหายใจของเราก็เป็นอันตรายให้คนอื่นได้ รู้รักษาตัวรอดเป็นยอดดีครับ
+            
+        </p>
+    </div>
+</div>'
+    '1',
+    '2021-07-30 19:26:37'
+    '2021-07-30 19:26:37');
+ 
+ /* ======== auto script 2021-07-30 19:26:37 pm END ========= */

@@ -71,8 +71,9 @@ class RegisterController extends Controller
         $newUser->roles()->attach(2);
         
         $get = User::latest()->first();
-        // ====== backup user 
-        $this->backupUser($get->id,"insert");
+
+        // ====== backup user to file
+        User::backupUser($get->id,"insert");
 
 
         $msg = "<span class=\"badge badge-success\">
@@ -127,6 +128,8 @@ class RegisterController extends Controller
     {
         //
     }
+
+
     /* ============= backupUser 25 Jul 2021 START ========================== */
     public function backupUser($id,$command=false){
         $user = User::find($id);

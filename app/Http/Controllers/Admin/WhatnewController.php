@@ -69,8 +69,10 @@ class WhatnewController extends Controller
         $validate["is_public"] = !request()->is_public?0:1;
         Whatnew::create($validate);
 
+        $wn = Whatnew::latest()->first();
         // make a backup
-        $this->backupInsertWn();
+        //$this->backupInsertWn();
+        Whatnew::backupWhatnew($wn->id,"insert");
 
         $msg = "<span class=\"alert alert-success\">
             Success : data has beend created</span>";
@@ -129,7 +131,8 @@ class WhatnewController extends Controller
                 ->update($validate);
 
         // make backup for the update
-        $this->backupUpdateWn($id);
+        //$this->backupUpdateWn($id);
+        Whatnew::backupWhatnew($id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             Success : data has beend updated</span>";
@@ -155,38 +158,5 @@ class WhatnewController extends Controller
         ]);
     }
 
-    /* =========== backup script 4 Jul 2021 ================================*/
-    public function backupInsertWn(){
-        $wn = Whatnew::latest()->first();
-        $file = base_path("DB/whatnew_list.sqlite");
-        $cont = "/* ====== auto insert script `{$this->wn_table}` ======== */";
-        $cont .= "
-INSERT INTO `{$this->wn_table}` (`user_id`,
-`token`
-,`whatnew_title`,`whatnew_body`,`is_public`,
-`created_at`,`updated_at`) VALUES(
-    '{$wn->user_id}',
-    '{$wn->token}',
-    '{$wn->whatnew_title}',
-    '{$wn->whatnew_body}',
-    '{$wn->is_public}',
-    '{$wn->created_at}','{$wn->updated_at}'); 
 
-";
-        write2text($file,$cont);
-    }
-
-    public function backupUpdateWn($id){
-        $wn = Whatnew::find($id);
-        $file = base_path("DB/whatnew_list.sqlite");
-        $cont = "/* ====== auto update script `{$this->wn_table}` ======== */";
-        $cont .= "
-UPDATE `{$this->wn_table}` SET whatnew_title='{$wn->whatnew_title}',
-whatnew_body='{$wn->whatnew_body}',
-is_public='{$wn->is_public}',updated_at='{$wn->updated_at}' 
-WHERE id='{$wn->id}';
-";
-        write2text($file,$cont);
-    }
-    /* =========== backup script 4 Jul 2021 ================================*/
 }

@@ -47,8 +47,8 @@ class Contact extends Model
         $command = "";
 
         switch($cmd):
-        case"insert":
-            $command .= "
+            case"insert":
+                 $command .= "
 /* ============================================================================
  * INSERT command for backup faq id '{$ct->id}' on ".date("Y-m-d H:i:s")." 
  * ============================================================================
@@ -56,17 +56,18 @@ class Contact extends Model
 INSERT INTO `{$table}`(`user_id`,`name`,`email`,`title`,`ip`,`token`,`date_num`,
 `body`,`created_at`,`updated_at`) VALUES(
     '{$ct->user_id}',
-    '{$ct->name}',
-    '{$ct->name}',
-    '{$ct->name}',
-    '{$ct->name}',
-    '{$ct->name}',
-    '{$ct->name}',
-);
+    '{$ct->email}',
+    '{$ct->title}',
+    '{$ct->ip}',
+    '{$ct->token}',
+    '{$ct->date_num}',
+    '{$ct->body}',
+    '{$ct->created_at}',
+    '{$ct->updated_at}');
 ";
-        break;
-        default:
-            $command .= "\n
+            break;
+            default:
+                 $command .= "\n
 /* ============================================================================
  * DELETE faq id '{$ct->id}' just so you to know that the delete command will
  * not be execute due to the relationship error occoure
@@ -74,7 +75,7 @@ INSERT INTO `{$table}`(`user_id`,`name`,`email`,`title`,`ip`,`token`,`date_num`,
  * */
 /* DELETE FROM `{$table} WHERE id='{$contact_id}';`*/
 ";
-        break;
+            break;
         endswitch;
 
         write2text($file,$command);
