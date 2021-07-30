@@ -324,7 +324,7 @@ INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
 `is_public`,`created_at`,`updated_at`) VALUES(
     '1',
     'TgrjYFhNXbGXw97i0ad2LlKem6a8MJS5s7RbGJGKu7iRwTOZ1ElFUMNaNzv4',
-    'ข่าวโควิด 19 วันที่ 30 Jul 2021'
+    'ข่าวโควิด 19 วันที่ 30 Jul 2021',
     '<div class="row">
     <div class="col-lg-12">
         <p>
@@ -345,9 +345,9 @@ INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
             
         </p>
     </div>
-</div>'
+</div>',
     '1',
-    '2021-07-30 19:26:37'
+    '2021-07-30 19:26:37',
     '2021-07-30 19:26:37');
  
  /* ======== auto script 2021-07-30 19:26:37 pm END ========= */

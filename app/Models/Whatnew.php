@@ -52,10 +52,10 @@ INSERT INTO `{$table}`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
 `is_public`,`created_at`,`updated_at`) VALUES(
     '{$wn->user_id}',
     '{$wn->token}',
-    '{$wn->whatnew_title}'
-    '{$wn->whatnew_body}'
+    '{$wn->whatnew_title}',
+    '{$wn->whatnew_body}',
     '{$wn->is_public}',
-    '{$wn->created_at}'
+    '{$wn->created_at}',
     '{$wn->updated_at}');
 ";
                 break;
