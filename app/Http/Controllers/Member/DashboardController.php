@@ -20,7 +20,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Member.index');
+        $wn = Whatnew::latest()->first();
+        return view('Member.index')->with([
+            "whatnew" => $wn
+        ]);
     }
 
 
@@ -88,33 +91,13 @@ class DashboardController extends Controller
         $validate["whatnew_title"] = xx_clean(request()->title);
         $validate["whatnew_body"] = xx_clean(request()->body);
 
-        $backup = Whatnew::create($validate);
+        Whatnew::create($validate);
 
-        $backup->title = str_replace("'","׳",$backup->title);
-        $backup->body = str_replace("'","׳",$backup->body);
-        // =============== backup data  //
-        $file = base_path("DB/whatnew_list.sqlite");
-        $content = " 
-/* === whatnews table auto script START ".date("Y-m-d H:i:s a")." ========= */";
+        // get the last create row to backup
+        $wn = Whatnew::latest()->first();
 
-        $content .= "
-    INSERT INTO `whatnews` ( 
-    `user_id`,`token`,
-    `whatnew_title`,`whatnew_body`,
-    `created_at`,`updated_at`) 
-    VALUES (
-    '{$backup->user_id}',
-    '{$backup->token}',
-    '{$backup->whatnew_title}',
-    '{$backup->whatnew_body}',
-    '{$backup->created_at}',
-    '{$backup->updated_at}');                                          
-        ";
-
-        // call to script to write to file
-        write2text($file,$content);
-
-        // =========== End backup =================
+        // backup whatnew 
+        Whatnew::backupWhatnew($wn->id,"insert");
 
         $msg = "<span class=\"alert alert-success\">
             Success : your post has been save</span>";
@@ -176,6 +159,9 @@ class DashboardController extends Controller
 
         Whatnew::where("id",$id)->update($validate);
 
+        // backup update whatnew 
+        Whatnew::backupWhatnew($id,"edit");
+
         $msg = "<span class=\"alert alert-success\">
             Success : your post has  been updated</span>";
         return response()->json([
@@ -191,6 +177,7 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
+
         $del = Whatnew::where("id",$id)->first();
         $del->delete();
 

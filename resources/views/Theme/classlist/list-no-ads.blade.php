@@ -19,8 +19,8 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
 @include("INC.google-service")
 <meta charset="utf-8">
 
-<title>@hasSection("meta_title") @yield('meta_title') @else 
-welcome to see-southern.com @endif</title>
+<title>@hasSection("meta_title") @yield('meta_title') @else welcome to see-southern.com @endif</title>
+
 <meta name="description" content="see southern thailand คนใต้บ้านเรานิ มาลองแลกันต๊ะ">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 

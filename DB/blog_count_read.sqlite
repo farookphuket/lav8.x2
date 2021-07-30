@@ -1,0 +1,35 @@
+/* 
+* ============================================================================
+*                       DEFAULT DATA DO NOT DELETE 
+* you can edit this content here but do not delete this field.
+*               Date 25 Jul 2021
+* ============================================================================
+*/
+INSERT INTO `blog_count_read`(`blog_id`,`ip`,`os`,`browser`,`last_readed_at`,
+        `created_at`,`updated_at`) VALUES (
+        '1',
+        '192.168.16.176',
+        'manjaro',
+        'google chrome',
+        '2021-07-25 07:07:12',
+        '2021-07-25 07:07:12',
+        '2021-07-25 07:07:12');
+/* 
+* ============================================================================
+*                       DEFAULT DATA DO NOT DELETE 
+* you can edit this content here but do not delete this field.
+*               Date 25 Jul 2021
+* ============================================================================
+*/
+
+
+
+/* ====================== auto script will start from here ================= */
+
+
+
+
+
+
+
+

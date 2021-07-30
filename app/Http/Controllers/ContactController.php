@@ -58,15 +58,20 @@ class ContactController extends Controller
      */
     public function getContact(){
 
+        /* get the none user id
+         * none user is because the user did not confirm himself with the token
+         * maybe because he cannot check his email or it's the script bot
+         */  
         $wasted = Contact::where("user_id",null)
                                 ->get();
        if(count($wasted) != 0): 
             foreach($wasted as $del):
+                // delete the none user id from table
                 $this->destroy($del->id);
             endforeach;
         endif;
 
-
+        // get the F.A.Q from table then sent to display
         $getFaqs = Contact::with('user')
                             ->latest()
                             ->paginate(3)
@@ -85,10 +90,17 @@ class ContactController extends Controller
      */
 
     public function isRealPerson($token){
-
+        /*
+         * this method will get call by form to compare the token
+         * token key will sent to his email
+         * */
+        // will get the user by token
         $get_person = Contact::where('token',$token)->first();
 
         $name = $get_person->name;
+
+        // the none secure password  will be sent to the user email
+        // he can change this later
         $pass = Hash::make("password");
         $email = $get_person->email;
 
@@ -104,7 +116,8 @@ class ContactController extends Controller
             $user_id = $newMember->id;
 
             // make a backup for new user 
-            $this->makeBackupUser();
+            //$this->makeBackupUser();
+            User::backupUser($user_id);
             //--- end of backup
 
             $msg = 'new_user';
@@ -173,9 +186,9 @@ class ContactController extends Controller
 
         $get = array("name" => $name,"email" => $email);
         Mail::send('Mail.contactUsEmail',$data,function($msg) use ($get){
-            $msg->from('no-reply@cannot-reply.nohost');
+            $msg->from('no-reply@localhost.com');
             $msg->to($get["email"],'no-reply-back')->subject("Dear {$get["name"]}
-                we notice that you need confirmed");
+                we notice that you need confirmation!");
         });
 
 
@@ -200,8 +213,9 @@ class ContactController extends Controller
         ]);
 
 
+        $valid["title"] = xx_clean(request()->title);
         $valid["body"] = xx_clean(request()->body);
-        $valid["date_num"] = date('Y-m-d',time());
+        $valid["date_num"] = date('Y-m-d');
         $valid["ip"] = getUserIp();
 
 
@@ -219,8 +233,12 @@ class ContactController extends Controller
         $update = Contact::where('token',request()->token)
                             ->update($valid);
 
+        //get the last update row for backup 
+        $ct = Contact::where("token",request()->token)
+                        ->first();
+
         // ================ backup to sqlite file 
-        $this->makeBackupIfConfirm();
+        Contact::backupContact($ct->id,"insert");
         // =========== End backup =================
 
         if(!$update):
@@ -282,50 +300,4 @@ class ContactController extends Controller
         $del->delete();
     }
 
-    /* make backup user */ 
-    public function makeBackupUser(){
-
-            $getUser = User::latest()->first();
-            $file = base_path("DB/user_list.sqlite");
-
-            $content = "/* ============== Auto backup ".date("Y-m-d H:i:s a");
-            $content .= " ============== */";
-            $content .= "
-    INSERT INTO `{$this->user_table}`(`name`,`email`,`password`,`created_at`
-    ,`updated_at`) VALUES(
-    '{$getUser->name}','{$getUser->email}',
-    '{$getUser->password}',
-    '{$getUser->created_at}',
-    '{$getUser->updated_at}');
-
-
-    /* ===== attach new user {$getUser->name} to role member  */
-    INSERT INTO `role_user` (`role_id`,`user_id`,`created_at`,`updated_at`) 
-    VALUES ('2','{$getUser->id}',
-    '{$getUser->created_at}',
-    '{$getUser->updated_at}');                                          
-";
-
-            write2text($file,$content);
-    }
-    /* End of backup user */ 
-    
-    /* ========  make backup if this user has confirm START ================ */
-    public function makeBackupIfConfirm(){
-        $faq = Contact::latest()->first();
-        $file = base_path("DB/faq_list.sqlite");
-        $con = "/* ========= auto backup ".date("Y-m-d H:i:s");
-        $con .= " to table {$this->faq_table} =========== */ ";
-        $con .= "
-INSERT INTO `{$this->faq_table}`(`user_id`,`name`,`email`,`title`,
-`ip`,`token`,`date_num`,`body`,`created_at`,`updated_at`) VALUES(
-    '{$faq->user_id}','{$faq->name}','{$faq->email}','{$faq->title}',
-    '{$faq->ip}','{$faq->token}','{$this->today_short}','{$faq->body}',
-    '{$faq->created_at}','{$faq->updated_at}'
-);
-";
-
-        write2text($file,$con);
-    }
-    /* ========  make backup if this user has confirm END ================ */
 }

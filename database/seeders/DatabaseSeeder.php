@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             VisitorSeeder::class,
             TagSeeder::class,
             BlogSeeder::class,
+            CommentSeeder::class,
             PhotoSeeder::class,
             TimelineSeeder::class,
             TemplateSeeder::class,

@@ -1,11 +1,15 @@
 <template>
     
-    <div class="review-item-wrapper">
+    <div class="review-item-wrapper mt-4">
+        <div class="float-right mt-4 mb-2">
+            Comments <span class="badge badge-info p-2">{{comments.total}}</span>
+        </div>
         <div class="review-item pt-60 mb-30" 
             v-for="co in comments.data">
-            <div class="media">
-                <div class="info">
-                    <h4 class="">{{co.name}} " 
+            <div class="media mb-4">
+                <div class="info mr-4">
+                    <h4 class="">
+                        {{co.user.name}} 
                     </h4>
                 </div>
                 <div class="rating">
@@ -14,14 +18,15 @@
                     </div>
                 </div>
             </div>
-            <h3 class="text-center">{{co.comment_title}}</h3>
-            <div v-html="co.comment_body">
-                {{co.comment_body}}
-            </div>
-        </div>
-        <div class="col-lg-12">
 
-                <div class="nav-scroller py-1 mb-2">
+                <h3 class="text-center mb-4">{{co.comment_title}}</h3>
+                <div v-html="co.comment_body">
+                    {{co.comment_body}}
+                </div>
+
+        </div>
+
+                <div class="nav-scroller py-1 mb-2 mt-4" v-show="showPagination">
                     <nav class="nav d-flex justify-content-center">
                         <ul class="pagination flex-wrap">
                             <li class="page-item disabled">
@@ -51,7 +56,6 @@
                         </ul>
                     </nav>
                 </div>
-        </div>
     </div>
 </template>
 
@@ -60,7 +64,7 @@
 var moment = require("moment")
 export default{
     name:"CommentList",
-    props:["comments","blog_id","slug"],
+    props:["comments","blog_id","slug","showPagination"],
     data(){
         return{
             moment:moment

@@ -22,6 +22,8 @@ class CreateBlogsTable extends Migration
             $table->text("excerpt");
             $table->text("body");
             $table->boolean("is_public");
+            $table->integer("read_count")->nullable()->default(0);
+            $table->integer("comment_count")->nullable()->default(0);
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')
@@ -34,15 +36,16 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->foreignId("user_id");
             $table->foreignId("blog_id");
-            $table->string("comment_title");
-            $table->text("comment_body");
-            $table->boolean("comment_approve");
+            $table->foreignId("comment_id");
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade');
 
             $table->foreign('blog_id')->references('id')->on('blogs')
+                ->onDelete('cascade');
+
+            $table->foreign('comment_id')->references('id')->on('comments')
                 ->onDelete('cascade');
         });
 
@@ -52,7 +55,6 @@ class CreateBlogsTable extends Migration
             $table->foreignId("category_id");
             $table->foreignId("blog_id");
             $table->timestamps();
-
 
             $table->foreign('blog_id')->references('id')->on('blogs')
                 ->onDelete('cascade');

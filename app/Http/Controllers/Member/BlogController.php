@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Template;
@@ -71,6 +72,7 @@ class BlogController extends Controller
         $blogs = Blog::with('user')
             ->with("tags")
             ->with("category")
+
             ->where("is_public",1)
             ->orWhere("user_id",Auth::user()->id)
             ->orderBy("created_at","desc")
@@ -142,9 +144,14 @@ class BlogController extends Controller
                 "updated_at" => now()
             ]);
 
-        // ====== make a backup for new post
-        $this->backupBlog($newPost->id,"insert");
+        // backup blog category link to file
+        Category::backupBlogCategoryLink($newPost->id,"edit");
 
+        // ====== make a backup for new post
+        Blog::backupBlog($newPost->id,"insert");
+
+        // backup the blog tag link
+        Tag::backupBlogTagLink($newPost->id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             success : data has been created </span>";
@@ -172,7 +179,9 @@ class BlogController extends Controller
             $tag->tags()->attach($newTag);
 
             // === make backup tag
-            $this->backupInsertTag();
+            //$this->backupInsertTag();
+            // new backup script 28 Jul 2021
+            Tag::backupTag($newTag->id,"insert");
         endif;
         return $get;
     }
@@ -205,7 +214,10 @@ class BlogController extends Controller
         DB::table($this->comment_table)->insert($validate);
 
         // ===== make backup for comment
-        $this->backupInsertComment();
+        $cm = DB::table($this->comment_table)
+                    ->latest()
+                    ->first();
+        $this->backupComment($cm->id,"insert");
         
         $msg = "<span class=\"alert alert-success\">
             your comment has been created  </span>";
@@ -244,8 +256,13 @@ class BlogController extends Controller
 
         $bl = Blog::with('user')
             ->with("tags")
+            ->with("comments")
             ->where('slug',$blog->slug)
             ->get();
+
+        // make count on this blog id then make a backup script to file
+        Blog::blogCountRead($blog->id,"edit");
+
         return view('Member.Blog.show')->with([
             "blog" => $bl
         ]);
@@ -301,7 +318,7 @@ class BlogController extends Controller
         endif;
 
         // make a backup to file 
-        $this->backupBlog($blog->id,"update");
+        Blog::backupBlog($blog->id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             success : data has been updated </span>";
@@ -320,7 +337,7 @@ class BlogController extends Controller
     {
 
         // backup blog
-        $this->backupBlog($id);
+        Blog::backupBlog($id);
 
         $del = Blog::where('id',$id)->first();
         $del->delete();
@@ -335,24 +352,46 @@ class BlogController extends Controller
 
     /* backup for comment START */
 
-    public function backupInsertComment(){
+    public function backupComment($id,$cmd=false){
 
         // get the last insert row
         $bk = DB::table($this->comment_table)
-                ->latest()->first();
+                ->where("blog_id",$id)->first();
         $file = base_path("DB/blog_comment_list.sqlite");
-        $content = "/* ====== auto back up INSERT ".date("Y-m-d H:i:s");
-        $content .= " table {$this->comment_table} ===== */";
-        $content .= " 
-    INSERT INTO `{$this->comment_table}`(`user_id`,`blog_id`,`comment_title`,
-    `comment_body`,`comment_approve`,`created_at`,`updated_at`) VALUES(
+
+        $cm = "";
+        switch($cmd):
+            case"insert":
+
+                $cm .= "\n
+/* =========================================================================== 
+ * blog id {$bk->blog_id} has 
+ * comment id {$bk->comment_id} on ".date("Y-m-d H:i:s")."
+ * ===========================================================================
+ * */
+INSERT INTO `{$this->comment_table}`(`user_id`,`blog_id`,`comment_title`,
+`comment_body`,`comment_approve`,`created_at`,`updated_at`) VALUES(
         '{$bk->user_id}',
         '{$bk->blog_id}',
         '{$bk->comment_title}',
+        '{$bk->comment_body}',
+        '{$bk->comment_approve}',
         '{$bk->created_at}',
         '{$bk->updated_at}');
 ";
-        write2text($file,$content);
+            break;
+            default:
+                $cm .= "\n
+/* ===========================================================================
+ * Delete comment that relatest to blog id {$bk->blog_id} 
+ * on ".date("Y-m-d H:i:s")." as the blog id {$bk->blog_id} has been deleted
+ * ===========================================================================
+ * /
+DELETE FROM {$this->comment_table} WHERE blog_id='{$bk->blog_id}';
+    ";
+            break;
+        endswitch;
+        write2text($file,$cm);
     }
 
 
@@ -417,6 +456,8 @@ DELETE FROM `{$this->blog_table}` WHERE id='{$blog->id}';
 
         // delete tag 
         $this->backupTagLink($blog->id);
+
+        // delete the comment that relatest to this post id 
 
         break;
         endswitch;

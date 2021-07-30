@@ -23,6 +23,7 @@ use App\Http\Controllers\Member\TimelinesController as MTL; /* member Timeline *
 use App\Http\Controllers\Member\BlogController as MBL;
 use App\Http\Controllers\Member\ProfileController as MPL;
 use App\Http\Controllers\Member\TemplateController as MTMP;
+use App\Http\Controllers\Member\CommentController as MCMT;
 
 /* Admin Import section */
 
@@ -127,6 +128,12 @@ Route::prefix('member')->name('member.')
     Route::get("/getTemplate",[MTMP::class,"getTemplate"])
         ->name("getTemplate");
     /* =============== template 19 Jul 2021 ====================*/
+
+    /* =============== Comemnt 27 Jul 2021 =====================*/
+    Route::resource('/comment',MCMT::class);
+    Route::get("/getComment",[MCMT::class,'getComment'])
+        ->name("getComment");
+    /* =============== Comemnt 27 Jul 2021 =====================*/
 
 });
 

@@ -13,7 +13,8 @@
 
 
 @section('content')
-
+    
+    @section("meta_title",$whatnew->whatnew_title)
 
     <member-whatnew ></member-whatnew>
 

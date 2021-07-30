@@ -177,7 +177,7 @@ WHERE id={$photo->id};
             default:
             $cont .= "
 /* ========== delete photo ".date("Y-m-d H:i:s")." ========================= */
-DELETE FROM `{$this->photo_table}` WHERE id="{$photo->id}"
+DELETE FROM `{$this->photo_table}` WHERE id='{$photo->id}';
 ";
             break;
         endswitch;

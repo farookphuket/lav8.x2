@@ -61,6 +61,27 @@
                             </div>
                             <!-- show public status -->
 
+                            <!--show comment count START    -->
+                            <div class="col-md-8 mt-4 mb-4">
+
+                                <span v-for="cm in bl.comments">
+                                    <b-icon icon="chat-quote"></b-icon>
+                                    {{bl.comments.length}}
+                                </span>
+                            </div>
+                            <!--show comment count END      -->
+
+                            <!--show comment count START    -->
+                            <div class="col-md-4 mt-4 mb-4">
+                                <div class="float-right">
+                                    <span >
+                                        <b-icon icon="eye"></b-icon>
+                                        {{bl.read_count}}
+                                    </span>
+                                </div>
+                            </div>
+                            <!--show comment count END      -->
+
                             <!-- show tags -->
                             <div class="col-md-4 mt-4">
                               <p>

@@ -15,6 +15,48 @@ lav8.x2 is the current project that I working on now (15 Ap 2021)
 > this is the update code list that I have made.
 
 
+---
+
+## ========= date 29 Jul 2021 
+
+> the backup script now move to "Model" for easy call from the controller
+> backup method will need 2 arguments :
+1.  The id of blog,tag,comment.
+2.  the command "insert","edit" or leave it for the delete command(which's now 
+the delete command will commented will be not really delete data on the refresh
+due to the chain of id relationship throw error if the command has execute.)
+
+> to use case :
+-   call from controller :
+```
+// make sure you have include the model
+use App\Models\Blog;
+
+
+/*
+* this will make  INSERT command to file  
+*
+*/
+Blog::backupBlog($blog_id,"insert");
+
+
+// this will make UPDATE command to file
+Blog::backupBlog($blog_id,"edit");
+
+
+// this will make DELETE command to file(with the commented)
+Blog::backupBlog($blog_id);
+
+```
+
+> you can use this with `Comment`,`Tag`,`Whatnew`,`Category`.
+
+
+> backup script will be "comment" the "delete command" as it is cannot be 
+> permanently remove due to the error on refresh will be occoure 
+> so now back up will be writen to the backup file for a new refresh 
+> but the "has removed" item will be re-insert on the `php artisan db:seed` 
+> command run. 
 
 ---
 ## ========= date 22 Jul 2021 

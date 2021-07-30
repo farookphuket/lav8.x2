@@ -1,24 +1,145 @@
-
-/* ========================== DO not delete this  
-* don't delete this code you can edit but not delete
+/* ============================================================================
+* =============================================================================
+*                           DEFAULT DATA DO NOT DELETE 25-Jul-2021
+* this is the link of comment and blog the default data do not delete
+* you can edit it but make sure the id is exited.
+* =============================================================================
 */
-    INSERT INTO `blog_comment`(`user_id`,`blog_id`,
-    `comment_title`,`comment_body`,`comment_approve`,`created_at`
-    ,`updated_at`) VALUES(
-    '3','1',
-    'ไปโดนมาแล้วบอกเลย สุดยอดมากครับ',
-    '<p> 
-    ได้ยินชื่อเสียงมานานแล้วว่า "อาหารทะเลสุดยอด" เลยต้องมาโดนให้รู้สักที อร่อยดีครับ 
-    ราคาก็ไม่ได้แพงจนน่าเกลียดเหมือนเคยกินหลายๆ ร้าน(ส่วนมากแถวใต้ หาร้านซีฟู้ดดีๆ ยากจริงๆ)
+INSERT INTO `blog_comment`(`user_id`,`blog_id`,`comment_id`,`created_at`,
+        `updated_at`) VALUES(
+        '2','1','1',
+        '2021-07-25 07:07:25',
+        '2021-07-25 07:07:25');
+/* ============================================================================
+* =============================================================================
+*                           DEFAULT DATA DO NOT DELETE 25-Jul-2021
+* this is the link of comment and blog the default data do not delete
+* you can edit it but make sure the id is exited.
+* =============================================================================
+*/
 
-    </p>
-    <img class="responsive pt-4" src="https://lh3.googleusercontent.com/AGV7N2BvccQtdwM5Dc5Wo0FB97lBW0IW-bb3kJq8Sl4pl-rc7UEdluukb45H3CXKX1qXqBChK4FdhTX7-ZFBPFbOJKdXuYL56BP-IdBHybW1iNSg_lqV2uxDWSFuy5tdhWD44ZeDm_k=w2400" alt="อันนี้ไม่เกี่ยวกะเค้าหรอก">
-    ',
-    '1',
-    '2021-06-12 10:02:50',
-    '2021-06-12 10:02:50');
-/* ============================ DO NOT DELETE ===============================*/ 
+/* =========================== auto script will goes here ================== */
 
 
 
 
+
+ /* =========== auto script START 2021-07-29 08:56:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 4 as the blog 
+ * has been deleted on 2021-07-29 08:56:01
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='4';
+ 
+ /* ======== auto script 2021-07-29 08:56:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 08:56:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 4 as the blog 
+ * has been deleted on 2021-07-29 08:56:01
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='4';
+ 
+ /* ======== auto script 2021-07-29 08:56:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:07:49 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 5 as the blog 
+ * has been deleted on 2021-07-29 09:07:49
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='5';
+ 
+ /* ======== auto script 2021-07-29 09:07:49 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:07:49 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 5 as the blog 
+ * has been deleted on 2021-07-29 09:07:49
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='5';
+ 
+ /* ======== auto script 2021-07-29 09:07:49 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:35:26 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 3 as the blog 
+ * has been deleted on 2021-07-29 09:35:26
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='3';
+ 
+ /* ======== auto script 2021-07-29 09:35:26 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:35:26 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 3 as the blog 
+ * has been deleted on 2021-07-29 09:35:26
+ * ============================================================================
+ * */
+DELETE FROM `blog_comment` WHERE blog_id='3';
+ 
+ /* ======== auto script 2021-07-29 09:35:26 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:57:41 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 5 as the blog 
+ * has been deleted on 2021-07-29 09:57:41
+ * ============================================================================
+ * */
+/* DELETE FROM `blog_comment` WHERE blog_id='5'; */
+ 
+ /* ======== auto script 2021-07-29 09:57:41 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:57:41 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 5 as the blog 
+ * has been deleted on 2021-07-29 09:57:41
+ * ============================================================================
+ * */
+/* DELETE FROM `blog_comment` WHERE blog_id='5'; */
+ 
+ /* ======== auto script 2021-07-29 09:57:41 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:58:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 4 as the blog 
+ * has been deleted on 2021-07-29 09:58:01
+ * ============================================================================
+ * */
+/* DELETE FROM `blog_comment` WHERE blog_id='4'; */
+ 
+ /* ======== auto script 2021-07-29 09:58:01 am END ========= */
+
+ /* =========== auto script START 2021-07-29 09:58:01 am  ==================== */
+ 
+
+/* ============================================================================
+ * Delete comment that linking to the blog id 4 as the blog 
+ * has been deleted on 2021-07-29 09:58:01
+ * ============================================================================
+ * */
+/* DELETE FROM `blog_comment` WHERE blog_id='4'; */
+ 
+ /* ======== auto script 2021-07-29 09:58:01 am END ========= */

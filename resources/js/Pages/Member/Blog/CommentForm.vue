@@ -63,7 +63,7 @@ export default{
             if(id){
                 url = `/member/updateComment/${id}`
             }else{
-                url = `/member/saveComment`
+                url = `/member/comment`
                 this.cForm.submit("post",url)
                     .then((res)=>{
                         this.res_status = res.msg

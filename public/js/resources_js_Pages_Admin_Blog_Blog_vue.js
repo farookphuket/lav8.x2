@@ -342,10 +342,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       setTimeout(function () {
-        _this2.$emit('getBlogs');
-
-        _this2.res_status = '';
-        _this2.$refs.sel_cat.value = "0";
+        location.reload();
       }, 3200);
     },
     getCat: function getCat() {
@@ -383,6 +380,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1408,6 +1426,43 @@ var render = function() {
                               [_c("b-icon", { attrs: { icon: "lock" } })],
                               1
                             )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-8 mt-4 mb-4" },
+                      _vm._l(bl.comments, function(cm) {
+                        return _c(
+                          "span",
+                          [
+                            _c("b-icon", { attrs: { icon: "chat-quote" } }),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(bl.comments.length) +
+                                "\n                            "
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4 mt-4 mb-4" }, [
+                      _c("div", { staticClass: "float-right" }, [
+                        _c(
+                          "span",
+                          [
+                            _c("b-icon", { attrs: { icon: "eye" } }),
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(bl.read_count) +
+                                "\n                                "
+                            )
+                          ],
+                          1
+                        )
                       ])
                     ]),
                     _vm._v(" "),
