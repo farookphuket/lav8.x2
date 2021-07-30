@@ -24,6 +24,34 @@
 
 
 
+ /* =========== auto script START 2021-07-29 08:12:47 am  ==================== */
+ 
+ 
+/* ======== add to visitors table using auto script 2021-07-29 08:12:47 ==== */
+INSERT INTO `visitors` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '127.0.0.1',
+    'Chrome 92.0.4515.107','Linux ',
+    '29','07','2021',
+    '2021-07-29',
+    '2021-07-29 08:12:47',
+    '2021-07-29 08:12:47');
+             
+ /* ======== auto script 2021-07-29 08:12:47 am END ========= */
 
-
-
+ /* =========== auto script START 2021-07-30 17:15:38 pm  ==================== */
+ 
+ 
+/* ======== add to visitors table using auto script 2021-07-30 17:15:38 ==== */
+INSERT INTO `visitors` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '127.0.0.1',
+    'Chrome 92.0.4515.107','Linux ',
+    '30','07','2021',
+    '2021-07-30',
+    '2021-07-30 17:15:38',
+    '2021-07-30 17:15:38');
+             
+ /* ======== auto script 2021-07-30 17:15:38 pm END ========= */
