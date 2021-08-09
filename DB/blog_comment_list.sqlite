@@ -143,3 +143,42 @@ DELETE FROM `blog_comment` WHERE blog_id='3';
 /* DELETE FROM `blog_comment` WHERE blog_id='4'; */
  
  /* ======== auto script 2021-07-29 09:58:01 am END ========= */
+
+ /* =========== auto script START 2021-08-08 08:01:34 am  ==================== */
+ 
+ 
+/* ============================================================================
+ * delete the link just to prevent from having repetition 
+ * ============================================================================
+ * */
+/* DELETE FROM `blog_comment` WHERE blog_id='1'; */
+
+
+/* ============================================================================
+ * backup blog comment link  2021-08-08 08:01:34 
+ * blog id '1' linking to '1'
+ * ============================================================================
+ * */
+INSERT INTO `blog_comment`(`user_id`,`blog_id`,`comment_id`,
+`created_at`,`updated_at`) VALUES(
+    '2',
+    '1',
+    '1',
+    '2021-07-25 07:07:25',
+    '2021-07-25 07:07:25');
+
+
+/* ============================================================================
+ * backup blog comment link  2021-08-08 08:01:34 
+ * blog id '1' linking to '2'
+ * ============================================================================
+ * */
+INSERT INTO `blog_comment`(`user_id`,`blog_id`,`comment_id`,
+`created_at`,`updated_at`) VALUES(
+    '3',
+    '1',
+    '2',
+    '2021-08-08 08:01:34',
+    '2021-08-08 08:01:34');
+ 
+ /* ======== auto script 2021-08-08 08:01:34 am END ========= */

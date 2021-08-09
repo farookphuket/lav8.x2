@@ -1,7 +1,7 @@
 <template>
-    <div class="add-review-wrapper">
-
-        <form action="" @submit.prevent="save(save_id)">
+    <div class="add-review-wrapper mt-4">
+        
+        <form action="" class="mt-6" @submit.prevent="save(save_id)">
             <div class="form-group">
                 <input v-model="cForm.comment_title" class="form-control" type="text" 
                 name="comment_title" placeholder="Enter the title">
@@ -34,6 +34,9 @@
                 {{res_status}}
             </div>
         </b-modal>
+        <div class="mt-8 mb-8">
+            <p class="mb-8">&nbsp;</p>
+        </div>
     </div>
 </template>
 

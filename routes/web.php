@@ -68,6 +68,10 @@ Route::get('/blog/{blog:slug}',[pBlog::class,'show'])->name('blog.show');
 Route::get('/blogSearch',[pBlog::class,'search'])->name('blogSearch');
 Route::get('/getComments',[pBlog::class,'getComments'])->name('getComments');
 
+// 8 Aug 2021
+Route::get('/getBlogComment/{blog:id}',[pBlog::class,'getBlogComment'])
+    ->name('getBlogComment');
+
 Route::get("/getTags",[pTag::class,"getTags"])->name("getTags");
 Route::resource("/tag",pTag::class);
 

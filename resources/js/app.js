@@ -123,6 +123,10 @@ Vue.component('ManUser',()=> import('./Pages/Admin/User.vue'))
 Vue.component('ManContact',()=>import('./Pages/Admin/Contact/Contact.vue'))
 Vue.component('ManComment',()=>import('./Pages/Admin/Comment/Comment.vue'))
 Vue.component('ManBlog',()=>import('./Pages/Admin/Blog/Blog.vue'))
+
+// 8 Aug 2021 
+Vue.component('AdminComment',()=>import('./Pages/Admin/Blog/BlogComment.vue'))
+
 Vue.component('ManTag',()=>import('./Pages/Admin/Tag/Tag.vue'))
 Vue.component('AdminProfile',()=>import('./Pages/Admin/Profile/Profile.vue'))
 Vue.component('ManCategory',()=>import('./Pages/Admin/Category/Category.vue'))

@@ -64,9 +64,9 @@
                             <!--show comment count START    -->
                             <div class="col-md-8 mt-4 mb-4">
 
-                                <span v-for="cm in bl.comments">
+                                <span>
                                     <b-icon icon="chat-quote"></b-icon>
-                                    {{bl.comments.length}}
+                                    {{bl.comments.length}} comment(s).
                                 </span>
                             </div>
                             <!--show comment count END      -->
@@ -84,13 +84,12 @@
 
                             <!-- show tags -->
                             <div class="col-md-4 mt-4">
-                              <p>
-                              Tags :
-                                <span v-for="ta in bl.tags">
-                                    <b-icon icon="tags"></b-icon>
+                              <div>
+                              Tags <b-icon icon="tags"></b-icon> :
+                                <span class="mr-2" v-for="ta in bl.tags">
                                     {{ta.tag_name}}
                                 </span>
-                              </p>  
+                              </div>  
                             </div>
                             <!-- show tags -->
                             <!-- show button -->

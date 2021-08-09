@@ -33,11 +33,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BlogComment",
-  props: ["blog_id"],
+  props: ["blog_id", "user_id"],
   components: {
     CommentForm: _CommentForm_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     CommentList: _CommentList_vue__WEBPACK_IMPORTED_MODULE_1__.default
@@ -49,7 +56,8 @@ __webpack_require__.r(__webpack_exports__);
       comments: [],
       cook_blog_id: '',
       slug: '',
-      showPagination: false
+      showPagination: false,
+      num_comment: 0
     };
   },
   mounted: function mounted() {
@@ -81,8 +89,14 @@ __webpack_require__.r(__webpack_exports__);
         //console.log(res.data)
         _this.comments = res.data.comments;
         _this.slug = res.data.slug;
-        if (Object.keys(_this.comments.data).length >= 2) _this.showPagination = true;
+        if (Object.keys(_this.comments.data).length >= 12) _this.showPagination = true;
+        _this.num_comment = _this.comments.data.length;
       });
+    },
+    del: function del(id) {
+      if (confirm("this will be permantly remove the comment id ".concat(id, " \n \n                        are you sure? ")) == true) {
+        alert(id);
+      }
     },
     box: function box(msg) {
       this.res_status = msg;
@@ -105,6 +119,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var jodit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jodit-vue */ "./node_modules/jodit-vue/dist/jodit-vue.esm.js");
+//
+//
+//
 //
 //
 //
@@ -205,6 +222,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var jodit_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jodit-vue */ "./node_modules/jodit-vue/dist/jodit-vue.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -269,13 +342,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CommentList",
-  props: ["comments", "blog_id", "slug", "showPagination"],
+  props: ["comments", "blog_id", "slug", "showPagination", "user_id"],
   data: function data() {
     return {
-      moment: moment
+      moment: moment,
+      replyItem: [],
+      res_status: '',
+      isShow: true,
+      rcForm: new Form({
+        comment_body: '',
+        comment_id: 0,
+        blog_id: this.blog_id
+      })
     };
+  },
+  methods: {
+    showReplyForm: function showReplyForm(id) {
+      this.isShow = false;
+      this.rcForm.comment_id = id;
+      this.$set(this.replyItem, id, true);
+    },
+    hideReplyForm: function hideReplyForm(id) {
+      this.isShow = true;
+      this.rcForm.comment_id = id;
+      this.$set(this.replyItem, id, false);
+    },
+    saveComment: function saveComment(id) {
+      var _this = this;
+
+      var url = "/member/comment/".concat(id);
+      this.rcForm.submit('put', url).then(function (res) {
+        _this.res_status = res.msg;
+      })["catch"](function (err) {
+        _this.res_status = "<span class=\"alert alert-danger\">\n                    ".concat(Object.values(err).join(), "</span>");
+      });
+      setTimeout(function () {
+        _this.res_status = '';
+
+        _this.$emit('getComments');
+
+        _this.hideReplyForm(id);
+      }, 700);
+    }
   }
 });
 
@@ -517,6 +628,16 @@ var render = function() {
     "div",
     { staticClass: "review-body pt-20 mb-20" },
     [
+      _c("h2", { staticClass: "text-center mt-4 mb-4" }, [
+        _vm._v(
+          "\n            comments(" + _vm._s(_vm.num_comment) + ")\n        "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2 mb-4" }, [
+        _vm._v("\n            write your comment.\n        ")
+      ]),
+      _vm._v(" "),
       _c("comment-form", {
         attrs: { blog_id: _vm.blog_id, editId: _vm.editId },
         on: {
@@ -534,9 +655,14 @@ var render = function() {
           comments: _vm.comments,
           showPagination: _vm.showPagination,
           slug: _vm.slug,
-          blog_id: _vm.blog_id
+          blog_id: _vm.blog_id,
+          num_comment: _vm.num_comment,
+          user_id: _vm.user_id
         },
         on: {
+          del: function($event) {
+            return _vm.del($event)
+          },
           getComments: function($event) {
             return _vm.getComments($event)
           }
@@ -590,11 +716,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "add-review-wrapper" },
+    { staticClass: "add-review-wrapper mt-4" },
     [
       _c(
         "form",
         {
+          staticClass: "mt-6",
           attrs: { action: "" },
           on: {
             submit: function($event) {
@@ -678,7 +805,9 @@ var render = function() {
             _vm._v("\n            " + _vm._s(_vm.res_status) + "\n        ")
           ])
         ]
-      )
+      ),
+      _vm._v(" "),
+      _vm._m(1)
     ],
     1
   )
@@ -697,6 +826,14 @@ var staticRenderFns = [
         },
         [_vm._v("\n                    Sent\n                ")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-8 mb-8" }, [
+      _c("p", { staticClass: "mb-8" }, [_vm._v(" ")])
     ])
   }
 ]
@@ -724,9 +861,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "review-item-wrapper mt-4" },
+    { staticClass: "review-item-wrapper mt-8" },
     [
-      _c("div", { staticClass: "float-right mt-4 mb-2" }, [
+      _c("p", { staticClass: "mt-8" }, [_vm._v(" ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "float-right mt-8 mb-2" }, [
         _vm._v("\n        Comments "),
         _c("span", { staticClass: "badge badge-info p-2" }, [
           _vm._v(_vm._s(_vm.comments.total))
@@ -734,7 +873,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm._l(_vm.comments.data, function(co) {
-        return _c("div", { staticClass: "review-item pt-60 mb-30" }, [
+        return _c("div", { staticClass: "review-item mt-8 mb-30" }, [
           _c("div", { staticClass: "media mb-4" }, [
             _c("div", { staticClass: "info mr-4" }, [
               _c("h4", {}, [
@@ -759,11 +898,141 @@ var render = function() {
             _vm._v(_vm._s(co.comment_title))
           ]),
           _vm._v(" "),
-          _c("div", { domProps: { innerHTML: _vm._s(co.comment_body) } }, [
-            _vm._v(
-              "\n                " + _vm._s(co.comment_body) + "\n            "
-            )
-          ])
+          _c(
+            "div",
+            {
+              staticClass: "mt-4 mb-4",
+              domProps: { innerHTML: _vm._s(co.comment_body) }
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(co.comment_body) +
+                  "\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-lg-6" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6" }, [
+              _c("div", { staticClass: "float-right btn-group" }, [
+                _vm.user_id == co.user_id
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.$emit("del", co.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "trash" } })],
+                      1
+                    )
+                  : _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.isShow,
+                            expression: "isShow"
+                          }
+                        ],
+                        staticClass: "btn btn-outline-primary mb-4",
+                        on: {
+                          click: function($event) {
+                            return _vm.showReplyForm(co.id)
+                          }
+                        }
+                      },
+                      [_c("b-icon", { attrs: { icon: "pencil" } })],
+                      1
+                    )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.replyItem[co.id]
+              ? _c("div", { staticClass: "col-lg-12 mt-8" }, [
+                  _c("form", { attrs: { action: "" } }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("jodit-editor", {
+                          attrs: {
+                            placeholder:
+                              "Enter the comment (required at \n                           least 50 charecters)",
+                            height: "450"
+                          },
+                          model: {
+                            value: _vm.rcForm.comment_body,
+                            callback: function($$v) {
+                              _vm.$set(_vm.rcForm, "comment_body", $$v)
+                            },
+                            expression: "rcForm.comment_body"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "span",
+                          { domProps: { innerHTML: _vm._s(_vm.res_status) } },
+                          [_vm._v(_vm._s(_vm.res_status))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "float-right btn-group" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-outline-primary \n                                    ",
+                              attrs: { type: "submit" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.saveComment(co.id)
+                                }
+                              }
+                            },
+                            [_c("b-icon", { attrs: { icon: "pen" } })],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-outline-danger \n                                    ",
+                              on: {
+                                click: function($event) {
+                                  return _vm.hideReplyForm(co.id)
+                                }
+                              }
+                            },
+                            [_c("b-icon", { attrs: { icon: "x-circle" } })],
+                            1
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "mt-4 mb-4" })
         ])
       }),
       _vm._v(" "),

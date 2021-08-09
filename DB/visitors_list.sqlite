@@ -71,3 +71,19 @@ INSERT INTO `visitors` (
     '2021-08-04 20:22:35');
              
  /* ======== auto script 2021-08-04 20:22:35 pm END ========= */
+
+ /* =========== auto script START 2021-08-08 06:39:57 am  ==================== */
+ 
+ 
+/* ======== add to visitors table using auto script 2021-08-08 06:39:57 ==== */
+INSERT INTO `visitors` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '127.0.0.1',
+    'Chrome 91.0.4472.77','Linux ',
+    '08','08','2021',
+    '2021-08-08',
+    '2021-08-08 06:39:57',
+    '2021-08-08 06:39:57');
+             
+ /* ======== auto script 2021-08-08 06:39:57 am END ========= */

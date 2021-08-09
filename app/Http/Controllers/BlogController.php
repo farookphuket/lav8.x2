@@ -176,6 +176,40 @@ class BlogController extends Controller
         ]);
     }
 
+
+    /* ========================================================================
+     *
+     * getBlogComments 8 Aug 2021 
+     *
+     * this method will fet the comments related to the blog id 
+     *
+     * START
+     *
+     * ========================================================================
+     * */
+    public function getBlogComment($blog_id){
+
+        $comments = Blog::with("comments")
+                            ->orderBy("created_at","desc")
+                            ->where("id",$blog_id)
+                            ->paginate(2);
+        return response()->json([
+            "comments" => $comments
+        ]);
+    }
+
+
+    /* ========================================================================
+     *
+     * getBlogComments 8 Aug 2021 
+     *
+     * this method will fet the comments related to the blog id 
+     *
+     * END
+     *
+     * ========================================================================
+     * */
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -547,7 +547,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1429,25 +1428,20 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-md-8 mt-4 mb-4" },
-                      _vm._l(bl.comments, function(cm) {
-                        return _c(
-                          "span",
-                          [
-                            _c("b-icon", { attrs: { icon: "chat-quote" } }),
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(bl.comments.length) +
-                                "\n                            "
-                            )
-                          ],
-                          1
-                        )
-                      }),
-                      0
-                    ),
+                    _c("div", { staticClass: "col-md-8 mt-4 mb-4" }, [
+                      _c(
+                        "span",
+                        [
+                          _c("b-icon", { attrs: { icon: "chat-quote" } }),
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(bl.comments.length) +
+                              " comment(s).\n                            "
+                          )
+                        ],
+                        1
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4 mt-4 mb-4" }, [
                       _c("div", { staticClass: "float-right" }, [
@@ -1468,24 +1462,19 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4 mt-4" }, [
                       _c(
-                        "p",
+                        "div",
                         [
-                          _vm._v(
-                            "\n                          Tags :\n                            "
-                          ),
+                          _vm._v("\n                          Tags "),
+                          _c("b-icon", { attrs: { icon: "tags" } }),
+                          _vm._v(" :\n                            "),
                           _vm._l(bl.tags, function(ta) {
-                            return _c(
-                              "span",
-                              [
-                                _c("b-icon", { attrs: { icon: "tags" } }),
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(ta.tag_name) +
-                                    "\n                            "
-                                )
-                              ],
-                              1
-                            )
+                            return _c("span", { staticClass: "mr-2" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(ta.tag_name) +
+                                  "\n                            "
+                              )
+                            ])
                           })
                         ],
                         2

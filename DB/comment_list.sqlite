@@ -174,3 +174,21 @@ DELETE FROM `comments` WHERE id='';
 /* DELETE FROM `comments` WHERE id=''; */
  
  /* ======== auto script 2021-07-29 09:58:01 am END ========= */
+
+ /* =========== auto script START 2021-08-08 08:01:34 am  ==================== */
+ 
+ 
+/* ============================================================================
+ * backup insert to comments the id '2'
+ *
+ * ============================================================================
+ * */
+INSERT INTO `comments`(`user_id`,`comment_title`,`comment_body`,`created_at`,
+`updated_at`) VALUES(
+    '3',
+    'thsi is member comment',
+    '<p>hi there this is the member comment then and now so far so for this is coodjf</p>',
+    '2021-08-08 08:01:34',
+    '2021-08-08 08:01:34');
+ 
+ /* ======== auto script 2021-08-08 08:01:34 am END ========= */

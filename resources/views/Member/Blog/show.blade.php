@@ -15,14 +15,14 @@
 
         @section("meta_des",$it->title)
 
-                <h4>{{$it->title}}</h4>
+                <h4 class="mb-4">{{$it->title}}</h4>
 
-                    <span>
+                    <span class="mr-4">
                         <b-icon icon="person"></b-icon>
                         {{$it->user->name}}
                     </span>
 
-                    <span>
+                    <span class="mr-4">
                         <a href="#" 
                             title="{{$it->created_at}}">
                             <b-icon icon="calendar2-day"></b-icon>
@@ -45,11 +45,14 @@
 
 
 
-            <div>
+            <div class="mt-4 mb-6">
                 {!!$it->body!!}
             </div>
-
-            <blog-comment :blog_id="{{$it->id}}"></blog-comment>
+            <p class="mt-4 mb-4">&nbsp;</p>
+            <hr class="mt-4 mb-4">
+            
+            <blog-comment :blog_id="{{$it->id}}" 
+                    :user_id="{{Auth::user()->id}}"></blog-comment>
 
             
 

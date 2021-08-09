@@ -117,27 +117,38 @@ class CommentController extends Controller
     {
 
         $validate = request()->validate([
-            "comment_title" => ["required"],
-            "comment_body" => ["required"]
+            "comment_body" => ["required","min:50"]
         ]);
 
-        $validate["comment_title"] = request()->comment_title;
-        $validate["comment_body"] = xx_clean(request()->comment_body);
-        $validate["updated_at"] = now();
-
-        DB::table($this->comment_table)
-                    ->where("id",$id)
-                    ->update($validate);
-
-        //===== make backup from last change 
-        $bk = DB::table($this->comment_table)
-                        ->where("id",$id)
-                        ->first();
-        $this->backupComment($bk->id,"edit");
-        //===== end of backup
-
+        $get_comment = Comment::find($id);
+        $tmp_reply = "{$get_comment->comment_body} 
+            <hr class=\"mt-4 mb-4\" />
+            <div class=\"card\">
+                <div class=\"card-body mt-2 mb-2\">
+                    ".xx_clean(request()->comment_body)."
+                    <div class=\"row\">
+                       <div class=\"col-lg-6\">
+                            <span>
+                                <b-icon icon=\"calendar2-day\"></b-icon>
+                                ".date("Y-m-d H:i:s")."
+                            </span>
+                        </div> 
+                       <div class=\"col-lg-6\">
+                            <div class=\"float-right badge badge-info p-2\">
+                                ".Auth::user()->name."
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+";
+        Comment::where("id",$id)
+            ->update([
+                "comment_body" => $tmp_reply,
+                "updated_at" => now()
+            ]);
         $msg = "<span class=\"alert alert-success\">
-            Success : data has been save {$id}</span>";
+            Success : data has been save to comment id {$id}</span>";
         return response()->json([
             "msg" => $msg
         ]);

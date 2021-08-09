@@ -34,7 +34,7 @@ class CommentController extends Controller
                             ->with("blogs")
                             ->where("user_id",Auth::user()->id)
                             ->orderBy("created_at","desc")
-                            ->paginate(2);
+                            ->paginate(15);
 
         return response()->json([
             "comments" => $comments
@@ -131,9 +131,45 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update($id)
     {
         //
+        $validate = request()->validate([
+            "comment_body" => ["required","min:50"]
+        ]); 
+
+        $get_comment = Comment::find($id);
+        $tmp_reply = "{$get_comment->comment_body} 
+            <hr class=\"mt-4 mb-4\" />
+            <div class=\"card\">
+                <div class=\"card-body mt-2 mb-2\">
+                    ".xx_clean(request()->comment_body)."
+                    <div class=\"row\">
+                       <div class=\"col-lg-6\">
+                            <span>
+                                <b-icon icon=\"calendar2-day\"></b-icon>
+                                ".date("Y-m-d H:i:s")."
+                            </span>
+                        </div> 
+                       <div class=\"col-lg-6\">
+                            <div class=\"float-right badge badge-info p-2\">
+                                ".Auth::user()->name."
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+";
+        Comment::where("id",$id)
+            ->update([
+                "comment_body" => $tmp_reply,
+                "updated_at" => now()
+            ]);
+        $msg = "<span class=\"alert alert-success\">
+            Success : comment has been save {$id}</span>";
+        return response()->json([
+            "msg" => $msg
+        ]); 
     }
 
     /**
