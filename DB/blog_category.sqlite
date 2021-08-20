@@ -22,3 +22,23 @@ INSERT INTO `blog_category`(`category_id`,`blog_id`,`created_at`,`updated_at`)
 
 
 
+
+
+
+
+
+
+/* ============================================================================
+ * backup INSERT link blog id 3 to category id 3 
+ * on 2021-08-16 02:07:16
+ * ============================================================================
+ * */
+INSERT INTO `blog_category`(`blog_id`,`category_id`,`created_at`,`updated_at`) 
+VALUES(
+    '3',
+    '3',
+    '2021-08-14 05:04:18',
+    '2021-08-14 05:04:18');
+
+ 
+ /* ======== auto script 2021-08-16 02:07:16 am END ========= */

@@ -78,7 +78,7 @@ is_public='{$wn->is_public}' WHERE id='{$wn->id}';
  * backup DELETE Whatnew on ".date("Y-m-d H:i:s")."
  * ============================================================================
  * */
-DELETE FROM `{$table}` WHERE id='{$wn->id}';
+/* DELETE FROM `{$table}` WHERE id='{$wn->id}'; */
 "; 
 
             break;

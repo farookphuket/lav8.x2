@@ -82,3 +82,82 @@
 
 
 
+
+ /* =========== auto script START 2021-08-14 05:04:18 am  ==================== */
+ 
+
+/* ============================================================================
+ * blog id 3 backup INSERT on 2021-08-14 05:04:18
+ * ============================================================================
+ * */
+INSERT INTO `blogs`(`user_id`,`slug`,`title`,`excerpt`,`body`,`is_public`,
+`read_count`,`comment_count`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'ฟังเพลงเพื่อชีวิต-รวมเพลงมาลีฮวนน่า',
+    'ฟังเพลงเพื่อชีวิต รวมเพลงมาลีฮวนน่า',
+    '<div class="row">
+    <div class="col-lg-4">
+        <img class="responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe7u5RAm1k58sQhIJtz509ZuLN66j8fGWukQ&amp;usqp=CAU" alt="image example from the internet">
+        <p class="pt-2 text-center">
+            มาลีฮวนน่า
+        </p>
+    </div>
+    <div class="col-lg-8">
+        <p>
+            ฟังเพลงเพื่อชีวิต รวมเพลงมาลีฮวนน่า
+        </p>
+    </div>
+</div>',
+    '<div class="row">
+    <div class="col-lg-12">
+        <h2 class="text-center">
+            ฟังเพลงของ มาลีฮวนน่า
+        </h2>
+        <p class="mb-4">
+            
+        ไว้เพื่อฟังส่วนตัวเท่านั้น ไม่ได้หากำไร  ไม่มีเจตนาละเมิดลิขสิทธิ์     
+            
+        </p>
+
+        <!-- video from youtube -->
+        <div class="sound-container">
+            <iframe src="https://archive.org/embed/tui_flavor_song_malee-huan-na_14aug2021" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" width="500" height="30" frameborder="0"></iframe>
+        </div>
+        <!-- video from youtube -->
+        <p class="text-center pt-2">
+            ฟังเพลงของ มาลีฮวนน่า 
+        </p>
+
+        <div class="mt-4 mb-4">
+            <h3 class="text-center mt-2 mb-2">
+                เพื่อฟังส่วนตัวเท่านั้น         
+            </h3>
+            <p class="pt-2">
+                กรุณาอุดหนุนศิลปินด้วยการซื้อเพลงของพวกเค้าด้วยครับ
+            </p>
+
+            <!--================== download button START ===================-->
+            <div class="clearfix">
+                <div class="float-right">
+                    <a href="https://archive.org/compress/tui_flavor_song_malee-huan-na_14aug2021/formats=VBR%20MP3&file=/tui_flavor_song_malee-huan-na_14aug2021.zip" 
+                        target="_blank"
+                        class="btn btn-outline-primary">
+                        ดาวน์โหลด
+                    </a>
+                </div>
+            </div>
+            <!--================== download button END ===================-->
+        </div>
+
+    </div>
+</div>',
+    '1',
+    '0',
+    '0',
+    '2021-08-14 05:04:18',
+    '2021-08-14 05:04:18');
+ 
+ /* ======== auto script 2021-08-14 05:04:18 am END ========= */
+
+ 
+

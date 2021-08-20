@@ -25,3 +25,16 @@ INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
 
 
 
+
+ /* =========== auto script START 2021-08-14 04:50:31 am  ==================== */
+ /* ============== backup `categories` 2021-08-14 04:50:31 ================== */
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'ฟังเพลง - เพลงเพื่อชีวิต',
+    'blog',
+    'song',
+    '2021-08-14 04:50:31','2021-08-14 04:50:31');
+ 
+ /* ======== auto script 2021-08-14 04:50:31 am END ========= */
