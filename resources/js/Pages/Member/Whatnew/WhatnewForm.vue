@@ -50,6 +50,10 @@
                                 <button class="btn btn-outline-primary">
                                     <b-icon icon="pen"></b-icon>
                                 </button>
+                                <button class="btn btn-outline-danger" 
+                                @click.prevent="clearForm">
+                                    <span class="fas fa-times-circle fa-1x"></span>
+                                </button>
                             </div>
                         </div>
                     </div>

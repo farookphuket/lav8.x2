@@ -181,6 +181,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "WhatnewForm",
@@ -899,6 +903,20 @@ var render = function() {
                       { staticClass: "btn btn-outline-primary" },
                       [_c("b-icon", { attrs: { icon: "pen" } })],
                       1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.clearForm($event)
+                          }
+                        }
+                      },
+                      [_c("span", { staticClass: "fas fa-times-circle fa-1x" })]
                     )
                   ])
                 ])

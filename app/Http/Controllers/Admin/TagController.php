@@ -153,6 +153,10 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
+
+        // make a backuo to file 
+        Tag::backupTag($id);
+
         $del = Tag::where("id",$id)->first();
         $del->delete();
 

@@ -1,0 +1,45 @@
+/*
+    Default data for payment
+
+
+*/
+
+INSERT INTO `payments`(`user_id`,`pay_title`,`pay_method`,
+`pay_des`,`pay_url`,`pay_pic_absolute_path`,`created_at`,
+`updated_at`) VALUES(
+'1',
+'Kasikorn Bank',
+'scan_qr_code',
+'scan qr code for KASIKORN BANK',
+'https://i.ibb.co/LCK020c/k-qrcode-24-3-2021.jpg',
+'https://i.ibb.co/LCK020c/k-qrcode-24-3-2021.jpg',
+'2021-10-02 18:25:25',
+'2021-10-02 18:25:25');
+
+/*
+ =============================================================================
+ End of object 1
+ =============================================================================
+*/
+
+
+
+
+
+
+ /* =========== auto script START 2021-10-05 06:23:51 am  ==================== */
+ 
+/* ===================== Insert 'payments' ======================== */
+INSERT INTO `payments`(`user_id`,`pay_title`,`pay_method`,`pay_des`,
+`pay_url`,`pay_pic_absolute_path`,`created_at`,`updated_at`) 
+VALUES(
+'1',
+'Krung Thai Bank (ธนาคาร กรุงไทย)',
+'scan_qr_code',
+'scan qr code for KrungThai Bank',
+'/upload_from_user/farook@me.me_2021-10-05_Krung-Thai-Bank.jpg',
+'/upload_from_user/farook@me.me_2021-10-05_Krung-Thai-Bank.jpg',
+'2021-10-05 06:23:51',
+'2021-10-05 06:23:51');
+ 
+ /* ======== auto script 2021-10-05 06:23:51 am END ========= */

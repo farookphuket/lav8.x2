@@ -17,3 +17,9 @@
 
 <link rel="stylesheet" href="{{asset("classlist/assets/css/style.css")}}">
 <link rel="stylesheet" href="{{asset("css/custom_theme.css")}}">
+
+<link href="{{asset("fontawesome/css/fontawesome.css")}}" rel="stylesheet">
+<script src="{{asset("fontawesome/js/all.js")}}"></script>
+<!--
+ <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+-->

@@ -25,3 +25,62 @@ INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
 
 
 
+
+ /* =========== auto script START 2021-08-14 04:50:31 am  ==================== */
+ /* ============== backup `categories` 2021-08-14 04:50:31 ================== */
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'ฟังเพลง - เพลงเพื่อชีวิต',
+    'blog',
+    'song',
+    '2021-08-14 04:50:31','2021-08-14 04:50:31');
+ 
+ /* ======== auto script 2021-08-14 04:50:31 am END ========= */
+
+ /* =========== auto script START 2021-08-24 18:55:34 pm  ==================== */
+ /* ============== backup `categories` 2021-08-24 18:55:34 ================== */
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'ไม้ประดับ - ornamental plant',
+    'product',
+    'plant',
+    '2021-08-24 18:55:34','2021-08-24 18:55:34');
+ 
+
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'ขายรถ Car',
+    'product',
+    'car',
+    '2021-09-24 18:55:34','2021-09-24 18:55:34');
+ /* ======== auto script 2021-08-24 18:55:34 pm END ========= */
+
+ /* =========== auto script START 2021-10-07 07:00:33 am  ==================== */
+ /* ============== backup `categories` 2021-10-07 07:00:33 ================== */
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'Android ระบบแอนดรอยน์',
+    'blog',
+    'phone',
+    '2021-10-07 07:00:33','2021-10-07 07:00:33');
+
+
+
+INSERT INTO `categories`(`user_id`,`cat_title`,`cat_type`,
+`cat_section`,
+`created_at`,`updated_at`) VALUES(
+    '1',
+    'How to ระบบแอนดรอยน์',
+    'blog',
+    'how to',
+    '2021-10-07 07:00:33','2021-10-07 07:00:33');
+ 
+ /* ======== auto script 2021-10-07 07:00:33 am END ========= */

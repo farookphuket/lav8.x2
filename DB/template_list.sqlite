@@ -145,3 +145,47 @@ INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,
 
  
  /* ======== auto script 2021-07-24 13:03:12 pm END ========= */
+
+ /* =========== auto script START 2021-08-20 13:55:06 pm  ==================== */
+ 
+ 
+/* ============================================================================
+ * backup insert Template id '4' on 2021-08-20 13:55:06
+ * ============================================================================
+ * */
+INSERT INTO `templates`(`user_id`,`tm_method`,`tm_title`,`tm_excerpt`,`tm_body`,
+`tm_public`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'whatnew',
+    'whatnew with 2 down pic',
+    '<div class="row">
+    <div class="col-lg-4">
+        <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2022-chevrolet-corvette-z06-1607016574.jpg?crop=0.737xw:0.738xh;0.181xw,0.218xh&amp;resize=640:*" class="responsive">
+        <p class="pt-2 text-center">
+            my orange car
+        </p>
+    </div>
+    <div class="col-lg-4">
+        <img src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5d35eacaf1176b0008974b54%2F0x0.jpg%3FcropX1%3D790%26cropX2%3D5350%26cropY1%3D784%26cropY2%3D3349" class="responsive">
+        <p class="pt-2 text-center">
+            my red car
+        </p>
+    </div>
+</div>',
+    '<div class="row">
+    <div class="col-lg-12">
+        <h2 class="text-center">
+            no need content
+        </h2>
+        <div class="text-center">
+            <p>
+                no need content here.
+            </p>
+        </div>
+    </div>
+</div>',
+    '1',
+    '2021-08-20 13:55:06',
+    '2021-08-20 13:55:06');
+                     
+ /* ======== auto script 2021-08-20 13:55:06 pm END ========= */

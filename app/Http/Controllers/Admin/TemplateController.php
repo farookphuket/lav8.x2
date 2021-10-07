@@ -83,7 +83,9 @@ class TemplateController extends Controller
         $tm = Template::latest()->first();
 
         // make backup to file 
-        $this->backupInsertTemplate($tm->id);
+        // last edit on 20 Aug 2021
+        Template::backupTemplate($tm->id,"insert");
+        //$this->backupInsertTemplate($tm->id);
 
         /* return response request ==================== */
         $msg = "<span class=\"alert alert-success\">
@@ -158,7 +160,9 @@ class TemplateController extends Controller
                     ->update($validate);
 
         // make backup to file 
-        $this->backupUpdateTemplate($id);
+        //$this->backupUpdateTemplate($id);
+        Template::backupTemplate($id,"edit");
+
         $msg = "<span class=\"alert alert-success\">Success : 
             Template has been updated</span>";
         return response()->json([
@@ -175,7 +179,9 @@ class TemplateController extends Controller
     public function destroy($id)
     {
         // make backup to file 
-        $this->backupDelTemplate($id);
+        //$this->backupDelTemplate($id);
+        Template::backupTemplate($id);
+
 
         $del = Template::find($id);
         $del->delete();

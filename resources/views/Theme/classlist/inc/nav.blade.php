@@ -18,12 +18,17 @@
             @guest
                 <a class="page-scroll 
                     @if(Request::segment(1) == NULL)active @endif" 
-                    href="/">Home</a>
+                    href="/"> 
+                    <span class="fas fa-home fa-1x"></span>
+                    Home</a>
             @else
                 <a class="page-scroll 
                     @if(Request::segment(2) == 'dashboard')
                     active @endif" href="{{route('member.dashboard.index')}}" 
-                >Home</a>
+                >
+
+                <span class="fas fa-home fa-1x"></span>
+                Home</a>
             @endguest
         </li>
 
@@ -36,7 +41,9 @@
             ?>
             @guest
             <a class="page-scroll @if($req == 'blog' || $req == 'about') active @endif"  
-                data-toggle="collapse" data-target="#sub-nav1" aria-controls="sub-nav1" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0)">Pages
+                data-toggle="collapse" data-target="#sub-nav1" aria-controls="sub-nav1" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0)">
+                <span class="far fa-folder-open fa-1x"></span>
+                Pages
                 <div class="sub-nav-toggler">
                     <span></span>
                 </div>
@@ -44,7 +51,9 @@
                 @else
 
                 <a class="page-scroll @if($mem_req == 'blog' || $mem_req == 'about') active @endif"  
-                    data-toggle="collapse" data-target="#sub-nav1" aria-controls="sub-nav1" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0)">Pages
+                    data-toggle="collapse" data-target="#sub-nav1" aria-controls="sub-nav1" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0)">
+                    <span class="far fa-folder-open fa-1x"></span>
+                    Pages
                     <div class="sub-nav-toggler">
                         <span></span>
                     </div>
@@ -96,17 +105,74 @@
                 @endguest
             </ul>
         </li>
+
         @guest
 
-<!-- don't know what to put in here yet!
+
+        <!-- =================== Product nav 24 Aug 2021 START ============ -->
         <li class="nav-item">
             <a 
-            href="{{url('/product')}}">Product</a>
+            class="@if(Request::segment(1) == 'product') active @endif"
+            href="/product">Product</a>
         </li>
-   -->         
+
+
+        <!-- =================== Product nav 24 Aug 2021 END ============== -->
+
         <li class="nav-item">
             <a 
-            href="{{url('/login')}}">Login</a>
+            href="{{url('/support')}}">
+            <span class="fa fa-life-ring"></span>
+            Support 
+                
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a 
+            href="{{url('/login')}}">
+            <span class="fas fa-lock"></span>
+            Login 
+                
+            </a>
+        </li>
+    
+        @else 
+            
+        <li class="nav-item">
+
+            <!--
+            <a 
+                href="{{route('member.product.index')}}" 
+                class="@if($mem_req == 'product') active @endif" 
+            >Want to Sale</a>
+            -->
+
+
+            <!-- product SUB link start -->
+            
+                <a class="page-scroll @if($mem_req == 'product') active @endif"  
+                    data-toggle="collapse" data-target="#sub-nav1" aria-controls="sub-nav1" aria-expanded="false" aria-label="Toggle navigation" href="javascript:void(0)">Product
+                    <div class="sub-nav-toggler">
+                        <span></span>
+                    </div>
+                </a>
+
+                
+            <ul class="sub-menu collapse" id="sub-nav1">
+                <li>
+                    <a href="{{route('member.product.index')}}" 
+                        class="@if($mem_req == 'product') active @endif"
+                        title="Buy or Sale your product"
+                        >
+                        Want to Buy
+                    </a>
+                </li>
+                
+                
+            </ul>
+            <!-- product SUB link END -->
+
         </li>
         @endguest
         
@@ -142,8 +208,9 @@
             </a>
             <ul class="dropdown-nav">
                 <li>
-                    <a href="{{route('member.dashboard.index')}}">
-                        Dashboard
+                    <a href="{{route('member.cart.index')}}">
+                        <b-icon icon="cart4"></b-icon>
+                        My Cart
                     </a>
                 </li>
                 <li>
@@ -154,6 +221,12 @@
                 <li>
                     <a href="{{route('member.profile.index')}}">
                         Profile Edit
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('member.profile.address')}}">
+                        Shipping Address
                     </a>
                 </li>
                 <li>

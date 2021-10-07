@@ -157,6 +157,32 @@ a .main-btn .btn-hover{
 /* END 25 MAY 2021 theme learn */
 
 
+/* ============================================================================
+ * Float into center of the screen 6 Oct 2021
+ * START
+ * */
+.float_status{
+    background-color:black;
+    border:1px dotted #ff0000;
+    position: -webkit-sticky;
+    position: sticky;
+    position:fixed;
+    top:50%;
+    left:50%;
+    margin-left:-40%;
+    min-height:70px;
+    color:white;
+    min-width:75px;
+    padding:17px;
+    text-align: left;
+    z-index:+1;
+}
+
+/* ============================================================================
+ * Float into center of the screen 6 Oct 2021
+ * End
+ * */
+
 /*-----Make your webpage responsive ---*/
 /*
 

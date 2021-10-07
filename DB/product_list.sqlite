@@ -1,0 +1,220 @@
+
+/*
+* ==============================================================================
+* this is the Default data DO NOT DELETE
+* 28 Aug 2021
+* START
+* ==============================================================================
+*/
+
+INSERT INTO `products`(`user_id`,`product_title`,`product_price`,
+`product_pic_absolute_path`,`product_des`,`is_sale`,`created_at`,`updated_at`) 
+VALUES(
+'1',
+'ข้อมูลตัวอย่าง บอนสีจากป่าอเมซอน',
+'450',
+'https://lh3.googleusercontent.com/E_zOfnKrPYD3POVlvFCppCe7kRl0Qc6r17ZvYahNutK_fcDeaJarOWepuLoHbkuUz6LlREtbOVeAh6XCjr-aH7QbRr_H_RGnMonTs3CXRiAcIWRmnGhAb8EMP13W73Jcl3yo4t703I5IFhJ2iSz51oBqGg8oD_J4L_8S0PJNJztracZHzSQs3kWuBMqwGbE1xtlK-aqtgg8V4DpHoAcLfwoi6UIeWcN0uy7s2YQGTpwjlVZMBgnF-aZrWXibzTc44m0hFr55mqqgabr2NXGPh6i6yBX0D1vRAmaFNxnX7flVpc4_EWxvh7HV5x2MPlM2RCbm8woFr4BYBQgHMluqt6CyXTHrppx7yeJnpyZHXRUFQIy2HUW51OpDl-1fNxKZvPa_Tg7ghNWb49eBEX9JcGP6TpPTmkCnEdFuOCzXzqmLJJvcHh4M1Ijb54Q3Rd7YiENE78nMphQfhIqNbrLPCQfMBdW11WbMq3ZBgUK1tBeUHgqoogIL72jwWDYN-8msvjF9vwxCUOuHmyBGUu9KPJij0eCfIeWQlFJSxthX7e5UrlBbyjWN-IIGepWYGnfzvDQBH4I0fZbI6AyA5yfIg1AHpfYXBgBt9QLAXoGnoWWgGmBozFNJH1SrAoxm-I8JWO37eg1Xwic0FCwVkW4_YR37hAZ0l39mXEmyjs-XKHJkKcMjvZueNBs5eQrspnChtRfLIA2FxVTFo-3C_PEWszG5=w432-h935-no?authuser=0',
+'
+<div class="row">
+    <div class="col-md-4">
+        <div class="text-center">
+
+            <img src="https://lh3.googleusercontent.com/E_zOfnKrPYD3POVlvFCppCe7kRl0Qc6r17ZvYahNutK_fcDeaJarOWepuLoHbkuUz6LlREtbOVeAh6XCjr-aH7QbRr_H_RGnMonTs3CXRiAcIWRmnGhAb8EMP13W73Jcl3yo4t703I5IFhJ2iSz51oBqGg8oD_J4L_8S0PJNJztracZHzSQs3kWuBMqwGbE1xtlK-aqtgg8V4DpHoAcLfwoi6UIeWcN0uy7s2YQGTpwjlVZMBgnF-aZrWXibzTc44m0hFr55mqqgabr2NXGPh6i6yBX0D1vRAmaFNxnX7flVpc4_EWxvh7HV5x2MPlM2RCbm8woFr4BYBQgHMluqt6CyXTHrppx7yeJnpyZHXRUFQIy2HUW51OpDl-1fNxKZvPa_Tg7ghNWb49eBEX9JcGP6TpPTmkCnEdFuOCzXzqmLJJvcHh4M1Ijb54Q3Rd7YiENE78nMphQfhIqNbrLPCQfMBdW11WbMq3ZBgUK1tBeUHgqoogIL72jwWDYN-8msvjF9vwxCUOuHmyBGUu9KPJij0eCfIeWQlFJSxthX7e5UrlBbyjWN-IIGepWYGnfzvDQBH4I0fZbI6AyA5yfIg1AHpfYXBgBt9QLAXoGnoWWgGmBozFNJH1SrAoxm-I8JWO37eg1Xwic0FCwVkW4_YR37hAZ0l39mXEmyjs-XKHJkKcMjvZueNBs5eQrspnChtRfLIA2FxVTFo-3C_PEWszG5=w432-h935-no?authuser=0" 
+            alt="บอนชมพู บอนประดับ" class="responsive mx-auto d-block">
+        </div>
+        <p class="pt-2 text-center">
+            บอนชมพู บอนประดับ ข้อมูลตัวอย่าง 
+        </p>
+    </div>
+    <div class="col-md-8">
+        <p class="mt-4 mb-2">
+            บอนชมพู บอนประดับ ไม้หายากตระกูลนี้ไม่มีขายที่ไหน มีที่เดียวที่นี่ ราคาคุณภาพ สรรพคุณดีเกินจะ
+            ระบายออกมาเป็นคำพูด เราขายถูกกว่าทุกๆ ร้าน เพราะมีอยู่จ้าวเดียว อยากซื้อก็ทักมา 
+             
+        </p>
+        <p class="pt-2 mb-2">
+            <span class="badge badge-info p-2">
+                สรรพคุณทางยา
+            </span> 
+            เป็นยาเบื่อชั้นดี หากอยากตายท่านสามารถตัดกินได้ทันที หลังจากที่ท่านกินเข้าไปไม่เกิน 15 
+            นาที ท่านจะอาเจียนออกมาเป็นเลือด ขี้ เยี่ยวไม่รู้ตัว เล็บมือ เล็บตีนเขียวคล้ำ ลิ้นจุกปาก
+            จะตายอย่างทรมานภายใน 15 นาที ตายแน่ๆ
+        </p>
+        <p class="pt-2">
+           <span class="alert alert-warning">
+                Warning โปรดทราบ
+           </span>
+           กรุณาวิดิโอคอลเพื่อให้ลูกค้าและผู้ขายได้พูดคุย และถ่ายรูปกันไว้เป็นหลักฐาน เพราะผู้ขายจะ
+           ไม่ส่งสินค้าหากลูกค้าไม่โอนเงินมาครบตามจำนวนในทุกๆ กรณี 
+        </p>
+    </div>
+    <div class="col-lg-12">
+        <h2 class="text-center mb-4">
+            บอนชมพู จากป่าเมืองร้อน
+        </h2>
+
+        <span class="text-center">
+
+            <img src="https://lh3.googleusercontent.com/E_zOfnKrPYD3POVlvFCppCe7kRl0Qc6r17ZvYahNutK_fcDeaJarOWepuLoHbkuUz6LlREtbOVeAh6XCjr-aH7QbRr_H_RGnMonTs3CXRiAcIWRmnGhAb8EMP13W73Jcl3yo4t703I5IFhJ2iSz51oBqGg8oD_J4L_8S0PJNJztracZHzSQs3kWuBMqwGbE1xtlK-aqtgg8V4DpHoAcLfwoi6UIeWcN0uy7s2YQGTpwjlVZMBgnF-aZrWXibzTc44m0hFr55mqqgabr2NXGPh6i6yBX0D1vRAmaFNxnX7flVpc4_EWxvh7HV5x2MPlM2RCbm8woFr4BYBQgHMluqt6CyXTHrppx7yeJnpyZHXRUFQIy2HUW51OpDl-1fNxKZvPa_Tg7ghNWb49eBEX9JcGP6TpPTmkCnEdFuOCzXzqmLJJvcHh4M1Ijb54Q3Rd7YiENE78nMphQfhIqNbrLPCQfMBdW11WbMq3ZBgUK1tBeUHgqoogIL72jwWDYN-8msvjF9vwxCUOuHmyBGUu9KPJij0eCfIeWQlFJSxthX7e5UrlBbyjWN-IIGepWYGnfzvDQBH4I0fZbI6AyA5yfIg1AHpfYXBgBt9QLAXoGnoWWgGmBozFNJH1SrAoxm-I8JWO37eg1Xwic0FCwVkW4_YR37hAZ0l39mXEmyjs-XKHJkKcMjvZueNBs5eQrspnChtRfLIA2FxVTFo-3C_PEWszG5=w432-h935-no?authuser=0" 
+            alt="บอนชมพู บอนประดับ" class="responsive d-block mx-auto">
+            <p class="text-center">
+                บอนไม้ประดับจากป่าเขตร้อน พันธุ์หายากจากทะเลจีนใต้ ไหดำ
+            </p>
+        </span>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="container">
+                    <h3 class="text-center">การจัดส่ง</h3>
+                    <p>
+                        ทางเราจะส่งโดย Klearry Export ซึ่งเป็นบริษัทขนส่งชั้นนำแห่งประเทศไทย
+                        ท่านจะได้รับสินค้าที่บ้านของท่าน ภายใน 3 วันหลังจากวันที่ท่านจ่ายเงิน 
+
+                    </p>
+                </div>
+
+            </li>
+            <li class="list-group-item">
+                <div class="container">
+                    <h3 class="text-center">
+                        ข้อควรระวัง
+                    </h3>
+                    <p class="pt-2">
+                        ท่านต้องทำการวิดิโอคอลกับผู้ขาย เพื่อให้แน่ใจกันทั้งสองฝ่ายว่าไม่ได้เป็น 
+                        มิจฉาชีพมาหลอกหาแดกกัน ก่อนที่จะทำการโอนเงิน 
+                        <span class="alert alert-danger mb-2 mt-2">
+                            ห้ามโอนเงินโดยที่ยังไม่ได้วิดิโอคอลกันไว้เป็นหลักฐานอย่างเด็ดขาด 
+                            เราไม่ควรไว้ใจใครทั้งนั้น!! แม้ว่าจะคุยหรือซื้อขายกกันหลายครั้งแล้ว
+                            ก็ตาม ทั้งนี้เพื่อป้องกันปัญหาที่จะตามมาในภายหลัง
+                        </span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+',
+'1',
+'2021-08-28 12:30:12',
+'2021-08-28 12:30:12');
+
+
+
+INSERT INTO `products`(`user_id`,`product_title`,
+`product_price`,
+`product_pic_absolute_path`,`product_des`,
+`is_sale`,`created_at`,`updated_at`) 
+    VALUES(
+    '2',
+    'รถอเนกประสงค์ Ford Mustang Mach-E ',
+    '5000',
+    'https://review.thaiware.com/upload_misc/review/2021_01/728/1966_2101091009070r_106.jpg',
+    '
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="text-center mb-4 mt-4">
+                รถ Ford Mustang Mach-E
+            </h3>
+                <div class="mb-4 mt-4 text-center">
+
+                    <img src="https://review.thaiware.com/upload_misc/review/2021_01/728/1966_2101091009070r_106.jpg" alt="ข้อมูลตัวอย่าง ไม่ได้ขายจริงๆ" 
+                    class="responsive mx-auto d-block">
+                </div>
+            <p>
+                รถ Mustang Mach-E เปิดตัวมาได้ 2 ปี แต่เพิ่งวางขายเมื่อช่วงปลายปี 
+                ค.ศ. 2020 (พ.ศ. 2021) เฉพาะบางรุ่น ซึ่งถือเป็นรถยนต์ EV รุ่นหนึ่งที่ดีที่สุดของ 
+                Ford เลยทีเดียว และปีนี้ Mustang Mach-E ก็จะเปิดวางจำหน่ายทุกโมเดล 
+                มีการปรับปรุงสเปกเล็กน้อย และมาพร้อมกับสีใหม่คือ สีส้ม เมทัลลิก อีกด้วย
+            </p>
+        </div>
+    </div>
+
+    ',
+    '1',
+    '2021-09-24 14:35:45',
+    '2021-09-24 14:35:45');
+
+/*
+* ==============================================================================
+* this is the Default data DO NOT DLETE
+* 28 Aug 2021
+* END
+* ==============================================================================
+*/
+
+
+
+ /* =========== auto script START 2021-09-30 07:20:58 am  ==================== */
+ 
+
+/* ============================================================================
+ * Insert item id '3' on 2021-09-30 07:20:58
+ * ============================================================================
+ * */
+INSERT INTO `products`(`user_id`,`product_title`,`product_price`,
+`product_pic_absolute_path`,`product_des`,`is_sale`,`created_at`,`updated_at`) 
+VALUES(
+    '3',
+    'new big bicycle',
+    '3500',
+    '/upload_from_user/test@mylap.me_2021-10-01_bicycle.jpg',
+    '<div class="row">
+    <div class="col-lg-12">
+        <h2>my bicycle cool!!</h2>
+    </div>
+</div>',
+    '1',
+    '2021-09-30 07:20:58',
+    '2021-09-30 07:20:58');
+ 
+ /* ======== auto script 2021-09-30 07:20:58 am END ========= */
+
+ /* =========== auto script START 2021-10-01 12:20:17 pm  ==================== */
+ 
+
+/* ============================================================================
+ * Insert item id '4' on 2021-10-01 12:20:17
+ * ============================================================================
+ * */
+INSERT INTO `products`(`user_id`,`product_title`,`product_price`,
+`product_pic_absolute_path`,`product_des`,`is_sale`,`created_at`,`updated_at`) 
+VALUES(
+    '3',
+    'the sport car no.1',
+    '400',
+    '/upload_from_user/test@mylap.me_2021-10-01_sport_car_1.png',
+    '<div class="row">
+    <div class="col-lg-12">
+        <h1>this is the cool car</h1>
+        <p>
+            my car is the best
+        </p>
+    </div>
+</div>',
+    '0',
+    '2021-10-01 12:20:17',
+    '2021-10-01 12:20:17');
+ 
+ /* ======== auto script 2021-10-01 12:20:17 pm END ========= */
+
+ /* =========== auto script START 2021-10-05 12:16:23 pm  ==================== */
+ 
+
+/* ============================================================================
+ * Insert item id '5' on 2021-10-05 12:16:23
+ * ============================================================================
+ * */
+INSERT INTO `products`(`user_id`,`product_title`,`product_price`,
+`product_pic_absolute_path`,`product_des`,`is_sale`,`created_at`,`updated_at`) 
+VALUES(
+    '1',
+    'mutes mjau',
+    '5000',
+    '/upload_from_user/plant_1.jpg',
+    '<p>my plant for the test ha ha</p>',
+    '1',
+    '2021-10-05 12:16:23',
+    '2021-10-05 12:16:23');
+ 
+ /* ======== auto script 2021-10-05 12:16:23 pm END ========= */
+
+

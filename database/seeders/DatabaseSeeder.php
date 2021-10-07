@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             BlogSeeder::class,
             CommentSeeder::class,
             PhotoSeeder::class,
+            ProductSeeder::class,
+            PaymentSeeder::class,
             TimelineSeeder::class,
             TemplateSeeder::class,
         ]);

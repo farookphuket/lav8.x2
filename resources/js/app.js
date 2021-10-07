@@ -60,7 +60,11 @@ Vue.use(IconsPlugin)
 
 
 
-
+/* ============================================================================ 
+ * Global variable
+ * ============================================================================
+ * */
+//const EventBus = new Vue()
 
 /**
  * The following block of code may be used to automatically register your
@@ -72,6 +76,8 @@ Vue.use(IconsPlugin)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+
 /*   
  *
  *   ======= Public ==============
@@ -80,6 +86,14 @@ Vue.use(IconsPlugin)
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('Visitors', ()=> import('./components/Visitors.vue'));
+
+// support link on 3 Oct 2021
+Vue.component('Support', ()=> import('./Pages/Support.vue'));
+
+
+// pub-product  on 4 Oct 2021
+Vue.component('PubProduct', ()=> import('./Pages/Pub/Product/Product.vue'));
+
 Vue.component('LoginPage', ()=> import('./Pages/LoginPage.vue'));
 
 Vue.component('PubBlog',()=>import('./Pages/Blog.vue'))
@@ -93,6 +107,9 @@ Vue.component('FaqUs', ()=>import('./components/ContactList.vue'))
 Vue.component('ResetPassword', ()=> import('./Pages/resetPasswordForm.vue'));
 
 Vue.component('PubPhoto',()=> import('./Pages/Photo.vue'));
+
+// shipping address
+Vue.component('ShippingAddress',()=> import('./Pages/Address.vue'));
 
 Vue.component('PubWhatnews',()=> import('./Pages/Whatnews.vue'));
 
@@ -114,6 +131,19 @@ Vue.component('MemberTemplate',()=>import('./Pages/Member/Template/Template.vue'
 
 // comment 27 Jul 2021 
 Vue.component('MemberComment',()=>import("./Pages/Member/Comment/Comment.vue"))
+
+
+// member product 24 Aug 2021
+Vue.component('MemberProduct',()=>import("./Pages/Member/Product/Product.vue"))
+
+
+// product-order-form
+Vue.component('ProductOrderForm',()=> import('./Pages/Member/Product/ProductOrderForm.vue'))
+
+
+// Cart 
+Vue.component('MyCart',()=>import('./Pages/Member/Product/Cart.vue'))
+
 /* ======================= Member Section END ============== */
 /* ========================================================= */
 
@@ -137,6 +167,16 @@ Vue.component('ManTimeline',()=>import('./Pages/Admin/Timeline/Timeline.vue'))
 
 // template 
 Vue.component('ManTemplate',()=>import('./Pages/Admin/Template/Template.vue'))
+
+
+
+// Product 
+Vue.component('ManProduct',()=>import('./Pages/Admin/Product/Product.vue'))
+
+
+// Payment 
+Vue.component('ManPayment',()=>import('./Pages/Admin/Payment/Payment.vue'))
+
 /* ====================== Admin section END ================== */
 
 

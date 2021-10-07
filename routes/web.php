@@ -11,12 +11,14 @@ use App\Http\Controllers\VisitorsController as pVisit;
 use App\Http\Controllers\BlogController as pBlog;
 use App\Http\Controllers\TagsController as pTag;
 use App\Http\Controllers\ProductController as pProduct;
+use App\Http\Controllers\PaymentController as pPay;
+use App\Http\Controllers\SupportController as pSupport;
 
 // about page
 use App\Http\Controllers\AboutController as pAbout;
 
 
-/* Member section */
+/* ====================== Member section START ============================= */
 use App\Http\Controllers\Member\DashboardController as MDB; /* member dash board */
 use App\Http\Controllers\Member\PhotosController as MPHT; /* member Photo */
 use App\Http\Controllers\Member\TimelinesController as MTL; /* member Timeline */
@@ -24,6 +26,19 @@ use App\Http\Controllers\Member\BlogController as MBL;
 use App\Http\Controllers\Member\ProfileController as MPL;
 use App\Http\Controllers\Member\TemplateController as MTMP;
 use App\Http\Controllers\Member\CommentController as MCMT;
+
+/* created at 24 Aug 2021 */
+use App\Http\Controllers\Member\ProductController as MPD; 
+
+
+/* created at 24 Aug 2021 */
+use App\Http\Controllers\Member\CategoryController as MCR; 
+
+
+/* created at 9 Sep 2021 */
+use App\Http\Controllers\Member\CartController as MCRT; 
+/* ====================== MEMBER SECTION END =============================== */
+
 
 /* Admin Import section */
 
@@ -38,6 +53,8 @@ use App\Http\Controllers\Admin\CategoryController as ACTR;
 use App\Http\Controllers\Admin\WhatnewController as AWN;
 use App\Http\Controllers\Admin\TimelineController as ATL;
 use App\Http\Controllers\Admin\TemplateController as ATMP;
+use App\Http\Controllers\Admin\ProductController as APD;
+use App\Http\Controllers\Admin\PaymentController as APAY;
 
 
 
@@ -68,6 +85,12 @@ Route::get('/blog/{blog:slug}',[pBlog::class,'show'])->name('blog.show');
 Route::get('/blogSearch',[pBlog::class,'search'])->name('blogSearch');
 Route::get('/getComments',[pBlog::class,'getComments'])->name('getComments');
 
+Route::resource('/support',pSupport::class);
+Route::get('/getsupport',[pSupport::class,'getSupport'])
+    ->name('getsupport');
+Route::get('/payment-support',[pSupport::class,'paymentsupport'])
+    ->name('paymentsupport');
+
 // 8 Aug 2021
 Route::get('/getBlogComment/{blog:id}',[pBlog::class,'getBlogComment'])
     ->name('getBlogComment');
@@ -92,6 +115,15 @@ Route::get('/passreset/{token}',[passReset::class,'passreset'])
     ->name('passreset');
 
 Route::resource('/product',pProduct::class);
+Route::get('/getproduct',[pProduct::class,'getProduct'])
+            ->name('getproduct');
+
+/* Payment url*/
+Route::resource('/payment',pPay::class);
+Route::get('/getpayment',[pPay::class,'getPaymentMethod'])
+    ->name('getpayment');
+
+
 
 /* Public route End */
 
@@ -127,6 +159,32 @@ Route::prefix('member')->name('member.')
     // profile
     Route::resource("/profile",MPL::class);
 
+    /* =============== */
+    Route::get("/address",[MPL::class,'address'])->name('profile.address');
+
+
+    /* =============== */
+    Route::get("/getmydefaultshippingaddress",[MPL::class,
+        'getMyDefaultShippingAddress'])
+        ->name('profile.getmydefaultshippingaddress');
+
+    /* =============== get the shipping address list ============================= */
+    Route::get("/getAddress",[MPL::class,'getAddress'])->name('profile.getAddress');
+
+
+    /* =============== show shipping address ============================= */
+    Route::get("/showAddress/{id}",[MPL::class,'showAddress'])->name('profile.showAddress');
+
+    /* =============== save shipping address ============================= */
+    Route::post("/saveAddress",[MPL::class,'saveAddress'])->name('profile.saveAddress');
+
+    /* =============== update shipping address ============================= */
+    Route::put("/updateAddress/{id}",[MPL::class,'updateAddress'])->name('profile.updateAddress');
+
+    /* =============== delete shipping address ============================= */
+    Route::delete("/delAddress/{id}",[MPL::class,'delAddress'])->name('profile.delAddress');
+
+
     /* =============== template 19 Jul 2021 ====================*/
     Route::resource("/template",MTMP::class);
     Route::get("/getTemplate",[MTMP::class,"getTemplate"])
@@ -138,6 +196,33 @@ Route::prefix('member')->name('member.')
     Route::get("/getComment",[MCMT::class,'getComment'])
         ->name("getComment");
     /* =============== Comemnt 27 Jul 2021 =====================*/
+
+    /* =============== Product 24 Aug 2021 ================================= */
+    Route::resource("/product",MPD::class);
+
+    Route::get('/getByCategory/{cat_id}',[MPD::class,'getByCategory'])
+        ->name('getByCategory');
+
+    // member get product
+    Route::get('/getProduct',[MPD::class,"getProduct"])
+        ->name("getProduct");
+
+    Route::get('/categoryProduct',[MPD::class,'categoryProduct'])
+        ->name('categoryProduct');
+    /* =============== Product 24 Aug 2021 ================================= */
+
+    /* =============== Category 24 Aug 2021 START ========================== */
+    Route::resource('category',MCR::class);
+    Route::get("/getCategory",[MCR::class,"getCategory"])
+        ->name("getCategory");
+    /* =============== Category 24 Aug 2021 END   ========================== */
+
+
+    /* =============== Cart 9 Sep 2021 START ========================== */
+    Route::resource('cart',MCRT::class);
+    Route::get("/getMyCart",[MCRT::class,"getMyCart"])
+        ->name("getMyCart");
+    /* =============== Cart 9 Sep 2021 END   ========================== */
 
 });
 
@@ -199,6 +284,19 @@ Route::prefix('admin')->name('admin.')
         Route::get("/getTemplate",[ATMP::class,"getTemplate"])
             ->name("getTemplate");
         /* ============= Template 19 Jul 2021 ================= */
+
+
+
+        /* ============= Product 03 Aug 2021 ================= */
+        Route::resource("/product",APD::class);
+        Route::get("/getProduct",[APD::class,"getProduct"])
+            ->name("getProduct");
+
+        /* ============ Payment 28 Sep 2021 ================== */
+        Route::resource("/payment",APAY::class);
+        Route::get("getpayment",[APAY::class,"getPayment"])
+            ->name("admin.getpayment");
+        /* ============ Payment 28 Sep 2021 ================== */
 
 });
 

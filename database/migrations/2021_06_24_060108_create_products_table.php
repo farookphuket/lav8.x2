@@ -17,7 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId("user_id");
             $table->string("product_title");
-            $table->string("product_pic");
+            $table->integer("product_price");
+            $table->string("product_pic_absolute_path");
+            $table->text("product_des");
+            $table->boolean("is_sale")->default(1);
             $table->timestamps();
 
 

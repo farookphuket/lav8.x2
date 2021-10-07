@@ -69,7 +69,9 @@ class TimelineController extends Controller
         $tn = Timeline::latest()->first();
 
         // write backup data to file
-        $this->backupInsertTimeline($tn->id);
+        // last update 20 Aug 2021
+        Timeline::backupTimeline($tn->id,"insert");
+        //$this->backupInsertTimeline($tn->id);
 
         $msg = "<span class=\"alert alert-success\">
             Success : data has been save</span>";
@@ -140,7 +142,8 @@ class TimelineController extends Controller
             ->update($validate);
 
         // write backup data to file
-        $this->backupUpdateTimeline($id);
+        //$this->backupUpdateTimeline($id);
+        Timeline::backupTimeline($id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             Success : data has been updated</span>";
@@ -159,7 +162,8 @@ class TimelineController extends Controller
     {
 
         // write backup to file
-        $this->backupDelTimeline($timeline->id);
+        //$this->backupDelTimeline($timeline->id);
+        Timeline::backupTimeline($timeline->id);
 
         $del = Timeline::where("id",$timeline->id)
                         ->first();

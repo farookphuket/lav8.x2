@@ -20,6 +20,14 @@
                     <a class="nav-link" href="{{route("admin.category.index")}}">
                         Category
                     </a>
+
+                    <a class="nav-link" href="{{route("admin.product.index")}}">
+                        Product
+                    </a>
+
+                    <a class="nav-link" href="{{route("admin.payment.index")}}">
+                        Payment
+                    </a>
                     <a class="nav-link" href="{{route("admin.timeline.index")}}">
                         Timeline
                     </a>

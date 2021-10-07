@@ -70,7 +70,10 @@ class TimelinesController extends Controller
         $tn = Timeline::latest()->first();
 
         // make a backup to file 
-        $this->backupTimeline($tn->id,"insert");
+        // last update 20 Aug 2021
+        Timeline::backupTimeline($tn->id,"insert");
+
+        //$this->backupTimeline($tn->id,"insert");
 
         $msg = "<span class=\"alert alert-success\">Success {$time}</span>";
         return response()->json(["msg" => $msg]);
@@ -120,7 +123,7 @@ class TimelinesController extends Controller
                 ->update($validate);
 
         // make a backup to file 
-        $this->backupTimeline($id,"update");
+        Timeline::backupTimeline($id,"edit");
 
         $msg = "<span class=\"alert alert-success\">
             Success : item has been updated</span>";
@@ -140,13 +143,13 @@ class TimelinesController extends Controller
 
 
         // make a backup to file 
-        $this->backupTimeline($id);
+        Timeline::backupTimeline($id);
 
         $del = Timeline::find($id);
         $del->delete();
 
         $msg = "<span class=\"alert alert-success\">
-            Success : item has been remove</span>";
+            Success : item {$id} has been remove</span>";
         return response()->json([
             "msg" => $msg
         ]);

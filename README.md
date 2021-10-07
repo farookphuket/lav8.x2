@@ -15,6 +15,76 @@ lav8.x2 is the current project that I working on now (15 Ap 2021)
 > this is the update code list that I have made.
 
 
+
+
+---
+
+
+#  ========= Shopping Cart 
+## ========= date 29 Sep 2021 
+
+> Simple shopping cart feature "list product page " will allow 
+> "Authenticate user" to simeply "Add" his product as well
+  
+
+[list_product]:https://i.ibb.co/3dZpC5v/Sum-value-array-JS-20210926-061015.png
+[member_add_product]:https://i.ibb.co/MNHYb7v/add-product-20210926.png
+[show_product]:https://i.ibb.co/wpsQp4Y/view-product-20210926.png
+[cart_list]:https://i.ibb.co/YR8LNjN/cart-list-20210926.png
+[my_kasikorn_bank_acc]:https://i.ibb.co/j4Rt9Rp/Kbank-Code-for-money-transfer.jpg
+
+### ================== List product 
+
+> the "list product" page will all "Auth user" to simply add his product for 
+sale 
+
+
+![list product page][list_product]
+
+
+
+![add product page][member_add_product]
+
+
+
+### ================== Show product and cart list page
+
+> **Show product** will remember the last select amount of the currently 
+prview product as if the user has already pick it in the list doesn't matter how 
+many times he has click the "add to cart" button the script will be update the 
+selecting amount from the form. 
+
+
+
+![show product][show_product]
+
+
+
+
+> **Cart list** will show the list of product in the cart and user can remove if
+he want to 
+
+
+
+![cart list][cart_list]
+
+
+
+> ***Money transfer method***
+> to transfer money from your country(if you're not in Thailand) to my bank 
+account 
+
+My Bank Address : SAM-KONG BRANCH 264/2 Yaovaraj Road T. Talad-Yai A. Muang 
+Phuket Thailand 83000
+
+Bank Swift Code : KASITHBK
+Bank Account Name : CHETSADAPHON
+Bank Account Number : 489-2-057112
+
+
+![my kasikorn bank account ][my_kasikorn_bank_acc]
+
+
 ---
 
 ## ========= date 29 Jul 2021 

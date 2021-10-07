@@ -495,3 +495,53 @@ INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
     '2021-08-08 18:17:44');
  
  /* ======== auto script 2021-08-08 18:17:44 am END ========= */
+
+ /* =========== auto script START 2021-08-17 08:50:04 am  ==================== */
+ 
+
+/* ============================================================================
+ * backup INSERT Whatnew on 2021-08-17 08:50:04
+ * ============================================================================
+ * */
+INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
+`is_public`,`created_at`,`updated_at`) VALUES(
+    '1',
+    '3nZ6j1oiu0711zkbzabwpTpcD1NPqjpXhJ2AJ99qhUlo1Dfmmfbv8MUx9kus',
+    'Live! แถลงจากศูนย์บริหารสถานการณ์โควิด-19 (16 ส.ค.64)',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+          ข่าวโควิด 19 วันนี้ 16 สิงหาคม 2564
+            
+        </p>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/3Cfyl1EA8x4?start=3" title="ข่าวโควิดวันนี้ 16 Aug 2021 " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+        </div>
+        <p class="text-center pt-2">
+           #ศบค #ผู้ป่วยรายใหม่ #โควิด19 #ศูนย์บริหารสถานการณ์โควิด19 #โควิดวันนี้ ก๊อปปี้มาจาก    
+           <span class="badge badge-info p-2">
+               <a href="https://www.youtube.com/channel/UC3SaG2jCoWuI50eC41OJ53Q" 
+               target="_blank" class="text-white">
+                   สํานักข่าวไทย TNAMCOT
+               </a>
+           </span>
+ 
+            
+        </p>
+        <p class="pt-2">
+           มีหลายๆ คนที่ยังรอคิวฉีดวัคซีนโควิดอยู่นะครับ แต่ไม่ว่ายังไงก็ขอให้ถนอมตัวเอง 
+           อย่าเอาตัวเองไปอยู่ในที่เสี่ยงกันก่อน ป้องกันตัวเองคือวัคซีนที่ดีที่สุด 
+           ป้องกันตัวเราและคนในครอบครัวของเรา สวมหน้ากาก ล้างมือ 
+           หรืออะไรก็ตามที่เราสารถทำได้ไปก่อน อย่าให้โควิดเข้ามาใกล้เราได้ สู้ๆ ครับ
+            
+        </p>
+    </div>
+</div>',
+    '1',
+    '2021-08-17 08:50:04',
+    '2021-08-17 08:50:04');
+ 
+ /* ======== auto script 2021-08-17 08:50:04 am END ========= */
+
+
+
