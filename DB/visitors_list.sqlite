@@ -41,3 +41,35 @@ INSERT INTO `visitors` (
     '2021-08-09 11:26:13');
              
  /* ======== auto script 2021-08-09 11:26:13 am END ========= */
+
+ /* =========== auto script START 2021-10-07 14:47:11 pm  ==================== */
+ 
+ 
+/* ======== add to visitors table using auto script 2021-10-07 14:47:11 ==== */
+INSERT INTO `visitors` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '127.0.0.1',
+    'Chrome 92.0.4515.131','Linux ',
+    '07','10','2021',
+    '2021-10-07',
+    '2021-10-07 14:47:11',
+    '2021-10-07 14:47:11');
+             
+ /* ======== auto script 2021-10-07 14:47:11 pm END ========= */
+
+ /* =========== auto script START 2021-10-08 05:50:41 am  ==================== */
+ 
+ 
+/* ======== add to visitors table using auto script 2021-10-08 05:50:41 ==== */
+INSERT INTO `visitors` (
+`ip`,`browser`,`os`,`day_num`,`month_num`,`year_num`,`date_visit`,`created_at`,
+`updated_at`) VALUES (
+    '127.0.0.1',
+    'Chrome 94.0.4606.71','Linux ',
+    '08','10','2021',
+    '2021-10-08',
+    '2021-10-08 05:50:41',
+    '2021-10-08 05:50:41');
+             
+ /* ======== auto script 2021-10-08 05:50:41 am END ========= */
