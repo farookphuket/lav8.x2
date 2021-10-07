@@ -1,7 +1,6 @@
-@extends("Theme.classlist.list")
+@extends("Theme.classlist.list-no-ads")
 
 
 @section("content")
-    <h1>product</h1>
-
+    <pub-product></pub-product>
 @endsection

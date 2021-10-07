@@ -117,6 +117,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -249,11 +251,13 @@ var render = function() {
     "div",
     { staticClass: "row" },
     [
+      _vm._m(0),
+      _vm._v(" "),
       _vm.whatnews.data == 0
         ? _c("div", { staticClass: "item" }, [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(2)
           ])
         : _vm._l(_vm.whatnews.data, function(wn) {
             return _c("div", { staticClass: "mt-10" }, [
@@ -434,6 +438,15 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "float_status" }, [
+      _vm._v("this isn cmmc te\n                "),
+      _c("p", [_vm._v("thisnf cmxlc shkdsj")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -16,6 +16,8 @@ class Category extends Model
 
     protected static $blog_category_link_table = "blog_category";
 
+    protected static $product_category_table = "category_product";
+
 
     protected $fillable = [
         "user_id","cat_title",
@@ -33,6 +35,16 @@ class Category extends Model
     }
 
 
+    /**
+     * link product function
+     *
+     * 
+     */
+    public function product()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    
 
     /* ========================================================================
      * backupCategory method will write the backup script to file
@@ -191,6 +203,93 @@ VALUES(
      * backupBlogCategoryLink method will write the backup script to file
      * the method create on 28 Jul 2021
      * End
+     * ========================================================================
+     * */
+
+    /* ========================================================================
+     * backup product category link 
+     * Date 28 Aug 2021
+     * START
+     * ========================================================================
+     * */
+    public static function backupProductCategoryLink($id,$cmd=false){
+        // table 
+        $table = static::$product_category_table;
+
+        // file 
+        $file = base_path("DB/product_category.sqlite");
+
+        // get item for backup 
+        $pd = DB::table($table)
+                ->where("product_id",$id)
+                ->get();
+
+
+        // command 
+        $command = "";
+
+        if(count($pd) != 0):
+            $command .= "\n
+/* ============================================================================
+ * remove the redundant product item id '{$id}' on 
+ * ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+DELETE FROM `{$table}` WHERE product_id='{$id}';
+/* ============================================================================
+ * End of delete item
+ * ============================================================================
+ * */
+\n
+";
+        endif;
+
+
+        // switch case
+        switch($cmd):
+        case"edit":
+            foreach($pd as $item):
+                $command .= "\n
+/* ============================================================================
+ *
+ * ============================================================================
+ * */
+INSERT INTO `{$table}`(`product_id`,`category_id`,`created_at`,`updated_at`)
+VALUES(
+    '{$item->product_id}',
+    '{$item->category_id}',
+    '{$item->created_at}',
+    '{$item->updated_at}');
+/* ============================================================================
+ * End of insert category link
+ * ============================================================================
+ * */
+";
+            endforeach;
+        break;
+        default:
+            $command .= "\n
+/* ============================================================================
+ * Delete item command on ".date("Y-m-d H:i:s")."
+ * ============================================================================
+ * */
+/* DELETE FROM `{$table}` WHERE product_id='{$id}'; */
+/* ============================================================================
+ * End of delete item.
+ * ============================================================================
+ * */
+";
+        break;
+        endswitch;
+
+        write2text($file,$command);
+         
+    }
+
+    /* ========================================================================
+     * backup product category link 
+     * Date 28 Aug 2021
+     * END
      * ========================================================================
      * */
 

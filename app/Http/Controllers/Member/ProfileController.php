@@ -18,9 +18,135 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $address_table = 'address_user';
+
     public function index()
     {
         return view("Member.Profile.info");
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function address()
+    {
+        $adr = User::where("users.id",Auth::user()->id)
+
+            ->join($this->address_table,"{$this->address_table}.user_id",
+        "=","users.id")
+                ->select('users.*',"{$this->address_table}.*")
+                ->get(); 
+
+        return view("Member.Profile.shipping_address");
+    }
+    
+    public function getAddress(){
+
+        $adr = User::where("users.id",Auth::user()->id)
+            
+            ->join($this->address_table,"{$this->address_table}.user_id",
+        "=","users.id")
+                ->select('users.*',"{$this->address_table}.*")
+                ->paginate(5); 
+        return response()->json([
+            "address" => $adr
+        ]);
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function getMyDefaultShippingAddress()
+    {
+        $adr = User::where("users.id",Auth::user()->id)
+            ->where("is_default_address","!=",0)  
+            ->join($this->address_table,"{$this->address_table}.user_id",
+        "=","users.id")
+                ->select('users.*',"{$this->address_table}.*")
+                ->first();
+        return response()->json([
+            "address" => $adr
+        ]);
+    }
+    
+
+    public function showAddress($id){
+        $adr = DB::table($this->address_table)
+                ->where("user_id",Auth::user()->id)
+                ->where("id",$id)
+                ->first();
+        return response()->json([
+            "address" => $adr
+        ]);
+    }
+    public function saveAddress(){
+
+        $valid = request()->validate([
+            "first_name" => ["required","min:4"],
+            "last_name" => ["required","min:4"],
+            "address" => ["required","min:4"],
+            "stage" => ["required"],
+            "tel" => ["required"],
+            "zip_code" => ["required"],
+            "city" => ["required"],
+            "country" => ["required"],
+        ]);
+
+        $valid["is_default_address"] = !request()->is_default_address?0:1;
+        $valid["user_id"] = Auth::user()->id;
+        $valid["created_at"] = now();
+        $valid["updated_at"] = now();
+
+        DB::table($this->address_table)
+            ->insert($valid);
+
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been save</span>";
+        return response()->json([
+            "msg" => $msg
+        ]); 
+    }
+    public function updateAddress($id){
+        // the default address can only be 1 
+        DB::table($this->address_table)
+            ->where("is_default_address",1)
+            ->update([
+                "is_default_address" => 0
+            ]);
+
+        
+        $valid = request()->validate([
+            "first_name" => ["required","min:4"],
+            "last_name" => ["required","min:4"],
+            "address" => ["required","min:4"],
+            "stage" => ["required"],
+            "tel" => ["required"],
+            "zip_code" => ["required"],
+            "city" => ["required"],
+            "country" => ["required"],
+        ]);
+
+        $valid["is_default_address"] = !request()->is_default_address?0:1;
+        $valid["updated_at"] = now();
+
+        DB::table($this->address_table)
+            ->where("id",$id)
+            ->update($valid);
+
+        $msg = "<span class=\"alert alert-success\">
+            Success : data has been updated! </span>";
+        return response()->json([
+            "msg" => $msg
+        ]);
+    }
+    public function delAddress($id){
+
     }
 
     /**
@@ -39,9 +165,9 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        
     }
 
     /**

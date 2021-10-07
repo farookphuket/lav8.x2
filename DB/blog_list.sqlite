@@ -161,3 +161,47 @@ INSERT INTO `blogs`(`user_id`,`slug`,`title`,`excerpt`,`body`,`is_public`,
 
  
 
+
+ /* =========== auto script START 2021-10-07 06:58:42 am  ==================== */
+ 
+
+/* ============================================================================
+ * blog id 4 backup INSERT on 2021-10-07 06:58:42
+ * ============================================================================
+ * */
+INSERT INTO `blogs`(`user_id`,`slug`,`title`,`excerpt`,`body`,`is_public`,
+`read_count`,`comment_count`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'วิธี-เพิ่ม-หรือ-ลบ-บัญชี-google-ในมือถือ-android-ภาษาใต้นะจ๊ะ',
+    'วิธี เพิ่ม หรือ ลบ บัญชี google ในมือถือ Android (ภาษาใต้นะจ๊ะ)',
+    '<div class="row">
+    <div class="col-lg-4">
+        <img src="https://cdn.thewirecutter.com/wp-content/media/2021/08/budget-android-phone-2048px-2x1-1.jpg?auto=webp&amp;quality=75&amp;crop=2:1&amp;width=1024" class="responsive">
+        <p class="text-center pt-2">
+            มือถือแอนดรอยน์
+        </p>
+    </div>
+    <div class="col-lg-8">
+        <p>
+            วิธีเพิ่ม หรือ ลบบัญชี google ในมือถือ แอนดรอยน์ แบบโครตง่าย(ภาษาใต้นะเธอ)
+        </p>
+    </div>
+</div>',
+    '<div class="row">
+    <div class="col-lg-12">
+        <div class="video-container">
+            <iframe src="https://archive.org/embed/add_remove_google_account" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe>
+        </div>
+        <p class="text-center">
+            วิธี เพิ่ม ลบ บัญชี Google ในมือถือ Android
+        </p>
+    </div>
+</div>',
+    '1',
+    '0',
+    '0',
+    '2021-10-07 06:58:42',
+    '2021-10-07 06:58:42');
+ 
+ /* ======== auto script 2021-10-07 06:58:42 am END ========= */
+ 

@@ -83,8 +83,23 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function payment()
+    {
+        return $this->hasMany(Payment::class);
+    }
+    
+
     public function category(){
         return $this->hasMany(Category::class);
+    }
+
+    public function cart(){
+        return $this->hasMany(Cart::class);
     }
 
     public function template(){
@@ -93,6 +108,9 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+
+
 
 
 

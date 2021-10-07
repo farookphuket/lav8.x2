@@ -33,6 +33,8 @@ a:hover {
     text-decoration: none
 }
 
+
+
 i,
 span,
 a {
@@ -2882,7 +2884,7 @@ textarea:focus {
 }
 
 .video-area .video-wrapper {
-    background-image: url(../images/video/video-cover_1.jpg);
+    background-image: url(../images/video/video_cover_2.png);
     position: relative;
     z-index: 1
 }

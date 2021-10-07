@@ -21,6 +21,33 @@ class ProductController extends Controller
     }
 
     /**
+     * getByCategory function
+     * call by axios
+     * @return c_id
+     */
+    public function getByCategory($c_id)
+    {
+
+        return view("Member.by_category");
+    }
+    
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function getProduct()
+    {
+        $pd = Product::with('category')
+                    ->with('user')
+                    ->paginate(30);
+        return response()->json([
+            "product" => $pd
+        ]);
+    }
+    
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -49,7 +76,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $pd = Product::with('user')
+                        ->with('category')
+                        ->where('id',$product->id)
+                        ->first();
+        return view("Pub.Product.show")->with([
+            "product" => $pd
+        ]);
     }
 
     /**

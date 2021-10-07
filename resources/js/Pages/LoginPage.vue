@@ -38,7 +38,10 @@
 					<a href="#forgot" @click.prevent="login=false"> 
             <i class='bx bx-log-in' ></i>
               Login</a> or
-					<a href="/" >go home</a>
+					<a href="/" >
+                    <i class="fas fa-2x fa-home"></i>
+                    <i class="fa fa-camera-retro fa-5x"></i> fa-5x
+                    go home</a>
 				</div>
 			</div>
 

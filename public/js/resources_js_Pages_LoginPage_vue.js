@@ -181,6 +181,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "LoginPage",
   data: function data() {
@@ -484,7 +487,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" or\n\t\t\t\t\t"),
-                  _c("a", { attrs: { href: "/" } }, [_vm._v("go home")])
+                  _vm._m(1)
                 ])
               ])
             : _c("div", { staticClass: "sign-in-htm" }, [
@@ -794,13 +797,13 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "hr" }),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ])
         ])
       ]),
@@ -836,6 +839,17 @@ var staticRenderFns = [
         staticClass: "button",
         attrs: { type: "submit", value: "reset password" }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "/" } }, [
+      _c("i", { staticClass: "fas fa-2x fa-home" }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fa fa-camera-retro fa-5x" }),
+      _vm._v(" fa-5x\n                    go home")
     ])
   },
   function() {

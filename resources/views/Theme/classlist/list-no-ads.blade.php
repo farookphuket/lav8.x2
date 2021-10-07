@@ -80,6 +80,7 @@ $my_skype = Config::get("DEFAULT_CONTACT.my_skype");
         {{Request::segment(1)}}
     @endif
 
+    {{$meta_title??''}}
 @endguest
             </h1>
 <nav aria-label="breadcrumb">

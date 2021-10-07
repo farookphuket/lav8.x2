@@ -82,32 +82,29 @@ welcome to see-southern.com @endif</title>
 <div class="row">
 <div class="col-lg-6">
 <div class="banner-content">
-@guest
-        @if(Request::segment(2))
-        <h1 class="text-white">{{Request::segment(2)}}</h1>
-        @else
-            <h1 class="text-white">{{Request::segment(1)}}</h1>
-        @endif
-    @else
-    
-        <h1 class="text-white">Product Details</h1>
-@endguest
+    <h1 class="text-white">
+        @hasSection("meta_title") @yield("meta_title") @endif
+    </h1>
 
 
 <nav aria-label="breadcrumb">
-<ol class="breadcrumb">
-    @guest
-    <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">
+    <ol class="breadcrumb">
         
-        {{Request::segment(1)}}
-    
-    </li>
-        @if(Request::segment(2))
-            <li class="breadcrumb-item active" aria-current="page">{{Request::segment(2)}}</li>
-        @endif
-    @endguest
-</ol>
+        @guest
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">
+            <a href="{{url()->previous()}}">
+                {{Request::segment(1)}}
+            </a>
+             
+        </li>
+            @if(Request::segment(2))
+                <li class="breadcrumb-item active" aria-current="page">
+                    @hasSection("meta_title") @yield("meta_title") @endif
+                </li>
+            @endif
+        @endguest
+    </ol>
 </nav>
 </div>
 </div>
