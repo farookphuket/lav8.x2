@@ -1,7 +1,7 @@
 @extends("Theme.classlist.show")
 
 
-
+@section("meta_title","about payment methods")
 
 @section("content")
 

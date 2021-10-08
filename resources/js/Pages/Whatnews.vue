@@ -1,8 +1,6 @@
 <template>
 <div class="row">
-            <div class="float_status">this isn cmmc te
-                <p>thisnf cmxlc shkdsj</p>
-            </div>
+
         <div class="item" v-if="whatnews.data == 0">
             <div class="image">
                 <img src="https://i.ibb.co/JBskcQ9/2021-04-15-laravel-X2-index.png" alt="NO DATA">
@@ -114,6 +112,8 @@ export default{
         return{
             whatnews:[],
             moment:moment,
+            res_status:'',
+            showStatus:false,
         }
     },
     mounted(){
@@ -136,7 +136,8 @@ export default{
                     this.whatnews = res.data.whatnews
                 })
 
-        }
+        },
+
     }
 }
 </script>
