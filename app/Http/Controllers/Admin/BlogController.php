@@ -231,6 +231,7 @@ class BlogController extends Controller
         $new_tag = request()->new_tag;
         $user_tag = request()->user_tag;
         $cat_id = request()->category;
+
         $slug = request()->slug;
         $validate = request()->validate([
             "title" => ["required","min:5","max:80"]
@@ -253,6 +254,15 @@ class BlogController extends Controller
         if($new_tag):
             $new_tag = $this->makeTag($newPost);
         endif;
+
+        // update category
+        DB::table($this->category_link)
+                ->where("blog_id",$id)
+                ->update([
+                    "category_id" => $cat_id,
+                    "updated_at" => now()
+                ]);
+                
 
 
         // make a backup to file 

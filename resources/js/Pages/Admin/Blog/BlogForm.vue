@@ -64,10 +64,10 @@
 
                            <ul>
 
-                               <li style="display:inline-block;
-                                   margin:1em 2em;"
+                               <li class="d-inline-block mr-2 ml-4"
                                    v-for="ta in tags">
-                                   <input v-model="blogForm.user_tag" class="my-checkbox" 
+                                   <input v-model="blogForm.user_tag" 
+                                   class="my-checkbox mr-2" 
                                    type="checkbox" name="tag_name" 
                                    :value="ta.id">
                                    <span>
@@ -198,7 +198,7 @@ export default{
                     })
                     .catch((err)=>{
                         let ob = Object.values(err)
-                        this.res_status = `<span class="aclert alert-danger">
+                        this.res_status = `<span class="alert alert-danger">
                             ${ob.join()}</span>`
                         this.$emit('box',this.res_status)
                     })
@@ -216,10 +216,13 @@ export default{
                         this.$emit('box',this.res_status)
                     })
             }
+
+            /*
             setTimeout(()=>{
 
                 location.reload()
             },3200)
+            */
             
         },
         getCat(){
@@ -236,6 +239,7 @@ export default{
                     this.blogForm.excerpt = tData.tm_excerpt
                     this.blogForm.body = tData.tm_body
                 })
+
             setTimeout(()=>{
                 this.$refs.sel_tm.value=0
             },2300)

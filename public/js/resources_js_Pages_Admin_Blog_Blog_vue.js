@@ -323,7 +323,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.$emit('box', _this2.res_status);
         })["catch"](function (err) {
           var ob = Object.values(err);
-          _this2.res_status = "<span class=\"aclert alert-danger\">\n                            ".concat(ob.join(), "</span>");
+          _this2.res_status = "<span class=\"alert alert-danger\">\n                            ".concat(ob.join(), "</span>");
 
           _this2.$emit('box', _this2.res_status);
         });
@@ -340,10 +340,12 @@ __webpack_require__.r(__webpack_exports__);
           _this2.$emit('box', _this2.res_status);
         });
       }
+      /*
+      setTimeout(()=>{
+           location.reload()
+      },3200)
+      */
 
-      setTimeout(function () {
-        location.reload();
-      }, 3200);
     },
     getCat: function getCat() {
       var c_id = this.$refs.sel_cat.value;
@@ -1044,12 +1046,7 @@ var render = function() {
                     _vm._l(_vm.tags, function(ta) {
                       return _c(
                         "li",
-                        {
-                          staticStyle: {
-                            display: "inline-block",
-                            margin: "1em 2em"
-                          }
-                        },
+                        { staticClass: "d-inline-block mr-2 ml-4" },
                         [
                           _c("input", {
                             directives: [
@@ -1060,7 +1057,7 @@ var render = function() {
                                 expression: "blogForm.user_tag"
                               }
                             ],
-                            staticClass: "my-checkbox",
+                            staticClass: "my-checkbox mr-2",
                             attrs: { type: "checkbox", name: "tag_name" },
                             domProps: {
                               value: ta.id,
