@@ -545,3 +545,36 @@ INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
 
 
 
+
+ /* =========== auto script START 2021-11-02 13:24:51 pm  ==================== */
+ 
+
+/* ============================================================================
+ * backup INSERT Whatnew on 2021-11-02 13:24:51
+ * ============================================================================
+ * */
+INSERT INTO `whatnews`(`user_id`,`token`,`whatnew_title`,`whatnew_body`,
+`is_public`,`created_at`,`updated_at`) VALUES(
+    '1',
+    'HJzQIxmS2JxgGgEvQFapwHYjFBaDILWZOymJxERoxMkZHpLLK9eQHhqZExT4',
+    'a basic linux command from youtube',
+    '<div class="row">
+    <div class="col-lg-12">
+        <p>
+            youtube is the great place to start learn new thing to me I love a scripting I feel so good every time when I have try something new  
+        </p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/2PGnYjbYuUo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+            
+        </div>
+        <p class="text-center pt-2">
+            learn basic linux command 
+        </p>
+        
+    </div>
+</div>',
+    '1',
+    '2021-11-02 13:24:51',
+    '2021-11-02 13:24:51');
+ 
+ /* ======== auto script 2021-11-02 13:24:51 pm END ========= */
